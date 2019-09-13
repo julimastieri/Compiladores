@@ -177,14 +177,110 @@ public class AnalizadorLexico {
 	
 	public int getNextToken() throws IOException {
 		char caracter;
+		int entrada;
+		CasillaMatriz casilleroActual;
+		int[] arrAs;
 		
 		while (estadoActual != FINAL) {
-			caracter = (char)br.read();
-			matrizTransicion[]
+		//while (caracter != -1) {
+			caracter = (char) br.read();
+			entrada = clasificarChar(caracter);
+			casilleroActual = matrizTransicion[estadoActual][entrada];
 			
+			//ejecutamos acciones semanticas
+			arrAs = casilleroActual.getIdAccionSemantica();
+			for (int k=0; k<arrAs.length; k++) {
+				if (arrAs[k] != -1) { //si tiene accion semantica
+					accionesSemanticas.ejecutar(arrAs[k]);
+				}
+			}
+			
+			estadoActual = casilleroActual.getProxEstado();
+			//System.out.println("caracter: "+  caracter);
+		//}		
 		}
 		return 1;
 		
+	}
+	
+	private int clasificarChar(char caracter) {
+		switch (caracter) 
+        {
+            case :
+                    //hacer
+            		break;
+            case Character.isDigit(caracter):
+                     return 1;
+            		break;
+            case '_':
+                     return 2;
+            		break;
+            case '+': 
+                     return 3;
+            		break;
+            case '-':
+                     return 4;
+                    break;
+            case '*':
+                     return 5;
+                     break;
+            case '/':
+                     return 6;
+                     break;
+            case ':':
+            		 return 7;
+            		 break;
+            case '=':
+   		 			 return 7;
+   		 			break;
+            case '$':
+            		 return 7;
+            		break;
+            case '{':
+   		 		 	 return 7;
+   		 		 	break;
+            case '}':
+            		 return 7;
+            		break;
+            case '<':
+            		 return 7;
+            		break;
+            case '>':
+            		 return 7;
+   		 			break;
+            case '(':
+            		 return 7;
+            		break;
+            case ')':
+   		 			 return 7;
+   		 			break;
+            case ',':
+            		 return 7;
+            		 break;
+            case ';':
+            		return 7;
+   		 			break;
+            case '[':
+   		 			return 7;
+   		 			break;
+            case ']':
+   		 			return 7;
+   		 			break;
+            case '\n':
+            		return 7;
+            		break;
+            case '#':
+            		return 7;
+            		break;
+            case ' ' :          
+            	return 7;
+        		break;
+            case '\t':
+            	return 7;
+        		break;
+            default: ;
+            	return 6;
+            	break;
 	}
 
 }

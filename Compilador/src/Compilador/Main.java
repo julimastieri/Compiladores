@@ -9,16 +9,16 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		AnalizadorLexico aLexico = new AnalizadorLexico();
-		AccionSemantica accionesSemanticas = new AccionSemantica();
+		
 		
 		aLexico.leerArchivo();
 		
 		int token = aLexico.getNextToken();
 		
-		while (token != -1) {
+		//while (token != -1) {
 			//imprimir el token
-			token = aLexico.getNextToken();
-		}
+			//token = aLexico.getNextToken();
+		//}
 
 	}
 	
