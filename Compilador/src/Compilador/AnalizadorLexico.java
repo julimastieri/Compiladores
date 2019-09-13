@@ -15,11 +15,115 @@ public class AnalizadorLexico {
 	BufferedReader br;
 	HashMap<String, Integer> tablaTokens;
 	int estadoActual = 0;
-	CasillaMatriz[][] matrizTransicion = new CasillaMatriz[][]();
+	CasillaMatriz[][] matrizTransicion = new CasillaMatriz[9][24];
+	AccionSemantica accionesSemanticas = new AccionSemantica();
 	
 	public AnalizadorLexico () {
 		tablaTokens = new HashMap<String, Integer>();
 		construirTablaTokens();
+		llenarMatriz();
+	}
+	
+	private void llenarMatriz() {
+		
+		int[] arr = {-1};
+		CasillaMatriz estado = new CasillaMatriz(FINAL, arr);
+		matrizTransicion[0][3] = estado;
+		matrizTransicion[0][4] = estado;
+		matrizTransicion[0][5] = estado;
+		matrizTransicion[0][6] = estado;
+		matrizTransicion[0][9] = estado;
+		matrizTransicion[0][14] = estado;
+		matrizTransicion[0][15] = estado;
+		matrizTransicion[0][16] = estado;
+		matrizTransicion[0][17] = estado;
+		matrizTransicion[0][18] = estado;
+		matrizTransicion[0][19] = estado;
+		matrizTransicion[3][8] = estado;
+		matrizTransicion[8][11] = estado;
+		matrizTransicion[7][9] = estado;
+		matrizTransicion[6][8] = estado;
+		for (int i=4; i<=5; i++) {
+			for (int j=0; j<24; j++) {
+				matrizTransicion[i][j] = estado;
+			}
+		}
+		
+		arr[0] = 3;
+		estado = new CasillaMatriz(1, arr);
+		matrizTransicion[0][0] = estado;
+		
+		estado = new CasillaMatriz(2, arr);
+		matrizTransicion[0][1] = estado ;
+		
+		arr[0] = 6;
+		estado = new CasillaMatriz(FINAL, arr);
+		matrizTransicion[0][2] = estado;
+		matrizTransicion[0][11] = estado;
+		matrizTransicion[0][23] = estado;
+		matrizTransicion[8][9] = estado;
+		for (int j=0; j<24; j++) {
+			if (j != 8) {
+				matrizTransicion[3][j] = estado;
+			}
+		}
+		for (int j=0; j<24; j++) {
+			if (j != 8) {
+				matrizTransicion[6][j] = estado;
+			}
+		}
+		
+		arr[0] = -1;
+		estado = new CasillaMatriz(8, arr);
+		matrizTransicion[0][10] = estado;
+		for (int j=0; j<24; j++) {
+			if ((j != 9) && (j != 11)) {
+				matrizTransicion[8][j] = estado;
+			}
+		}
+		
+		estado = new CasillaMatriz(4, arr);
+		matrizTransicion[0][12] = estado;
+		
+		estado = new CasillaMatriz(4, arr);
+		matrizTransicion[0][13] = estado;
+
+		estado = new CasillaMatriz(0, arr);
+		matrizTransicion[0][20] = estado;
+		matrizTransicion[0][21] = estado;
+		matrizTransicion[7][21] = estado;
+		
+		estado = new CasillaMatriz(7, arr);
+		matrizTransicion[0][22] = estado;
+		for (int j=0; j<24; j++) {
+			if ((j != 9) && (j != 21)) {
+				matrizTransicion[7][j] = estado;
+			}
+		}
+		
+		arr[0] = 4;
+		estado = new CasillaMatriz(1, arr);
+		matrizTransicion[1][0] = estado;
+		matrizTransicion[1][1] = estado;
+		matrizTransicion[1][2] = estado;
+		
+		estado = new CasillaMatriz(2, arr);
+		matrizTransicion[2][1] = estado;
+
+		arr[0] = 5;
+		estado = new CasillaMatriz(FINAL, arr);
+		for (int j=0; j<24; j++) {
+			if (j != 1) {
+				matrizTransicion[2][j] = estado;
+			}
+		}
+		
+		arr = new int [2];
+		arr[0] = 1; arr[1] = 2;
+		estado = new CasillaMatriz(FINAL, arr);
+		for (int j=3; j<24; j++) {
+			matrizTransicion[1][j] = estado;	
+		}
 		
 	}
 	
@@ -76,11 +180,9 @@ public class AnalizadorLexico {
 		
 		while (estadoActual != FINAL) {
 			caracter = (char)br.read();
+			matrizTransicion[]
 			
 		}
-
-		
-		
 		return 1;
 		
 	}
