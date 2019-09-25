@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class FileManager {
 	
-	private static final int ASCIInl = 10;
+	private static final int ASCIInl = 10; //codigo ASCII de salto de linea
 	boolean nl, salto;
 	private FileReader file;
 	
