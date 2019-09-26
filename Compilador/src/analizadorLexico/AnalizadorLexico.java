@@ -21,6 +21,8 @@ public class AnalizadorLexico {
     public static HashMap <String, Token> tablaSimbolos;
     public static List<Error> errores;
     public static List<Token> tokens; //Lista de tokens para dsp pasarlos a un archivo
+    private HashMap<String, Integer> equivalentes;
+    public static HashMap<String, Integer> id_tokens;
     
     private static FileManager fm;
     public static int cantLineas;
@@ -32,28 +34,8 @@ public class AnalizadorLexico {
     static final String TIPO_CADENA = "cadena";
     static final String TIPO_OPERADOR = "operador";
     static final String TIPO_COMPARADOR = "comparador";
-    static final String TIPO_ASIGNACION = "asignacion";
     static final String TIPO_PALABRA_RESERVADA = "palabra reservada";
 
-    
-    static final int ID = 257;
-    static final int CTE = 258;
-    static final int CADENA = 259;
-    static final int ASIGNACION = 260;
-    static final int MENOR_IGUAL = 261;
-    static final int MAYOR_IGUAL = 262;
-    static final int IGUAL_IGUAL = 263;
-    static final int DISTINTO = 264;
-    static final int IF = 265;
-    static final int ELSE = 266;
-    static final int END_IF = 267;
-    static final int PRINT = 268;
-    static final int INT = 269;
-    static final int BEGIN = 270;
-    static final int END = 271;
-    static final int FOREACH = 272;
-    static final int IN = 273;
-    static final int ULONG = 274;
     
     public AnalizadorLexico(File file) throws FileNotFoundException {
     	
@@ -64,8 +46,60 @@ public class AnalizadorLexico {
         
         AnalizadorLexico.tablaSimbolos = new HashMap<>();
         llenarTablaDeSimbolos();
+        llenarEquivalentes();
+        llenarIdTokens();
         
         cantLineas = 1; 
+    }
+    
+    private void llenarIdTokens() {
+    	
+    	id_tokens.put("id", 257);
+    	id_tokens.put("cte", 258);
+    	id_tokens.put("cadena", 259);
+    	id_tokens.put(":=", 260);
+    	id_tokens.put("<=", 261);
+    	id_tokens.put(">=", 262);
+    	id_tokens.put("==", 263);
+    	id_tokens.put("<>", 264);
+    	id_tokens.put("if", 265);
+    	id_tokens.put("else", 266);
+    	id_tokens.put("end_if", 267);
+    	id_tokens.put("print", 268);
+    	id_tokens.put("int", 269);
+    	id_tokens.put("begin", 270);
+    	id_tokens.put("end", 271);
+    	id_tokens.put("foreach", 272);
+    	id_tokens.put("in", 273);
+    	id_tokens.put("ulong", 274);
+    	
+    }
+    
+    private void llenarEquivalentes() {
+    	equivalentes.put("letra", 0);
+    	equivalentes.put("digito", 1);
+    	equivalentes.put("", 2);
+    	equivalentes.put("", 3);
+    	equivalentes.put("", 4);
+    	equivalentes.put("", 5);
+    	equivalentes.put("", 6);
+    	equivalentes.put("", 7);
+    	equivalentes.put("", 8);
+    	equivalentes.put("", 9);
+    	equivalentes.put("", 10);
+    	equivalentes.put("", 11);
+    	equivalentes.put("", 12);
+    	equivalentes.put("", 13);
+    	equivalentes.put("", 14);
+    	equivalentes.put("", 15);
+    	equivalentes.put("", 16);
+    	equivalentes.put("", 17);
+    	equivalentes.put("", 18);
+    	equivalentes.put("", 19);
+    	equivalentes.put("", 20);
+    	equivalentes.put("", 21);
+    	equivalentes.put("", 22);   	
+    	
     }
     
     private void llenarTablaDeSimbolos() {
