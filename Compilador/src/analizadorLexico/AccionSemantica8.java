@@ -16,7 +16,7 @@ public class AccionSemantica8 implements AccionSemantica{
 		}
 		
 		buffer.setLength(0);
-		Error e = new Error("ERROR", "Token invalido", AnalizadorLexico.cantLineas);
+		Error e = new Error("ERROR", "Se esperaba un '=' ", AnalizadorLexico.cantLineas);
 		AnalizadorLexico.errores.add(e);
 		return null;
 	}

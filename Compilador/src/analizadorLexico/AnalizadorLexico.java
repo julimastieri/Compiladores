@@ -118,7 +118,7 @@ public class AnalizadorLexico {
             
         	 int columna = this.getColumna(c); //HACER
              
-             int estadoProx = Mtransicion.getEstado(estadoActual, columna);
+             Integer estadoProx = Mtransicion.getEstado(estadoActual, columna);
              AccionSemantica as = Mtransicion.getAS(estadoActual, columna);
              
              if (as != null) //Ejecuto la AS
@@ -129,8 +129,15 @@ public class AnalizadorLexico {
             	 cantLineas++;
              }
              
-             estadoActual = estadoProx;
-             
+             if (estadoProx != null) {
+            	 estadoActual = estadoProx;
+            	 
+             }else { //Casillero vacio
+            	 estadoActual = 0; //Descarto el token
+            	 Error error = new Error("ERROR", "Caracter invalido", cantLineas);
+            	 errores.add(error);
+             }
+            
              if (estadoActual != ESTADO_FINAL) 
                  c = fm.readChar();
         }
