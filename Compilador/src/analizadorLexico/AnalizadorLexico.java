@@ -11,6 +11,8 @@ import java.util.List;
 public class AnalizadorLexico {
 	
 	private static final int ESTADO_FINAL = -1;
+	public static final long MAX_LONG = 4294967295l;
+	public static final long MAX_INT = 32768;
 	
 	private Matriz Mtransicion;
     public static HashMap <String, Token> tablaSimbolos;
@@ -20,6 +22,18 @@ public class AnalizadorLexico {
     private static FileManager fm;
     public static int cantLineas;
     private String ultCharLeido = "0"; //0 es invalido, 1 es valido
+    
+    static final String TIPO_ID = "identificador";
+    static final String TIPO_CTE_ENTERA = "constante entera";
+    static final String TIPO_CTE_ULONG = "constante ulong";
+    static final String TIPO_CADENA = "cadena";
+    static final String TIPO_OPERADOR = "operador";
+    
+    static final int ID = 257;
+    static final int CTE = 258;
+    static final int CADENA = 259;
+    static final int ASIGNACION = 260;
+    
     
     public AnalizadorLexico(File file) throws FileNotFoundException {
     	
@@ -55,21 +69,28 @@ public class AnalizadorLexico {
          
          while (estadoActual != ESTADO_FINAL && c != null) { // y no sea fin de archivo
             
-        	 int columna = this.getColumna(c);
+        	 int columna = this.getColumna(c); //HACER
              
              int estadoProx = Mtransicion.getEstado(estadoActual, columna);
              AccionSemantica as = Mtransicion.getAS(estadoActual, columna);
-             token = as.ejecutar(buffer, c);
              
-             //aumentarCantSaltosLinea(c, verificaRepetidosEnDiferentesIteraciones(buffer, tokenAnterior));
+             if (as != null)
+            	 token = as.ejecutar(buffer, c);
              
-             //estadoFantasma = verificaEstadoFantasma(estadoActual, estadoProx, c); //si paso por el estado fantasma no tiene que decrementar el cursor (son para los estados que tienen un solo caracter)
+             
+             if (( c == '\n') || (c == '\r')){
+            	 cantLineas++;
+             }
+             
              estadoActual = estadoProx;
              
              if (estadoActual != ESTADO_FINAL ) { // || estadoFantasma
                  c = fm.readChar();
                  ultCharLeido = "1" + c;
-             }
+             }else if (){ //tengo q reutilizar el ultimo? 
+                 ultCharLeido = "0";
+			}
+             
          }
          
          if(token!=null) //si se formo un token
@@ -77,6 +98,7 @@ public class AnalizadorLexico {
          
          return token;
     }
+    
 
     /* VER PARA QUE ES EL "verificaRepetidosEnDiferentesIteraciones"
     

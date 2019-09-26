@@ -5,7 +5,7 @@ public class Error {
 	public String tipo; //Si es error o warning
 	public String descripcion;
 	public int nroLinea;
-	//public static boolean huboErrores=false;
+	public static boolean huboErrores=false;
 	
 	
 	public Error(String tipo, String descripcion, int linea) {
@@ -13,8 +13,8 @@ public class Error {
 		this.tipo = tipo;
 		this.descripcion = descripcion;
 		this.nroLinea = linea;
-		//if(tipo=="ERROR")
-		//	Error.huboErrores=true;
+		if(tipo=="ERROR")
+			Error.huboErrores=true;
 	}
 	
 	
