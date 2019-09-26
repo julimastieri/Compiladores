@@ -1,5 +1,8 @@
 package analizadorLexico;
 
+//Concatena el operador y devuelve ASCII
+//Retorna un token
+
 public class AccionSemantica3 implements AccionSemantica{
 
 	public Token ejecutar(StringBuilder buffer, char c) {
