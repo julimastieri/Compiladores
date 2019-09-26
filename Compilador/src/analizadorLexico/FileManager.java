@@ -6,17 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PushbackReader;
 
 public class FileManager {
 	
 	private static final int ASCIInl = 10; //codigo ASCII de salto de linea
 	boolean nl, salto;
-	private FileReader file;
+	private PushbackReader file;
 	
 	
 	public FileManager(File f) throws FileNotFoundException {
 		
-		file = new FileReader(f);
+		file = new PushbackReader(new FileReader(f));
 		nl = false;
 		salto = false; // ver
 	}
@@ -50,11 +51,16 @@ public class FileManager {
     
     public static void write(String datos, File f) throws IOException {
         f.delete();
-        datos = datos.replace("[", ""); //debe ser porque el toString debe poner los datos entre []
+        datos = datos.replace("[", ""); 
         datos = datos.replace("]", "");
         BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
         writer.write(datos);
         writer.close();
+    }
+    
+    public void unread(char c) throws IOException { //Devuelve caracter leido 
+    	char[] aux = {c};
+    	file.unread(aux);
     }
 
 }
