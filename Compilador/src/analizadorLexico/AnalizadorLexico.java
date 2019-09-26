@@ -56,9 +56,7 @@ public class AnalizadorLexico {
     	
     	 StringBuilder buffer = new StringBuilder(); //Donde voy guardando los chars que voy leyendo hasta formar un token 
     	 int estadoActual = 0;
-         //boolean estadoFantasma = false;
          Token token = null;
-         //Token tokenAnterior = new Token("", 0, "");
          Character c;
          
          if ( ultCharLeido.charAt(0) == '0')  //Si el ultimo caracter fue invalido
@@ -84,7 +82,7 @@ public class AnalizadorLexico {
              
              estadoActual = estadoProx;
              
-             if (estadoActual != ESTADO_FINAL ) { // || estadoFantasma
+             if (estadoActual != ESTADO_FINAL ) { 
                  c = fm.readChar();
                  ultCharLeido = "1" + c;
              }else if (){ //tengo q reutilizar el ultimo? 
@@ -100,54 +98,9 @@ public class AnalizadorLexico {
     }
     
 
-    /* VER PARA QUE ES EL "verificaRepetidosEnDiferentesIteraciones"
-    
-    private boolean verificaRepetidosEnDiferentesIteraciones(StringBuilder buffer, Token tokenAnterior) {
-        if (tokenAnterior == null)
-            return false;
-        if (tokenAnterior.lexema.equals(buffer.toString())) {
-            tokenAnterior.lexema = buffer.toString();// ?????
-            return false;
-        }
-        return true;
-    }
-    
-    
-
-    private void aumentarCantSaltosLinea(char c, boolean repetidos) {
-        if ((c == '\n' || c=='\r')&& !repetidos) {
-            cantLineas ++;
-        }
-    }
-    
-    
-    private boolean verificaEstadoFantasma(int ea, int ef, char c) {
-        if (ef == -1) {
-            if (ea == 18 && c == 39) //diferente de comilla simple
-                return true;
-            if (ea == 8 && c == 'l')
-                return true;
-            if (ea == 0)
-                return true;
-            if (ea == 12 && c == '=')
-                return true;
-            if (ea == 13 && c == '=')
-                return true;
-            if (ea == 14 && c == '=')
-                return true;
-            if (ea == 15 && c == '=')
-                return true;
-            if (ea == 17 && c == '=')
-                return true;
-        }
-        return false;
-    }
-    
-    */
     
 	private int getColumna(Character c) {
 		
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
