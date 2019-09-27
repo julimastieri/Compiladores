@@ -39,6 +39,8 @@ public class Main {
     	File archErrores = new File("Errores.txt");
     	FileManager.write(aLexico.erroresToString(), archErrores);
 	
+    	
+   //MOSTRAR LA TABLA DE SIMBOLOS
 	}
 	
 }

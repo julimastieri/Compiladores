@@ -116,9 +116,9 @@ public class AnalizadorLexico {
          
          Character c = fm.readChar(); //Leo un caracter
 
-         while (estadoActual != ESTADO_FINAL && c != null) { // y no sea fin de archivo
+         while (estadoActual != ESTADO_FINAL) { //&& c != null) { // y no sea fin de archivo
             
-        	 int columna = this.getColumna(c); //HACER
+        	 int columna = this.getColumna(c); 
              
              Integer estadoProx = Mtransicion.getEstado(estadoActual, columna);
              AccionSemantica as = Mtransicion.getAS(estadoActual, columna);
@@ -143,12 +143,8 @@ public class AnalizadorLexico {
              }
              
 
-             
-            
              if (estadoActual != ESTADO_FINAL) 
                  c = fm.readChar();
-             
-             
 
         }
          
@@ -161,6 +157,9 @@ public class AnalizadorLexico {
 
     
 	private int getColumna(Character c) {
+		
+		if (c == null) //fin de archivo
+	        return equivalentes.get("$");
         
         if ((c == 32)||(c == 9)) //espacio
             return equivalentes.get("blanco/tab");
@@ -174,6 +173,7 @@ public class AnalizadorLexico {
         if (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122)))
             return equivalentes.get("letra");
         
+     
 
         String caracter = "" + c;
         Integer indice = equivalentes.get(caracter);

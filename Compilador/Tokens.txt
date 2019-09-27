@@ -1,9 +1,6 @@
-identificador ho
-identificador a
-constante entera 712
- :=
-constante entera 2
- +
-identificador b
-identificador a
-palabra reservada if
+ (
+ )
+ [
+ ]
+ ;
+ ,

@@ -1,4 +1,0 @@
-ERROR: Linea 1: Caracter invalido
-ERROR: Linea 2: Caracter invalido
-ERROR: Linea 4: Se esperaba un '=' 
-ERROR: Linea 7: Caracter invalido

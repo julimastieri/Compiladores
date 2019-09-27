@@ -5,7 +5,7 @@ package analizadorLexico;
 
 public class AccionSemantica3 implements AccionSemantica{
 
-	public Token ejecutar(StringBuilder buffer, char c) {
+	public Token ejecutar(StringBuilder buffer, Character c) {
 		
 		buffer.append(c);
 		int ascii = (int) c;

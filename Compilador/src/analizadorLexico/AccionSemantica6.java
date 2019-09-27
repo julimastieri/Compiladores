@@ -5,7 +5,7 @@ package analizadorLexico;
 
 public class AccionSemantica6 implements AccionSemantica{
 
-	public Token ejecutar(StringBuilder buffer, char c) {
+	public Token ejecutar(StringBuilder buffer, Character c) {
 		
 		String lexema = buffer.toString();
 		Integer id= AnalizadorLexico.palabras_reservadas.get("cadena");

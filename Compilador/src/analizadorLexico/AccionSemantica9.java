@@ -5,7 +5,7 @@ package analizadorLexico;
 
 public class AccionSemantica9 implements AccionSemantica{
 
-	public Token ejecutar(StringBuilder buffer, char c) {
+	public Token ejecutar(StringBuilder buffer, Character c) {
 		
 		buffer.setLength(0);
 		Error e = new Error("ERROR", "Falta cerrar cadena multilinea con '}' ", AnalizadorLexico.cantLineas);

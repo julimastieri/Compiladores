@@ -7,14 +7,15 @@ import java.io.IOException;
 
 public class AccionSemantica2 implements AccionSemantica{
 
-	public Token ejecutar(StringBuilder buffer, char c) {
+	public Token ejecutar(StringBuilder buffer, Character c) {
 		
 		 String lexema = buffer.toString();
 		 Integer id_pr = AnalizadorLexico.palabras_reservadas.get(lexema);
 		 Token token;
 		 
 		 try {
-			AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
+			 if (c != null)
+				 AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

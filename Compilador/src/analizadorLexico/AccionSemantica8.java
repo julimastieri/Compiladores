@@ -7,10 +7,11 @@ import java.io.IOException;
 
 public class AccionSemantica8 implements AccionSemantica{
 
-	public Token ejecutar(StringBuilder buffer, char c) {
+	public Token ejecutar(StringBuilder buffer, Character c) {
 		
 		 try {
-			AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer y resto 1 si fue un nl
+			 if (c != null)
+				 AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer y resto 1 si fue un nl
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

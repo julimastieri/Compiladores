@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class AccionSemantica4 implements AccionSemantica{
 
-	public Token ejecutar(StringBuilder buffer, char c) {
+	public Token ejecutar(StringBuilder buffer, Character c) {
 		
 		long num = Long.valueOf(buffer.toString());
 		String lexema = buffer.toString();
@@ -15,7 +15,8 @@ public class AccionSemantica4 implements AccionSemantica{
 	    Integer id;
 	    
 		 try {
-			AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
+			 if (c != null)
+				 AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
