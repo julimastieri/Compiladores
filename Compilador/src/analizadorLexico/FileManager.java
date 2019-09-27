@@ -24,7 +24,15 @@ public class FileManager {
 	
     public Character readChar() throws IOException {
     	
-    	if ( nl == true ) {
+    	int c = file.read();
+    	if ( c != -1) { //si no es fin de archivo
+    		return (char) c;
+    	}else {
+			return null;
+		}
+    	
+    	
+    	/*if ( nl == true ) {
             nl = false;
             return ' ';
         }
@@ -47,6 +55,7 @@ public class FileManager {
         	else 
         		return null;
         }
+        */
     }
     
     public static void write(String datos, File f) throws IOException {
@@ -59,6 +68,10 @@ public class FileManager {
     }
     
     public void unread(char c) throws IOException { //Devuelve caracter leido 
+    	
+    	if ( c == '\n') {
+    		AnalizadorLexico.cantLineas --;
+    	}
     	char[] aux = {c};
     	file.unread(aux);
     }

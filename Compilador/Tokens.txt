@@ -1,4 +1,4 @@
-identificador hola_soy_pia_YWKgktPIA872
+identificador ho
 identificador a
 constante entera 712
  :=
