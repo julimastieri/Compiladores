@@ -30,7 +30,7 @@ public class AnalizadorLexico {
     static final String TIPO_CTE_ENTERA = "constante entera";
     static final String TIPO_CTE_ULONG = "constante ulong";
     static final String TIPO_CADENA = "cadena";
-    static final String TIPO_OPERADOR = "operador";
+    static final String TIPO_OPERADOR = "";
     static final String TIPO_COMPARADOR = "comparador";
     static final String TIPO_PALABRA_RESERVADA = "palabra reservada";
 
@@ -80,27 +80,27 @@ public class AnalizadorLexico {
     private void llenarEquivalentes() {
     	equivalentes.put("letra", 0);
     	equivalentes.put("digito", 1);
-    	equivalentes.put("", 2);
-    	equivalentes.put("", 3);
-    	equivalentes.put("", 4);
-    	equivalentes.put("", 5);
-    	equivalentes.put("", 6);
-    	equivalentes.put("", 7);
-    	equivalentes.put("", 8);
-    	equivalentes.put("", 9);
-    	equivalentes.put("", 10);
-    	equivalentes.put("", 11);
-    	equivalentes.put("", 12);
-    	equivalentes.put("", 13);
-    	equivalentes.put("", 14);
-    	equivalentes.put("", 15);
-    	equivalentes.put("", 16);
-    	equivalentes.put("", 17);
-    	equivalentes.put("", 18);
-    	equivalentes.put("", 19);
-    	equivalentes.put("", 20);
-    	equivalentes.put("", 21);
-    	equivalentes.put("", 22);   	
+    	equivalentes.put("_", 2);
+    	equivalentes.put("+", 3);
+    	equivalentes.put("-", 4);
+    	equivalentes.put("*", 5);
+    	equivalentes.put("/", 6);
+    	equivalentes.put(":", 7);
+    	equivalentes.put("=", 8);
+    	equivalentes.put("$", 9);
+    	equivalentes.put("{", 10);
+    	equivalentes.put("}", 11);
+    	equivalentes.put("<", 12);
+    	equivalentes.put(">", 13);
+    	equivalentes.put("(", 14);
+    	equivalentes.put(")", 15);
+    	equivalentes.put(",", 16);
+    	equivalentes.put(";", 17);
+    	equivalentes.put("[", 18);
+    	equivalentes.put("]", 19);
+    	equivalentes.put("blanco/tab", 20);
+    	equivalentes.put("nl", 21);
+    	equivalentes.put("#", 22);  
     	
     }
     
@@ -129,7 +129,7 @@ public class AnalizadorLexico {
             	 cantLineas++;
              }
       
-             if (estadoProx == null)
+             if (estadoProx != -2)//hay estado
             	 estadoActual = estadoProx;
              else {
             	 estadoActual = 0; //Descarto el token
@@ -151,8 +151,59 @@ public class AnalizadorLexico {
 
     
 	private int getColumna(Character c) {
-		
-		return 0;
+        
+        if ((c == 32)||(c == 9)) //espacio
+            return equivalentes.get("blanco/tab");
+        
+        if ((c == 10 )|| (c == 13))  // /n o /r
+            return equivalentes.get("nl");
+        
+        if ((c >= 48) && (c <= 57))  // digito
+            return equivalentes.get("digito");
+                                                               
+        if (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122)))
+            return equivalentes.get("letra");
+        
+
+        String caracter = "" + c;
+        Integer indice = equivalentes.get(caracter);
+        
+        if (indice == null)
+            return 23;//Otro
+        
+        return indice;
 	}
+	
+	public String tokensToString() {
+		
+		StringBuilder out = new StringBuilder();
+		Token token;
+		
+		for (int i=0 ; i<tokens.size(); i++) {
+			token = tokens.get(i);
+			out.append(token.getTipo());
+			out.append(token.getLexema());
+			out.append("\r\n");	
+		}
+		
+		return out.toString();
+	}
+	
+	
+	
+	public String erroresToString() {
+		
+		StringBuilder out = new StringBuilder();
+		Error error;
+		
+		for (int i=0 ; i<errores.size(); i++) {
+			error = errores.get(i);
+			out.append(error.toString());
+		}
+		
+		return out.toString();
+	}
+	
+
 
 }

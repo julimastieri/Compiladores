@@ -32,10 +32,10 @@ public class Main {
     	
     //Genero archivo con los tokens y los errores
     	File archTokens = new File("Tokens.txt");
-    	FileManager.write(AnalizadorLexico.tokens.toString(), archTokens);
+    	FileManager.write(aLexico.tokensToString() , archTokens);
     	
     	File archErrores = new File("Errores.txt");
-    	FileManager.write(AnalizadorLexico.errores.toString(), archErrores);
+    	FileManager.write(aLexico.erroresToString(), archErrores);
 	
 	}
 	

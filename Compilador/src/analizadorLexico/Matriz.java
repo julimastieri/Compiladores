@@ -3,8 +3,8 @@ package analizadorLexico;
 
 public class Matriz {
 	
-	 private final int cantEstados = 8;
-	 private final int cantColumnas = 23;
+	 private final int cantEstados = 9;
+	 private final int cantColumnas = 24;
 
 	 private CasillaMatriz[][] matriz;
 
@@ -21,14 +21,14 @@ public class Matriz {
 	     
 	     //fila 0
 	     filaMatriz = new CasillaMatriz[]
-	    		 	{/*0*/new CasillaMatriz(AS[0], 1),/*1*/new CasillaMatriz(AS[0], 2),/*2*/new CasillaMatriz(null, null),
+	    		 	{/*0*/new CasillaMatriz(AS[0], 1),/*1*/new CasillaMatriz(AS[0], 2),/*2*/new CasillaMatriz(null, -2),
 	    		 	/*3*/ new CasillaMatriz(AS[2], -1),/*4*/new CasillaMatriz(AS[2], -1),/*5*/new CasillaMatriz(AS[2], -1),
 	    		 	/*6*/new CasillaMatriz(AS[2], -1),/*7*/ new CasillaMatriz(AS[0], 3),/*8*/ new CasillaMatriz(AS[0], 6),
-	    		 	/*9*/ new CasillaMatriz(null, -1), /*10*/ new CasillaMatriz(null, 8), /*11*/ new CasillaMatriz(null, null),
+	    		 	/*9*/ new CasillaMatriz(null, -1), /*10*/ new CasillaMatriz(null, 8), /*11*/ new CasillaMatriz(null, -2),
 	    		 	/*12*/ new CasillaMatriz(AS[0], 4), /*13*/ new CasillaMatriz(AS[0], 5), /*14*/ new CasillaMatriz(AS[2], -1),
 	    		 	/*15*/ new CasillaMatriz(AS[2], -1), /*16*/ new CasillaMatriz(AS[2], -1), /*17*/ new CasillaMatriz(AS[2], -1),
 	    		 	/*16*/ new CasillaMatriz(AS[2], -1), /*19*/ new CasillaMatriz(AS[2], -1), /*20*/ new CasillaMatriz(null, 0),
-	    		 	/*21*/ new CasillaMatriz(null, 0), /*22*/ new CasillaMatriz(null, 7), /*23*/ new CasillaMatriz(null, null)};
+	    		 	/*21*/ new CasillaMatriz(null, 0), /*22*/ new CasillaMatriz(null, 7), /*23*/ new CasillaMatriz(null, -2)};
 	     addFila(filaMatriz, fila);
 	     fila++;
 	     
@@ -138,8 +138,8 @@ public class Matriz {
 	 }
 	 
 	 private void addFila(CasillaMatriz[] casilleros , int fila) {
-		 if (fila <= cantEstados) {
-			 for (int i = 0; i <= cantColumnas; i++) {
+		 if (fila < cantEstados) {
+			 for (int i = 0; i < cantColumnas; i++) {
 				 matriz[fila][i] = casilleros[i];
 	         } 
 	     }
