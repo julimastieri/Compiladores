@@ -128,20 +128,15 @@ public class AnalizadorLexico {
              if (( c == '\n') || (c == '\r')){ //Aumento la cantidad de lineas
             	 cantLineas++;
              }
-             
-             if (estadoProx != -1)
+      
+             if (estadoProx == null)
             	 estadoActual = estadoProx;
-             else 
-            	 System.out.println("hola");
-             
-             /*if (estadoProx != null)
-            	 estadoActual = estadoProx;
-             else{ //Casillero vacio
+             else {
             	 estadoActual = 0; //Descarto el token
             	 Error error = new Error("ERROR", "Caracter invalido", cantLineas);
             	 errores.add(error);
              }
-             */
+             
             
              if (estadoActual != ESTADO_FINAL) 
                  c = fm.readChar();

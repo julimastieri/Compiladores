@@ -134,12 +134,7 @@ public class Matriz {
 	 	    	 /*16*/ new CasillaMatriz(AS[0], 8), /*19*/ new CasillaMatriz(AS[0], 8), /*20*/ new CasillaMatriz(AS[0], 8),
 	 	    	 /*21*/ new CasillaMatriz(null, 8), /*22*/ new CasillaMatriz(AS[0], 8), /*23*/ new CasillaMatriz(AS[0], 8)};
 	     addFila(filaMatriz, fila);
-	     fila++;
-	     
-	     
-	     
-	     
-	     
+	     fila++; 
 	 }
 	 
 	 private void addFila(CasillaMatriz[] casilleros , int fila) {
