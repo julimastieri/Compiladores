@@ -1,0 +1,5 @@
+ERROR: Linea 2: Caracter invalido
+Warning: Linea 2: identificador supera los 25 caracteres
+ERROR: Linea 4: Caracter invalido
+ERROR: Linea 8: Se esperaba un '=' 
+ERROR: Linea 13: Caracter invalido

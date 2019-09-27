@@ -51,8 +51,8 @@ public class FileManager {
     
     public static void write(String datos, File f) throws IOException {
         f.delete();
-        datos = datos.replace("[", ""); 
-        datos = datos.replace("]", "");
+       // datos = datos.replace("[", ""); 
+       // datos = datos.replace("]", "");
         BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
         writer.write(datos);
         writer.close();

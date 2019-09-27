@@ -124,10 +124,6 @@ public class AnalizadorLexico {
              if (as != null) //Ejecuto la AS
             	 token = as.ejecutar(buffer, c);
              
-             
-             if (( c == '\n') || (c == '\r')){ //Aumento la cantidad de lineas
-            	 cantLineas++;
-             }
       
              if (estadoProx != -2)//hay estado
             	 estadoActual = estadoProx;
@@ -137,9 +133,18 @@ public class AnalizadorLexico {
             	 errores.add(error);
              }
              
+             if (c != null) {
+            	 if ( c == '\n'){ //Aumento la cantidad de lineas
+                	 cantLineas++;
+                 }
+             }
+             
             
              if (estadoActual != ESTADO_FINAL) 
                  c = fm.readChar();
+             
+             
+
         }
          
         if(token!=null) //si se formo un token
@@ -182,6 +187,7 @@ public class AnalizadorLexico {
 		for (int i=0 ; i<tokens.size(); i++) {
 			token = tokens.get(i);
 			out.append(token.getTipo());
+			out.append(" ");
 			out.append(token.getLexema());
 			out.append("\r\n");	
 		}

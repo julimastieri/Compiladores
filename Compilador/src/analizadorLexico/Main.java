@@ -24,9 +24,11 @@ public class Main {
 
     //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
     	Token t;
-    	for (int i=0; i<4; i++) { //repetir la cantidad de tokens que queramos
+
+    	for (int j=0; j<10; j++) { //repetir la cantidad de tokens que queramos
     		//preguntar si token es null -> error
     		t = aLexico.getNextToken();
+    		
     	}
     	
     	

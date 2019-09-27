@@ -1,0 +1,3 @@
+#constantes con el primer y ultimo valor dentro del rango
+a := 32768
+b := 4294967296

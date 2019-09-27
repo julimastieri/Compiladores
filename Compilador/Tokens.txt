@@ -1,0 +1,9 @@
+identificador hola_soy_pia_YWKgktPIA872
+identificador a
+constante entera 712
+ :=
+constante entera 2
+ +
+identificador b
+identificador a
+palabra reservada if
