@@ -70,7 +70,7 @@ public class FileManager {
     public void unread(char c) throws IOException { //Devuelve caracter leido 
     	
     	if ( c == '\n') {
-    		AnalizadorLexico.cantLineas --;
+    		AnalizadorLexico.unreadNl = true;
     	}
     	char[] aux = {c};
     	file.unread(aux);

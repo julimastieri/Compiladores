@@ -25,6 +25,7 @@ public class AnalizadorLexico {
     
     static FileManager fm;
     public static int cantLineas;
+    static boolean unreadNl;
     
     static final String TIPO_ID = "identificador";
     static final String TIPO_CTE_ENTERA = "constante entera";
@@ -50,6 +51,7 @@ public class AnalizadorLexico {
         llenarPalabrasRes();
         
         cantLineas = 1; 
+        unreadNl = false;
     }
     
     private void llenarPalabrasRes() {
@@ -124,10 +126,12 @@ public class AnalizadorLexico {
              if (as != null) //Ejecuto la AS
             	 token = as.ejecutar(buffer, c);
              
-             if (c != null) {
-            	 if ( c == '\n'){ //Aumento la cantidad de lineas
+             if ((c != null) && (c == '\n') ){
+            	 if (unreadNl == false){ //No deslei nl
                 	 cantLineas++;
-                 }
+                 }else { //si deslei un ln
+					unreadNl = false; 
+				}
              }
              
              if (estadoProx != -2)//hay estado
@@ -210,6 +214,8 @@ public class AnalizadorLexico {
 		
 		return out.toString();
 	}
+	
+
 	
 
 
