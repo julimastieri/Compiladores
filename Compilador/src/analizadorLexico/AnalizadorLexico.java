@@ -129,14 +129,19 @@ public class AnalizadorLexico {
             	 cantLineas++;
              }
              
-             if (estadoProx != null) {
+             if (estadoProx != -1)
             	 estadoActual = estadoProx;
-            	 
-             }else { //Casillero vacio
+             else 
+            	 System.out.println("hola");
+             
+             /*if (estadoProx != null)
+            	 estadoActual = estadoProx;
+             else{ //Casillero vacio
             	 estadoActual = 0; //Descarto el token
             	 Error error = new Error("ERROR", "Caracter invalido", cantLineas);
             	 errores.add(error);
              }
+             */
             
              if (estadoActual != ESTADO_FINAL) 
                  c = fm.readChar();
