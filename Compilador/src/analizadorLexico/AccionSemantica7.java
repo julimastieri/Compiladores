@@ -10,8 +10,7 @@ public class AccionSemantica7 implements AccionSemantica{
 	public Token ejecutar(StringBuilder buffer, Character c) {
 		
 		 try {
-			 if (c != null)
-				 AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
+			AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

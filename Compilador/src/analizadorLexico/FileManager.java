@@ -8,10 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PushbackReader;
 
+
 public class FileManager {
 	
 	private PushbackReader file;
-	
 	
 	public FileManager(File f) throws FileNotFoundException {
 		file = new PushbackReader(new FileReader(f));
@@ -33,8 +33,8 @@ public class FileManager {
         writer.close();
     }
     
-    public void unread(char c) throws IOException { //Devuelve caracter leido 
-    	if ( c == '\n') {
+    public void unread(Character c) throws IOException { //Devuelve caracter leido 
+    	if ((c != null) && (c == '\n')) {
     		AnalizadorLexico.unreadNl = true;
     	}
     	char[] aux = {c};

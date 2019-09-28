@@ -1,1 +1,81 @@
+identificador cte_entera_max
+ :=
+constante entera 32767
+ ;
+identificador cte_entera_min
+ :=
+ -
+constante entera 32768
+identificador cte_ulong_max
+ :=
+constante ulong 4294967295
+identificador cte_ulong_min
+ :=
+constante entera 0
+constante ulong 32800
+ -
+constante ulong 40000
+constante ulong 4294967295
+ -
+constante entera 2
+identificador identificador_Mas_De_25_c
+identificador identificadorCorto
+identificador variable
+palabra reservada if
+palabra reservada else
+palabra reservada end_if
+palabra reservada print
+palabra reservada int
+palabra reservada begin
+ ,
+palabra reservada end
+palabra reservada foreach
+palabra reservada in
+palabra reservada ulong
+identificador IF
+identificador ELSE
+identificador END_IF
+identificador PRINT
+identificador INT
+identificador BEGIN
+identificador END
+identificador FOREACH
+ ,
+identificador IN
+identificador ULONG
+identificador comentario
+identificador mal
+identificador definido
+cadena 	cadena bien definida < > , ; ? &@!
+identificador a
  +
+identificador b
+identificador a
+ -
+identificador b
+identificador a
+identificador b
+identificador a
+ <
+identificador b
+identificador a
+ <=
+identificador b
+identificador a
+ >
+identificador b
+identificador a
+ >=
+identificador b
+identificador a
+ ==
+identificador b
+identificador a
+ <>
+identificador b
+ (
+ )
+ ,
+ ;
+ [
+ ]

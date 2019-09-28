@@ -14,8 +14,7 @@ public class AccionSemantica2 implements AccionSemantica{
 		 Token token;
 		 
 		 try {
-			 if (c != null)
-				 AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
+			AnalizadorLexico.fm.unread(c); //Devuelvo el caracter al buffer
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

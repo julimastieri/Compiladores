@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-
-
 public class AnalizadorLexico {
 	
 	static final int ESTADO_FINAL = -1;
@@ -25,7 +23,7 @@ public class AnalizadorLexico {
     
     static FileManager fm;
     public static int cantLineas;
-    static boolean unreadNl;
+    static boolean unreadNl; //Para saber si deslei un nl o no
     
     static final String TIPO_ID = "identificador";
     static final String TIPO_CTE_ENTERA = "constante entera";
@@ -126,18 +124,20 @@ public class AnalizadorLexico {
              if (as != null) //Ejecuto la AS
             	 token = as.ejecutar(buffer, c);
              
-             if ((c != null) && (c == '\n') ){
+             if ((c != null) && (c == '\n') ){ //si no es fin de archivo y es un nl
+            	 
             	 if (unreadNl == false){ //No deslei nl
                 	 cantLineas++;
-                 }else { //si deslei un ln
+                	 
+                 }else { //si deslei un nl
 					unreadNl = false; 
 				}
              }
           
              estadoActual = estadoProx;
 
-             if (estadoActual != ESTADO_FINAL)
-                 c = fm.readChar();
+             if (estadoActual != ESTADO_FINAL) //Si no llegue al EF
+                 c = fm.readChar(); //leo el siguiente
 
         }
          
@@ -177,6 +177,8 @@ public class AnalizadorLexico {
         return indice;
 	}
 	
+	
+	
 	public String tokensToString() {
 		
 		StringBuilder out = new StringBuilder();
@@ -187,7 +189,7 @@ public class AnalizadorLexico {
 			out.append(token.getTipo());
 			out.append(" ");
 			out.append(token.getLexema());
-			out.append("\r\n");	
+			out.append("\n");	
 		}
 		
 		return out.toString();
@@ -205,6 +207,22 @@ public class AnalizadorLexico {
 			out.append(error.toString());
 		}
 		
+		return out.toString();
+	}
+	
+	
+	public String tdeStoString() {
+		
+		StringBuilder out = new StringBuilder();
+		
+		for (Token entrada : tablaSimbolos.values()) { 
+			out.append("Lexema: ");
+			out.append(entrada.getLexema());
+			out.append(" , Tipo: ");
+			out.append(entrada.getTipo());
+			out.append("\n");
+		}
+
 		return out.toString();
 	}
 	

@@ -25,7 +25,7 @@ public class Main {
     //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
     	Token t;
 
-    	for (int j=0; j<10; j++) { //repetir la cantidad de tokens que queramos
+    	for (int j=0; j<100; j++) { //repetir la cantidad de tokens que queramos
     		t = aLexico.getNextToken();
     	}
     	
@@ -39,6 +39,9 @@ public class Main {
 	
     	
    //MOSTRAR LA TABLA DE SIMBOLOS
+    	
+    	File archTdeS = new File("TablaDeSimbolos.txt");
+    	FileManager.write(aLexico.tdeStoString(), archTdeS);
 	}
 	
 }
