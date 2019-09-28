@@ -1,0 +1,3 @@
+ERROR: Linea 1: Caracter "}" invalido
+ERROR: Linea 2: Caracter "|" invalido
+ERROR: Linea 4: Caracter "_" invalido

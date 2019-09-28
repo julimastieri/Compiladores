@@ -16,19 +16,19 @@ public class Matriz {
 	 
 	 private void llenarMatriz() {
 		 int fila = 0;
-	     AccionSemantica[] AS = {new AccionSemantica1(), new AccionSemantica2(), new AccionSemantica3(), new AccionSemantica4(), new AccionSemantica5(), new AccionSemantica6(), new AccionSemantica7(), new AccionSemantica8(), new AccionSemantica9()};
+	     AccionSemantica[] AS = {new AccionSemantica1(), new AccionSemantica2(), new AccionSemantica3(), new AccionSemantica4(), new AccionSemantica5(), new AccionSemantica6(), new AccionSemantica7(), new AccionSemantica8(), new AccionSemantica9(), new AccionSemantica10()};
 	     CasillaMatriz[] filaMatriz;
 	     
 	     //fila 0
 	     filaMatriz = new CasillaMatriz[]
-	    		 	{/*0*/new CasillaMatriz(AS[0], 1),/*1*/new CasillaMatriz(AS[0], 2),/*2*/new CasillaMatriz(null, -2),
+	    		 	{/*0*/new CasillaMatriz(AS[0], 1),/*1*/new CasillaMatriz(AS[0], 2),/*2*/new CasillaMatriz(AS[9], 0),
 	    		 	/*3*/ new CasillaMatriz(AS[2], -1),/*4*/new CasillaMatriz(AS[2], -1),/*5*/new CasillaMatriz(AS[2], -1),
 	    		 	/*6*/new CasillaMatriz(AS[2], -1),/*7*/ new CasillaMatriz(AS[0], 3),/*8*/ new CasillaMatriz(AS[0], 6),
-	    		 	/*9*/ new CasillaMatriz(null, -1), /*10*/ new CasillaMatriz(null, 8), /*11*/ new CasillaMatriz(null, -2),
+	    		 	/*9*/ new CasillaMatriz(null, -1), /*10*/ new CasillaMatriz(null, 8), /*11*/ new CasillaMatriz(AS[9], 0),
 	    		 	/*12*/ new CasillaMatriz(AS[0], 4), /*13*/ new CasillaMatriz(AS[0], 5), /*14*/ new CasillaMatriz(AS[2], -1),
 	    		 	/*15*/ new CasillaMatriz(AS[2], -1), /*16*/ new CasillaMatriz(AS[2], -1), /*17*/ new CasillaMatriz(AS[2], -1),
 	    		 	/*16*/ new CasillaMatriz(AS[2], -1), /*19*/ new CasillaMatriz(AS[2], -1), /*20*/ new CasillaMatriz(null, 0),
-	    		 	/*21*/ new CasillaMatriz(null, 0), /*22*/ new CasillaMatriz(null, 7), /*23*/ new CasillaMatriz(null, -2)};
+	    		 	/*21*/ new CasillaMatriz(null, 0), /*22*/ new CasillaMatriz(null, 7), /*23*/ new CasillaMatriz(AS[9], 0)};
 	     addFila(filaMatriz, fila);
 	     fila++;
 	     

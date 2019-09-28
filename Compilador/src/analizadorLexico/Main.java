@@ -26,9 +26,7 @@ public class Main {
     	Token t;
 
     	for (int j=0; j<10; j++) { //repetir la cantidad de tokens que queramos
-    		//preguntar si token es null -> error
     		t = aLexico.getNextToken();
-    		
     	}
     	
     	

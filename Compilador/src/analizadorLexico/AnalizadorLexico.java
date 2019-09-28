@@ -116,7 +116,7 @@ public class AnalizadorLexico {
          
          Character c = fm.readChar(); //Leo un caracter
 
-         while (estadoActual != ESTADO_FINAL) { //&& c != null) { // y no sea fin de archivo
+         while (estadoActual != ESTADO_FINAL) {
             
         	 int columna = this.getColumna(c); 
              
@@ -133,17 +133,10 @@ public class AnalizadorLexico {
 					unreadNl = false; 
 				}
              }
-             
-             if (estadoProx != -2)//hay estado
-            	 estadoActual = estadoProx;
-             else {
-            	 estadoActual = 0; //Descarto el token
-            	 Error error = new Error("ERROR", "Caracter invalido", cantLineas);
-            	 errores.add(error);
-             }
-             
+          
+             estadoActual = estadoProx;
 
-             if (estadoActual != ESTADO_FINAL) 
+             if (estadoActual != ESTADO_FINAL)
                  c = fm.readChar();
 
         }
