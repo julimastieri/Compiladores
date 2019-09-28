@@ -1,0 +1,9 @@
+%{
+package , imports de parser ...
+%}
+
+%token ID ENTERO CADENA := <= >= == <> IF ELSE END_IF PRINT INT BEGIN END FOREACH IN ULONG
+
+
+%%
+//gramatica
