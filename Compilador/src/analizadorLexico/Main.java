@@ -21,8 +21,26 @@ public class Main {
     	
     //Creo mi analizador lexico
     	AnalizadorLexico aLexico = new AnalizadorLexico(file);
+    
+    //Creo mi analizador sintactico	
+    	/*
+    	Parser p = new Parser(false);
+        p.errores = al.getErrores();
+        Parser.estructuras = new ArrayList<>();
+        p.al = al;
+        int resultado = p.parsepublico();
 
+
+        if (resultado == 0)
+            System.out.print("ACCEPT, se reconocio la gramatica");
+        else
+            System.out.print("No se reconocio la gramatica");
+
+		*/ 
+    	
+    	
     //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
+    	
     	Token t;
 
     	for (int j=0; j<100; j++) { //repetir la cantidad de tokens que queramos
@@ -35,7 +53,7 @@ public class Main {
     	FileManager.write(aLexico.tokensToString() , archTokens);
     	
     	File archErrores = new File("Errores.txt");
-    	FileManager.write(aLexico.erroresToString(), archErrores);
+    	FileManager.write(aLexico.erroresToString(), archErrores); 
 	
     	
    //MOSTRAR LA TABLA DE SIMBOLOS

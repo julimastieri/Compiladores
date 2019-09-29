@@ -87,4 +87,8 @@ a <> b
 ;
 []
 
+#Comprobacion de case sensitive
+MiVariable
+mivariable
+
 { cadena mal definida % # _  

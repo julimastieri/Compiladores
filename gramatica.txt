@@ -3,7 +3,11 @@ package , imports de parser ...
 %}
 
 %token ID ENTERO CADENA := <= >= == <> IF ELSE END_IF PRINT INT BEGIN END FOREACH IN ULONG
+//ver si esto es asi
+%left '+' '-'
+%left '*' '/'
 
+%start program //poner program a la primera regla
 
 %%
 //gramatica

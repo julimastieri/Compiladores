@@ -1,5 +1,6 @@
 Lexema: PRINT , Tipo: identificador
 Lexema: ULONG , Tipo: identificador
+Lexema: mivariable , Tipo: identificador
 Lexema: cte_entera_min , Tipo: identificador
 Lexema: identificador_Mas_De_25_c , Tipo: identificador
 Lexema: 40000 , Tipo: constante ulong
@@ -17,6 +18,7 @@ Lexema: IF , Tipo: identificador
 Lexema: definido , Tipo: identificador
 Lexema: 32767 , Tipo: constante entera
 Lexema: 32800 , Tipo: constante ulong
+Lexema: MiVariable , Tipo: identificador
 Lexema: a , Tipo: identificador
 Lexema: b , Tipo: identificador
 Lexema: IN , Tipo: identificador
