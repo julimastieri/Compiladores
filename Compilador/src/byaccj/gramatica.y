@@ -11,29 +11,19 @@ package , imports de parser ...
 
 
 %%
-programa : sentencias_declarativas bloque_de_sentencias//sentencias_ejecutables
+programa : sentencias_declarativas sentencias_ejecutables
 ;
 
 sentencias_declarativas : tipo lista_de_variables ';'
-						| tipo nombre_coleccion '[' tamanio ']' ';' 
-						| tipo nombre_coleccion '[' lista_de_valores_iniciales ']' ';'
+						| tipo ID '[' lista_de_valores_iniciales ']' ';'
 ;
 
 tipo : INT
 	 | ULONG
 ;
 
-lista_de_variables : nombre_variable 
-				   | nombre_variable ',' lista_de_variables
-
-nombre_variable : ID
-;
-
-nombre_coleccion : ID
-;
-
-tamanio : CTE
-;
+lista_de_variables : ID 
+				   | ID ',' lista_de_variables
 
 lista_de_valores_iniciales : CTE
 						   | '_' 
@@ -41,17 +31,18 @@ lista_de_valores_iniciales : CTE
 						   | '_' ',' lista_de_valores_iniciales
 ;
 
-//sentencias_ejecutables : BEGIN lista_de_sentencias END
-bloque_de_sentencias : BEGIN lista_de_sentencias END
-;
+sentencias_ejecutables : BEGIN lista_de_sentencias END
+
+/*bloque_de_sentencias : BEGIN lista_de_sentencias END
+;*/
 
 lista_de_sentencias : sentencia_ejecutable 
 					| sentencia_ejecutable lista_de_sentencias
 ;
 
-/*bloque_de_sentencias : sentencia_ejecutable
+bloque_de_sentencias : sentencia_ejecutable
 					 | BEGIN lista_de_sentencias END
-;*/
+;
 
 sentencia_ejecutable : sentencia_if 
 					 | sentencia_foreach 
@@ -77,7 +68,7 @@ comparador : MAYORIGUAL
 		   | '>'
 ;		   
 
-sentencia_foreach : FOREACH nombre_variable IN nombre_coleccion bloque_de_sentencias ';'
+sentencia_foreach : FOREACH ID IN ID bloque_de_sentencias ';'
 ;
 
 sentencia_print : PRINT '(' '{' CADENA '}' ')' ';'
@@ -93,17 +84,22 @@ termino : factor '*' termino
 		| factor
 ;		
 
-factor : nombre_variable 
+factor : ID 
 	   | CTE
-	   | nombre_coleccion '[' subindice ']'
+	   | ID '[' subindice ']'
 ;	   
 
 subindice : ID 
 		  | CTE
 
-asignacion : nombre_variable ASIGN expresion ';' 
-		   | nombre_variable ASIGN conversion '(' expresion ')' ';'
+asignacion : ID ASIGN expresion ';' 
+		   | ID ASIGN conversion '(' expresion ')' ';'
 ;
 
 conversion : TO_ULONG
 ;
+
+/*
+problema con sentencias_ejecutables, lista_de_sentencias, bloque_de_sentencias
+problema: multiples cosas se definen como ID y CTE
+*/

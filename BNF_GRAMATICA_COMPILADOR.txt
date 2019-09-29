@@ -1,8 +1,7 @@
 <programa> -> <sentencias_declarativas><sentencias_ejecutables>
 
 ------------------------------------------------------------------------------------------------------------------
-<sentencias_declarativas> -> <tipo><lista_de_variables>; | <tipo><nombre_coleccion>[<tamaño>]; | 
-<tipo><nombre_coleccion>[<lista_de_valores_iniciales>];
+<sentencias_declarativas> -> <tipo><lista_de_variables>; | <tipo><nombre_coleccion>[<lista_de_valores_iniciales>];
 
 <tipo> -> int|ulong
 
