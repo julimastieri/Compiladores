@@ -3,11 +3,107 @@ package , imports de parser ...
 %}
 
 %token ID ENTERO CADENA := <= >= == <> IF ELSE END_IF PRINT INT BEGIN END FOREACH IN ULONG
-//ver si esto es asi
-%left '+' '-'
-%left '*' '/'
+%start programa
 
-%start program //poner program a la primera regla
 
 %%
-//gramatica
+programa : sentencias_declarativas
+		 | sentencias_ejecutables
+;
+
+sentencias_declarativas : tipo lista_de_variables ';'
+						| tipo nombre_coleccion '[' tamaño ']' ';' 
+						| tipo nombre_coleccion '[' lista_de_valores_iniciales ']' ';'
+;
+
+tipo : INT
+	 | ULONG
+;
+
+lista_de_variables : nombre_variable 
+				   | nombre_variable ',' lista_de_variables
+
+nombre_variable : ID
+;
+
+nombre_coleccion : ID
+;
+
+tamaño : CTE
+;
+
+lista_de_valores_iniciales : CTE
+						   | '_' 
+						   | CTE ',' lista_de_valores_iniciales 
+						   | '_' ',' lista_de_valores_iniciales
+;
+
+sentencias_ejecutables : BEGIN bloque_de_sentencias END
+;
+
+bloque_de_sentencias : sentencia_ejecutable 
+					 | BEGIN lista_de_sentencias END
+;
+
+lista_de_sentencias : sentencia_ejecutable 
+					| sentencia_ejecutable lista_de_sentencias
+;					
+
+sentencia_ejecutable : sentencia_if 
+					 | sentencia_foreach 
+					 | sentencia_print
+					 | asignacion
+;					 
+
+sentencia_if : IF '(' condicion ')' bloque_de_sentencias END_IF 
+			 | IF '(' condicion ')' bloque_de_sentencias ELSE bloque_de_sentencias END_IF
+;
+
+condicion : expresion comparador expresion
+		  | conversion '(' expresion ')' comparador conversion '('expresion ')'
+		  | expresion comparador conversion '(' expresion ')' 
+		  | conversion '(' expresion ')' comparador expresion
+;		  
+
+comparador : >= 
+		   | <=
+		   | > 
+		   | < 
+		   | == 
+		   | <>
+;		   
+
+sentencia_foreach : FOREACH nombre_variable IN nombre_coleccion bloque_de_sentencias ';'
+;
+
+sentencia_print : PRINT '(' '{' CADENA '}' ')' ';'
+;
+
+expresion : termino '+' expresion 
+		  | termino '-' expresion
+		  | termino
+;		  
+
+termino : factor '*' termino 
+		| factor '/' termino 
+		| factor
+;		
+
+factor : nombre_variable 
+	   | cte 
+	   | nombre_coleccion '[' subindice ']'
+;	   
+
+subindice : ID 
+		  | CTE
+
+asignacion : nombre_variable := expresion ';' 
+		   | nombre_variable := conversion '(' expresion ')' ';'
+;
+
+conversion : to_ulong
+
+//CONSULTA COMO PONER to_ulong
+//PREGUNTAR LO DE CTE y ENTERO
+// preguntar est := <= >= == <>
+

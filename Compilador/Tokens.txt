@@ -79,5 +79,3 @@ identificador b
  ;
  [
  ]
-identificador MiVariable
-identificador mivariable
