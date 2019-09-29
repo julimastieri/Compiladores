@@ -2,7 +2,7 @@
 package , imports de parser ...
 %}
 
-%token ID ENTERO CADENA := <= >= == <> IF ELSE END_IF PRINT INT BEGIN END FOREACH IN ULONG
+%token ID ENTERO CADENA ASIGN MAYORIGUAL MENORIGUAL IGUALIGUAL DISTINTO IF ELSE END_IF PRINT INT BEGIN END FOREACH IN ULONG
 %start programa
 
 
@@ -65,12 +65,12 @@ condicion : expresion comparador expresion
 		  | conversion '(' expresion ')' comparador expresion
 ;		  
 
-comparador : >= 
-		   | <=
-		   | > 
-		   | < 
-		   | == 
-		   | <>
+comparador : MAYORIGUAL  
+		   | MENORIGUAL 
+		   | IGUALIGUAL 
+		   | DISTINTO
+		   | '<'
+		   | '>'
 ;		   
 
 sentencia_foreach : FOREACH nombre_variable IN nombre_coleccion bloque_de_sentencias ';'
@@ -97,13 +97,12 @@ factor : nombre_variable
 subindice : ID 
 		  | CTE
 
-asignacion : nombre_variable := expresion ';' 
-		   | nombre_variable := conversion '(' expresion ')' ';'
+asignacion : nombre_variable ASIGN expresion ';' 
+		   | nombre_variable ASIGN conversion '(' expresion ')' ';'
 ;
 
 conversion : to_ulong
 
 //CONSULTA COMO PONER to_ulong
 //PREGUNTAR LO DE CTE y ENTERO
-// preguntar est := <= >= == <>
 

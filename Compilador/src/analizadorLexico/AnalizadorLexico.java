@@ -57,11 +57,11 @@ public class AnalizadorLexico {
     	palabras_reservadas.put("id", 257);
     	palabras_reservadas.put("entero", 258);
     	palabras_reservadas.put("cadena", 259);
-    	palabras_reservadas.put(":=", 260);
-    	palabras_reservadas.put("<=", 261);
-    	palabras_reservadas.put(">=", 262);
-    	palabras_reservadas.put("==", 263);
-    	palabras_reservadas.put("<>", 264);
+    	palabras_reservadas.put("asign", 260);
+    	palabras_reservadas.put("mayorigual", 261);
+    	palabras_reservadas.put("menorigual", 262);
+    	palabras_reservadas.put("igualigual", 263);
+    	palabras_reservadas.put("distinto", 264);
     	
     	//Palabras reservadas
     	palabras_reservadas.put("if", 265);
