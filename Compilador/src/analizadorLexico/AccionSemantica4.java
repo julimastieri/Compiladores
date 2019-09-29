@@ -47,7 +47,7 @@ public class AccionSemantica4 implements AccionSemantica{
 			AnalizadorLexico.errores.add(error);
 			lexema = "" + AnalizadorLexico.MAX_LONG;
 			id = AnalizadorLexico.palabras_reservadas.get("ulong");
-			token = new Token(lexema, AnalizadorLexico.TIPO_CTE_ULONG, id);
+			token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 			return token;
 		}
 		
