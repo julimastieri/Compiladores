@@ -25,8 +25,8 @@ public class AccionSemantica4 implements AccionSemantica{
 		    if (token != null) //si ya esta
 		    	return token;
 		    else {
-		    	id = AnalizadorLexico.palabras_reservadas.get("entero");
-		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE_ENTERA, id);
+		    	id = AnalizadorLexico.palabras_reservadas.get("cte");
+		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
 		    	return token;
 		    }
@@ -36,8 +36,8 @@ public class AccionSemantica4 implements AccionSemantica{
 			if (token != null) //si ya esta en TdeS
 		    	return token;
 		    else {
-		    	id = AnalizadorLexico.palabras_reservadas.get("ulong");
-		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE_ULONG, id);
+		    	id = AnalizadorLexico.palabras_reservadas.get("cte");
+		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
 		    	return token;
 		    }

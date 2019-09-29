@@ -2,7 +2,11 @@
 package , imports de parser ...
 %}
 
-%token ID ENTERO CADENA ASIGN MAYORIGUAL MENORIGUAL IGUALIGUAL DISTINTO IF ELSE END_IF PRINT INT BEGIN END FOREACH IN ULONG
+%token ID CTE CADENA ASIGN MAYORIGUAL MENORIGUAL IGUALIGUAL DISTINTO IF ELSE END_IF PRINT INT BEGIN END FOREACH IN ULONG TO_ULONG
+
+%right '+' '-'
+%right '*' '/'
+
 %start programa
 
 
@@ -12,7 +16,7 @@ programa : sentencias_declarativas
 ;
 
 sentencias_declarativas : tipo lista_de_variables ';'
-						| tipo nombre_coleccion '[' tamaño ']' ';' 
+						| tipo nombre_coleccion '[' tamanio ']' ';' 
 						| tipo nombre_coleccion '[' lista_de_valores_iniciales ']' ';'
 ;
 
@@ -29,7 +33,7 @@ nombre_variable : ID
 nombre_coleccion : ID
 ;
 
-tamaño : CTE
+tamanio : CTE
 ;
 
 lista_de_valores_iniciales : CTE
@@ -90,7 +94,7 @@ termino : factor '*' termino
 ;		
 
 factor : nombre_variable 
-	   | cte 
+	   | CTE
 	   | nombre_coleccion '[' subindice ']'
 ;	   
 
@@ -101,8 +105,5 @@ asignacion : nombre_variable ASIGN expresion ';'
 		   | nombre_variable ASIGN conversion '(' expresion ')' ';'
 ;
 
-conversion : to_ulong
-
-//CONSULTA COMO PONER to_ulong
-//PREGUNTAR LO DE CTE y ENTERO
-
+conversion : TO_ULONG
+;

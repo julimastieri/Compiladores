@@ -26,8 +26,7 @@ public class AnalizadorLexico {
     static boolean unreadNl; //Para saber si deslei un nl o no
     
     static final String TIPO_ID = "identificador";
-    static final String TIPO_CTE_ENTERA = "constante entera";
-    static final String TIPO_CTE_ULONG = "constante ulong";
+    static final String TIPO_CTE = "constante";
     static final String TIPO_CADENA = "cadena";
     static final String TIPO_OPERADOR = "";
     static final String TIPO_COMPARADOR = "comparador";
@@ -55,7 +54,7 @@ public class AnalizadorLexico {
     private void llenarPalabrasRes() {
     	
     	palabras_reservadas.put("id", 257);
-    	palabras_reservadas.put("entero", 258);
+    	palabras_reservadas.put("cte", 258);
     	palabras_reservadas.put("cadena", 259);
     	palabras_reservadas.put("asign", 260);
     	palabras_reservadas.put("mayorigual", 261);
@@ -74,6 +73,7 @@ public class AnalizadorLexico {
     	palabras_reservadas.put("foreach", 272);
     	palabras_reservadas.put("in", 273);
     	palabras_reservadas.put("ulong", 274);
+    	palabras_reservadas.put("to_ulong", 274);
     	
     }
     
@@ -220,6 +220,9 @@ public class AnalizadorLexico {
 			out.append(entrada.getLexema());
 			out.append(" , Tipo: ");
 			out.append(entrada.getTipo());
+			out.append(" , Tipo de dato: ");
+			out.append(entrada.getTipoDeDato());
+			
 			out.append("\n");
 		}
 
