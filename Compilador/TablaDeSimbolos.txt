@@ -1,30 +1,30 @@
-Lexema: PRINT , Tipo: identificador
-Lexema: ULONG , Tipo: identificador
-Lexema: cte_entera_min , Tipo: identificador
-Lexema: identificador_Mas_De_25_c , Tipo: identificador
-Lexema: 40000 , Tipo: constante ulong
-Lexema: END_IF , Tipo: identificador
-Lexema: BEGIN , Tipo: identificador
-Lexema: FOREACH , Tipo: identificador
-Lexema: 	cadena bien definida < > , ; ? &@! , Tipo: cadena
-Lexema: INT , Tipo: identificador
-Lexema: cte_ulong_min , Tipo: identificador
-Lexema: ELSE , Tipo: identificador
-Lexema: mal , Tipo: identificador
-Lexema: cte_entera_max , Tipo: identificador
-Lexema: 32768 , Tipo: constante entera
-Lexema: IF , Tipo: identificador
-Lexema: definido , Tipo: identificador
-Lexema: 32767 , Tipo: constante entera
-Lexema: 32800 , Tipo: constante ulong
-Lexema: a , Tipo: identificador
-Lexema: b , Tipo: identificador
-Lexema: IN , Tipo: identificador
-Lexema: cte_ulong_max , Tipo: identificador
-Lexema: 4294967295 , Tipo: constante ulong
-Lexema: comentario , Tipo: identificador
-Lexema: 0 , Tipo: constante entera
-Lexema: 2 , Tipo: constante entera
-Lexema: identificadorCorto , Tipo: identificador
-Lexema: variable , Tipo: identificador
-Lexema: END , Tipo: identificador
+Lexema: PRINT , Tipo: identificador , Tipo de dato: 
+Lexema: ULONG , Tipo: identificador , Tipo de dato: 
+Lexema: cte_entera_min , Tipo: identificador , Tipo de dato: 
+Lexema: identificador_Mas_De_25_c , Tipo: identificador , Tipo de dato: 
+Lexema: 40000 , Tipo: constante , Tipo de dato: 
+Lexema: END_IF , Tipo: identificador , Tipo de dato: 
+Lexema: BEGIN , Tipo: identificador , Tipo de dato: 
+Lexema: FOREACH , Tipo: identificador , Tipo de dato: 
+Lexema: 	cadena bien definida < > , ; ? &@! , Tipo: cadena , Tipo de dato: 
+Lexema: INT , Tipo: identificador , Tipo de dato: 
+Lexema: cte_ulong_min , Tipo: identificador , Tipo de dato: 
+Lexema: ELSE , Tipo: identificador , Tipo de dato: 
+Lexema: mal , Tipo: identificador , Tipo de dato: 
+Lexema: cte_entera_max , Tipo: identificador , Tipo de dato: 
+Lexema: 32768 , Tipo: constante , Tipo de dato: 
+Lexema: IF , Tipo: identificador , Tipo de dato: 
+Lexema: definido , Tipo: identificador , Tipo de dato: 
+Lexema: 32767 , Tipo: constante , Tipo de dato: 
+Lexema: 32800 , Tipo: constante , Tipo de dato: 
+Lexema: a , Tipo: identificador , Tipo de dato: 
+Lexema: b , Tipo: identificador , Tipo de dato: 
+Lexema: IN , Tipo: identificador , Tipo de dato: 
+Lexema: cte_ulong_max , Tipo: identificador , Tipo de dato: 
+Lexema: 4294967295 , Tipo: constante , Tipo de dato: 
+Lexema: comentario , Tipo: identificador , Tipo de dato: 
+Lexema: 0 , Tipo: constante , Tipo de dato: 
+Lexema: 2 , Tipo: constante , Tipo de dato: 
+Lexema: identificadorCorto , Tipo: identificador , Tipo de dato: 
+Lexema: variable , Tipo: identificador , Tipo de dato: 
+Lexema: END , Tipo: identificador , Tipo de dato: 

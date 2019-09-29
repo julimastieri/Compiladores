@@ -11,8 +11,7 @@ package , imports de parser ...
 
 
 %%
-programa : sentencias_declarativas
-		 | sentencias_ejecutables
+programa : sentencias_declarativas bloque_de_sentencias//sentencias_ejecutables
 ;
 
 sentencias_declarativas : tipo lista_de_variables ';'
@@ -42,16 +41,17 @@ lista_de_valores_iniciales : CTE
 						   | '_' ',' lista_de_valores_iniciales
 ;
 
-sentencias_ejecutables : BEGIN bloque_de_sentencias END
-;
-
-bloque_de_sentencias : sentencia_ejecutable 
-					 | BEGIN lista_de_sentencias END
+//sentencias_ejecutables : BEGIN lista_de_sentencias END
+bloque_de_sentencias : BEGIN lista_de_sentencias END
 ;
 
 lista_de_sentencias : sentencia_ejecutable 
 					| sentencia_ejecutable lista_de_sentencias
-;					
+;
+
+/*bloque_de_sentencias : sentencia_ejecutable
+					 | BEGIN lista_de_sentencias END
+;*/
 
 sentencia_ejecutable : sentencia_if 
 					 | sentencia_foreach 

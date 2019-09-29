@@ -11,8 +11,7 @@ package , imports de parser ...
 
 
 %%
-programa : sentencias_declarativas
-		 | sentencias_ejecutables
+programa : sentencias_declarativas sentencias_ejecutables
 ;
 
 sentencias_declarativas : tipo lista_de_variables ';'

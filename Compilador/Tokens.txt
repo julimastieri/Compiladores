@@ -1,23 +1,23 @@
 identificador cte_entera_max
  :=
-constante entera 32767
+constante 32767
  ;
 identificador cte_entera_min
  :=
  -
-constante entera 32768
+constante 32768
 identificador cte_ulong_max
  :=
-constante ulong 4294967295
+constante 4294967295
 identificador cte_ulong_min
  :=
-constante entera 0
-constante ulong 32800
+constante 0
+constante 32800
  -
-constante ulong 40000
-constante ulong 4294967295
+constante 40000
+constante 4294967295
  -
-constante entera 2
+constante 2
 identificador identificador_Mas_De_25_c
 identificador identificadorCorto
 identificador variable
