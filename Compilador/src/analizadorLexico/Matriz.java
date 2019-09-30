@@ -21,7 +21,7 @@ public class Matriz {
 	     
 	     //fila 0
 	     filaMatriz = new CasillaMatriz[]
-	    		 	{/*0*/new CasillaMatriz(AS[0], 1),/*1*/new CasillaMatriz(AS[0], 2),/*2*/new CasillaMatriz(AS[9], 0),
+	    		 	{/*0*/new CasillaMatriz(AS[0], 1),/*1*/new CasillaMatriz(AS[0], 2),/*2*/new CasillaMatriz(AS[2], -1),
 	    		 	/*3*/ new CasillaMatriz(AS[2], -1),/*4*/new CasillaMatriz(AS[2], -1),/*5*/new CasillaMatriz(AS[2], -1),
 	    		 	/*6*/new CasillaMatriz(AS[2], -1),/*7*/ new CasillaMatriz(AS[0], 3),/*8*/ new CasillaMatriz(AS[0], 6),
 	    		 	/*9*/ new CasillaMatriz(null, -1), /*10*/ new CasillaMatriz(null, 8), /*11*/ new CasillaMatriz(AS[9], 0),

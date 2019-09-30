@@ -29,6 +29,7 @@ identificadorCorto
 	#Se espera que genere un error por el _ y que reconozca variable como token
 
 _variable
+_
 
 #Palabras reservadas escritas en minúsculas y mayúsculas.
 	#Se espera que las escritas en minúsculas se reconozcan como palabras reservadas
