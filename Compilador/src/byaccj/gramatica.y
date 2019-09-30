@@ -15,7 +15,6 @@ programa : sentencias_declarativas sentencias_ejecutables
 ;
 
 sentencias_declarativas : tipo lista_de_variables ';'
-						| tipo ID '[' lista_de_valores_iniciales ']' ';'
 ;
 
 tipo : INT
@@ -23,7 +22,9 @@ tipo : INT
 ;
 
 lista_de_variables : ID 
+				   | ID '[' lista_de_valores_iniciales ']'
 				   | ID ',' lista_de_variables
+;				   
 
 lista_de_valores_iniciales : CTE
 						   | '_' 
@@ -32,9 +33,7 @@ lista_de_valores_iniciales : CTE
 ;
 
 sentencias_ejecutables : BEGIN lista_de_sentencias END
-
-/*bloque_de_sentencias : BEGIN lista_de_sentencias END
-;*/
+;
 
 lista_de_sentencias : sentencia_ejecutable 
 					| sentencia_ejecutable lista_de_sentencias
@@ -55,9 +54,6 @@ sentencia_if : IF '(' condicion ')' bloque_de_sentencias END_IF
 ;
 
 condicion : expresion comparador expresion
-		  | conversion '(' expresion ')' comparador conversion '('expresion ')'
-		  | expresion comparador conversion '(' expresion ')' 
-		  | conversion '(' expresion ')' comparador expresion
 ;		  
 
 comparador : MAYORIGUAL  
@@ -71,7 +67,7 @@ comparador : MAYORIGUAL
 sentencia_foreach : FOREACH ID IN ID bloque_de_sentencias ';'
 ;
 
-sentencia_print : PRINT '(' '{' CADENA '}' ')' ';'
+sentencia_print : PRINT '(' CADENA ')' ';'
 ;
 
 expresion : termino '+' expresion 
@@ -86,20 +82,13 @@ termino : factor '*' termino
 
 factor : ID 
 	   | CTE
+	   | '-' CTE
 	   | ID '[' subindice ']'
+	   | TO_ULONG '(' expresion ')'
 ;	   
 
 subindice : ID 
 		  | CTE
 
-asignacion : ID ASIGN expresion ';' 
-		   | ID ASIGN conversion '(' expresion ')' ';'
+asignacion : ID ASIGN expresion ';'
 ;
-
-conversion : TO_ULONG
-;
-
-/*
-problema con sentencias_ejecutables, lista_de_sentencias, bloque_de_sentencias
-problema: multiples cosas se definen como ID y CTE
-*/

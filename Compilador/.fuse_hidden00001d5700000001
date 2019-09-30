@@ -1,5 +1,0 @@
-ERROR: Linea 17: constante fuera de rango
-Warning: Linea 24: identificador supera los 25 caracteres
-ERROR: Linea 31: Caracter "_" invalido
-ERROR: Linea 78: Se esperaba un '=' 
-ERROR: Linea 90: Falta cerrar cadena multilinea con '}' 
