@@ -27,8 +27,10 @@ public class AccionSemantica2 implements AccionSemantica{
 			 
 			 token = AnalizadorLexico.tablaSimbolos.get(lexema); //busca en TdeS
 			 
-			 if ( token != null) //Si esta en TdeS
-		    	 return token;
+			 if ( token != null) { //Si esta en TdeS
+		    	 token.incrementarContadorDeReferencias();
+				 return token;
+			 }		    	 
 		     
 		     else { //si no esta
 		    	 
