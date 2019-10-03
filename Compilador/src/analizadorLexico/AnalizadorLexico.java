@@ -219,9 +219,7 @@ public class AnalizadorLexico {
 			out.append("Lexema: ");
 			out.append(entrada.getLexema());
 			out.append(" , Tipo: ");
-			out.append(entrada.getTipo());
-			out.append(" , Tipo de dato: ");
-			out.append(entrada.getTipoDeDato());
+			out.append(entrada.getTipoDeToken());
 			
 			out.append("\n");
 		}

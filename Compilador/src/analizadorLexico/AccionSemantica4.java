@@ -43,7 +43,7 @@ public class AccionSemantica4 implements AccionSemantica{
 		    }
 			
 		} else {
-			Error error = new Error("ERROR", "constante fuera de rango", AnalizadorLexico.cantLineas);
+			Error error = new Error("ERROR", "constante fuera de rango. Fue reemplazado por el valor limite permitido del rango", AnalizadorLexico.cantLineas);
 			AnalizadorLexico.errores.add(error);
 			lexema = "" + AnalizadorLexico.MAX_LONG;
 			id = AnalizadorLexico.palabras_reservadas.get("ulong");
