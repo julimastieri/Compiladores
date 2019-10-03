@@ -424,7 +424,7 @@ final static String yyrule[] = {
 
 
 public AnalizadorLexico analizador_lex;
-public ArrayList<Error> errores;
+public ArrayList<Error> errores = new ArrayList<>();;
 public static ArrayList<String> estructuras;
 
 
@@ -445,6 +445,8 @@ public int yylex() throws IOException{
 public void yyerror ( String error){
 	System.out.println(error);
 }
+
+
 
 //###############################################################
 // method: yylexdebug : check lexer state

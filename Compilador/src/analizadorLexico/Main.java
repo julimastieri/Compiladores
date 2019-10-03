@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
+import analizadorSintactico.Parser;
+
 
 public class Main {
 
@@ -22,7 +24,18 @@ public class Main {
     //Creo mi analizador lexico
     	AnalizadorLexico aLexico = new AnalizadorLexico(file);
     	
-    	
+    	Parser parser = new Parser(false);
+        parser.errores = aLexico.
+        Parser.estructuras = new ArrayList<>();
+        parser.analizador_lex = aLexico;
+        int resultado = p.parsepublico();
+
+
+        if (resultado == 0)
+            System.out.print("ACCEPT, se reconocio la gramatica");
+        else
+            System.out.print("No se reconocio la gramatica");
+
 
     //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
     	/*

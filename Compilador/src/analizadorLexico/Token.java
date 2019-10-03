@@ -29,8 +29,16 @@ public class Token {
 		return id;
 	}
 	
+	public int getContadorDeReferencias() {
+		return contadorDeReferencias;
+	}
+	
 	public void incrementarContadorDeReferencias() {
 		this.contadorDeReferencias++;
+	}
+	
+	public void decrementarContadorDeReferencias() {
+		this.contadorDeReferencias--;
 	}
 
 	
