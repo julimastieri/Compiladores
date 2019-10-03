@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import analizadorLexico.Token;
-import Parser.ParserVal;
+import analizadorLexico.Error;
+//import Parser.ParserVal;
 import analizadorLexico.AnalizadorLexico;
 
 //### This file created by BYACC 1.8(/Java extension  1.15)
@@ -473,7 +474,7 @@ String yys;    //current token string
 //###############################################################
 // method: yyparse : parse input and execute indicated items
 //###############################################################
-int yyparse()
+int yyparse() throws IOException
 {
 boolean doaction;
   init_stacks();
@@ -628,31 +629,31 @@ case 10:
 break;
 case 12:
 //#line 29 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba '[' para definir los valores iniciales de la coleccion ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba '[' para definir los valores iniciales de la coleccion ", AnalizadorLexico.cantLineas)); }
 break;
 case 13:
 //#line 30 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba ']' para definir los valores iniciales de la coleccion ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba ']' para definir los valores iniciales de la coleccion ", AnalizadorLexico.cantLineas)); }
 break;
 case 18:
 //#line 37 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Formato de valores iniciales incorrectos ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Formato de valores iniciales incorrectos ", AnalizadorLexico.cantLineas)); }
 break;
 case 22:
 //#line 49 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba 'BEGIN' al comienzo ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba 'BEGIN' al comienzo ", AnalizadorLexico.cantLineas)); }
 break;
 case 23:
 //#line 50 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba 'END' al final ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba 'END' al final ", AnalizadorLexico.cantLineas)); }
 break;
 case 28:
 //#line 61 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba 'BEGIN' al comienzo ", AnalizadorLexico.cantLineas));  }
+{ errores.add(new Error("ERROR", "Se esperaba 'BEGIN' al comienzo ", AnalizadorLexico.cantLineas));  }
 break;
 case 29:
 //#line 62 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba 'END' al final ", AnalizadorLexico.cantLineas));  }
+{ errores.add(new Error("ERROR", "Se esperaba 'END' al final ", AnalizadorLexico.cantLineas));  }
 break;
 case 30:
 //#line 65 "gramatica.y"
@@ -676,59 +677,59 @@ case 36:
 break;
 case 37:
 //#line 90 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba una expresion del lado derecho para comparar ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba una expresion del lado derecho para comparar ", AnalizadorLexico.cantLineas)); }
 break;
 case 38:
 //#line 91 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar ", AnalizadorLexico.cantLineas)); }
 break;
 case 45:
 //#line 100 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba un comparador valido ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba un comparador valido ", AnalizadorLexico.cantLineas)); }
 break;
 case 47:
 //#line 105 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para iterar ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para iterar ", AnalizadorLexico.cantLineas)); }
 break;
 case 48:
 //#line 106 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion ", AnalizadorLexico.cantLineas));  }
+{ errores.add(new Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion ", AnalizadorLexico.cantLineas));  }
 break;
 case 49:
 //#line 107 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias ", AnalizadorLexico.cantLineas));  }
+{ errores.add(new Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias ", AnalizadorLexico.cantLineas));  }
 break;
 case 51:
 //#line 114 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba '(' y se encontro una cadena ", AnalizadorLexico.cantLineas));  }
+{ errores.add(new Error("ERROR", "Se esperaba '(' y se encontro una cadena ", AnalizadorLexico.cantLineas));  }
 break;
 case 52:
 //#line 115 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba ')' y se encontro ';' ", AnalizadorLexico.cantLineas));  }
+{ errores.add(new Error("ERROR", "Se esperaba ')' y se encontro ';' ", AnalizadorLexico.cantLineas));  }
 break;
 case 53:
 //#line 118 "gramatica.y"
-{ Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma " + "\n"); }
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma " + "\n"); }
 break;
 case 54:
 //#line 119 "gramatica.y"
-{ Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta " + "\n"); }
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta " + "\n"); }
 break;
 case 56:
 //#line 123 "gramatica.y"
-{ Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion " + "\n"); }
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion " + "\n"); }
 break;
 case 57:
 //#line 124 "gramatica.y"
-{ Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division " + "\n"); }
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division " + "\n"); }
 break;
 case 59:
 //#line 128 "gramatica.y"
-{ Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor ID " + "\n"); }
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor ID " + "\n"); }
 break;
 case 60:
 //#line 129 "gramatica.y"
-{ Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE " + "\n"); }
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE " + "\n"); }
 break;
 case 61:
 //#line 130 "gramatica.y"
@@ -744,11 +745,11 @@ case 63:
 break;
 case 64:
 //#line 134 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba '(' para realizar la conversion ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Se esperaba '(' para realizar la conversion ", AnalizadorLexico.cantLineas)); }
 break;
 case 68:
 //#line 145 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Se esperaba una expresion para realizar la asignacion ", AnalizadorLexico.cantLineas));  }
+{ errores.add(new Error("ERROR", "Se esperaba una expresion para realizar la asignacion ", AnalizadorLexico.cantLineas));  }
 break;
 //#line 644 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
@@ -799,8 +800,9 @@ break;
  * A default run method, used for operating this parser
  * object in the background.  It is intended for extending Thread
  * or implementing Runnable.  Turn off with -Jnorun .
+ * @throws IOException 
  */
-public void run()
+public void run() throws IOException
 {
   yyparse();
 }

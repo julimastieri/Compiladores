@@ -1,5 +1,7 @@
 package analizadorLexico;
 
+import java.security.Identity;
+
 public class Token {
 	
 	String lexema;
@@ -21,6 +23,10 @@ public class Token {
 	
 	public String getLexema() {
 		return lexema;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public void incrementarContadorDeReferencias() {
