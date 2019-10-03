@@ -25,7 +25,8 @@ public class Main {
     	
     	List<Error> errores = new ArrayList<Error>();
     	
-    	Parser parser = new Parser(errores);
+    	Parser parser = new Parser(errores, file);
+    	parser.parse();
     	
        // parser.analizador_lex = aLexico;
        // parser.errores = aLexico.errores;
@@ -49,15 +50,20 @@ public class Main {
     	
     //Genero archivo con los tokens y los errores
     	File archTokens = new File("Tokens.txt");
-    	FileManager.write(aLexico.tokensToString() , archTokens);
+    	FileManager.write(parser.tokensToString() , archTokens);
     	
     	File archErrores = new File("Errores.txt");
-    	FileManager.write(aLexico.erroresToString(), archErrores);
+    	FileManager.write(parser.erroresToString(), archErrores);
 	
     	
    //Genero archivo con la tabla de simbolos	
     	File archTdeS = new File("TablaDeSimbolos.txt");
-    	FileManager.write(aLexico.tdeStoString(), archTdeS);
+    	FileManager.write(parser.tDeStoString(), archTdeS);
+    
+    //Genero archivo con las estructuras	
+    	File archEstruct = new File("EstructurasSintacticas.txt");
+    	FileManager.write(parser.estructurasToString(), archEstruct);
+    	
 	}
 	
 }

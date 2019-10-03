@@ -554,7 +554,7 @@ String yys;    //current token string
 //###############################################################
 // method: yyparse : parse input and execute indicated items
 //###############################################################
-int yyparse() throws IOException
+int yyparse()
 {
 boolean doaction;
   init_stacks();
@@ -887,18 +887,15 @@ break;
 }
 //## end of method parse() ######################################
 
-public void parse() throws IOException{
-	int res = yyparse();
-}
+
 
 //## run() --- for Thread #######################################
 /**
  * A default run method, used for operating this parser
  * object in the background.  It is intended for extending Thread
  * or implementing Runnable.  Turn off with -Jnorun .
- * @throws IOException 
  */
-public void run() throws IOException
+public void run()
 {
   yyparse();
 }

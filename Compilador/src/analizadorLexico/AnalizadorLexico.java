@@ -26,7 +26,7 @@ public class AnalizadorLexico {
     static boolean unreadNl; //Para saber si deslei un nl o no
     
     static final String TIPO_ID = "identificador";
-    static final String TIPO_CTE = "constante";
+    public static final String TIPO_CTE = "constante";
     static final String TIPO_CADENA = "cadena";
     static final String TIPO_OPERADOR = "";
     static final String TIPO_COMPARADOR = "comparador";
@@ -196,19 +196,6 @@ public class AnalizadorLexico {
 	}
 	
 	
-	
-	public String erroresToString() {
-		
-		StringBuilder out = new StringBuilder();
-		Error error;
-		
-		for (int i=0 ; i<errores.size(); i++) {
-			error = errores.get(i);
-			out.append(error.toString());
-		}
-		
-		return out.toString();
-	}
 	
 	
 	public String tdeStoString() {
