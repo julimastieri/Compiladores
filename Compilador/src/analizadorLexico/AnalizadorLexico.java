@@ -33,10 +33,10 @@ public class AnalizadorLexico {
     static final String TIPO_PALABRA_RESERVADA = "palabra reservada";
 
     
-    public AnalizadorLexico(File file) throws FileNotFoundException {
+    public AnalizadorLexico(File file, List<Error> listae) throws FileNotFoundException {
     	
         Mtransicion = new Matriz();
-        errores = new ArrayList<>();
+        errores = listae;
         tokens= new ArrayList<>();
         fm = new FileManager(file);
         
@@ -226,6 +226,8 @@ public class AnalizadorLexico {
 
 		return out.toString();
 	}
+	
+	
 	
 
 	

@@ -1,5 +1,6 @@
 package analizadorSintactico;
 
+import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -423,8 +424,7 @@ final static String yyrule[] = {
 };
 
 
-public AnalizadorLexico analizador_lex;
-public ArrayList<Error> errores = new ArrayList<>();;
+public AnalizadorLexico aLexico;
 public static ArrayList<String> estructuras;
 
 
@@ -432,7 +432,7 @@ public int yylex() throws IOException{
 	
 	Token token = null;
 
-	token = analizador_lex.getNextToken();
+	token = aLexico.getNextToken();
 
 	if(token != null){ //si tengo un token
 		yylval = new ParserVal(token.getLexema());

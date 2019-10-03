@@ -2,6 +2,8 @@ package analizadorLexico;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 
@@ -21,21 +23,20 @@ public class Main {
         String ruta = fileChooser.getSelectedFile().getAbsolutePath();
     	File file = new File(ruta);
     	
-    //Creo mi analizador lexico
-    	AnalizadorLexico aLexico = new AnalizadorLexico(file);
+    	List<Error> errores = new ArrayList<Error>();
     	
-    	Parser parser = new Parser(false);
-        parser.errores = aLexico.
-        Parser.estructuras = new ArrayList<>();
-        parser.analizador_lex = aLexico;
-        int resultado = p.parsepublico();
+    	Parser parser = new Parser(errores);
+    	
+       // parser.analizador_lex = aLexico;
+       // parser.errores = aLexico.errores;
+       // int resultado = parser.parsepublico();
 
-
+/*
         if (resultado == 0)
             System.out.print("ACCEPT, se reconocio la gramatica");
         else
             System.out.print("No se reconocio la gramatica");
-
+*/
 
     //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
     	/*
