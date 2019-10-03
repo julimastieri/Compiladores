@@ -127,7 +127,10 @@ termino : factor '*' termino { Parser.estructuras.add("Linea: " + AnalizadorLexi
 
 factor : ID { Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor ID " + "\n"); }
 	   | CTE { Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE " + "\n"); }
-	   | '-' CTE { Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE negativa " + "\n"); }
+	   | '-' CTE { Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE negativa " + "\n");
+	   				modificarContadorDeReferencias($2.sval);
+	   					 }
+
 	   | ID '[' subindice ']' { Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor coleccion " + "\n"); }
 	   | TO_ULONG '(' expresion ')' { Parser.estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion " + "\n"); }
 
@@ -144,3 +147,30 @@ asignacion : ID ASIGN expresion ';'
 		   //|    ASIGN expresion ';' { Parser.errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para realizar la asignacion ", AnalizadorLexico.cantLineas));  } 
 		   | ID ASIGN           ';' { Parser.errores.add(new Error("ERROR", "Se esperaba una expresion para realizar la asignacion ", AnalizadorLexico.cantLineas));  }
 ;
+
+%%
+
+public void modificarContadorDeReferencias(String lexema){
+		Token t = AnalizadorLexico.tablaSimbolos.get(lexema);
+		t.decrementarContadorDeReferencias();
+
+		//si queda en 0 eliminarlo
+		if (t.getContadorDeReferencias() <= 0)
+			AnalizadorLexico.remove(lexema);
+
+		String negativo = "-" + lexema;
+		t = AnalizadorLexico.tablaSimbolos.get(negativo);
+
+		if (t != null){ //ya esta en TS
+			t.incrementarContadorDeReferencias();
+		}
+		else{
+			Integer id = AnalizadorLexico.palabras_reservadas.get("cte");
+			t = new Token(negativo, AnalizadorLexico.TIPO_CTE, id);
+			AnalizadorLexico.tablaSimbolos.put(negativo, t);
+		}
+
+		//si queda en 0 eliminarlo
+
+
+}
