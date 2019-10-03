@@ -186,7 +186,7 @@ public class AnalizadorLexico {
 		
 		for (int i=0 ; i<tokens.size(); i++) {
 			token = tokens.get(i);
-			out.append(token.getTipo());
+			out.append(token.getTipoDeToken());
 			out.append(" ");
 			out.append(token.getLexema());
 			out.append("\n");	
