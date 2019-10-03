@@ -1,5 +1,12 @@
 package analizadorSintactico;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import analizadorLexico.Token;
+import Parser.ParserVal;
+import analizadorLexico.AnalizadorLexico;
+
 //### This file created by BYACC 1.8(/Java extension  1.15)
 //### Java capabilities added 7 Jan 97, Bob Jamison
 //### Updated : 27 Nov 97  -- Bob Jamison, Joe Nieten
@@ -414,6 +421,30 @@ final static String yyrule[] = {
 "asignacion : ID ASIGN ';'",
 };
 
+
+public AnalizadorLexico analizador_lex;
+public ArrayList<Error> errores;
+public static ArrayList<String> estructuras;
+
+
+public int yylex() throws IOException{
+	
+	Token token = null;
+
+	token = analizador_lex.getNextToken();
+
+	if(token != null){ //si tengo un token
+		yylval = new ParserVal(token.getLexema());
+		return token.getId();
+	}
+	return 0;
+}
+
+
+public void yyerror ( String error){
+	System.out.println(error);
+}
+
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -569,19 +600,19 @@ boolean doaction;
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
 //#line 11 "gramatica.y"
-{ print("Reconoce bien el programa"); }
+{ System.out.println("Reconoce bien el programa");}
 break;
 case 3:
 //#line 15 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Declaracion incorrecta. Se esperaba el tipo de la variable ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Declaracion incorrecta. Se esperaba el tipo de la variable ", AnalizadorLexico.cantLineas)); }
 break;
 case 4:
 //#line 16 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Declaracion incorrecta. Se esperaba ';' ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Declaracion incorrecta. Se esperaba ';' ", AnalizadorLexico.cantLineas)); }
 break;
 case 7:
 //#line 21 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Tipo inexistente ", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Tipo inexistente ", AnalizadorLexico.cantLineas)); }
 break;
 case 8:
 //#line 24 "gramatica.y"
