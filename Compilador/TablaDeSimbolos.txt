@@ -1,0 +1,2 @@
+Lexema: a , Tipo: identificador
+Lexema: b , Tipo: identificador

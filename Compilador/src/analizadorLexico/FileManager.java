@@ -36,9 +36,11 @@ public class FileManager {
     public void unread(Character c) throws IOException { //Devuelve caracter leido 
     	if ((c != null) && (c == '\n')) {
     		AnalizadorLexico.unreadNl = true;
+    		char[] aux = {c};
+        	file.unread(aux);
     	}
-    	char[] aux = {c};
-    	file.unread(aux);
+    	//char[] aux = {c};
+    	//file.unread(aux);
     }
 
 }

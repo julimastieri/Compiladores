@@ -1,0 +1,6 @@
+palabra reservada int
+identificador a
+palabra reservada int
+identificador b
+palabra reservada begin
+identificador a

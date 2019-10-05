@@ -888,7 +888,7 @@ break;
 //## end of method parse() ######################################
 
 public void parse() throws IOException{
-	int res = yyparse();
+	yyparse();
 }
 
 //## run() --- for Thread #######################################
