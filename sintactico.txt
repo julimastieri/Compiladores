@@ -1,10 +1,5 @@
 int a;
 int b;
-
-
 begin
 a:=5;
-if (a == 5)
-	b:=8;
-end_if
 end

@@ -39,8 +39,6 @@ public class FileManager {
     		char[] aux = {c};
         	file.unread(aux);
     	}
-    	//char[] aux = {c};
-    	//file.unread(aux);
     }
 
 }

@@ -1,1 +1,1 @@
-ERROR: Linea 6: Se esperaba un '=' 
+ERROR: Linea 4: Se esperaba un '=' 
