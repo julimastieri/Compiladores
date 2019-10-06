@@ -824,7 +824,7 @@ break;
 case 61:
 //#line 142 "gramatica.y"
 {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE negativa " + "\n");
-	   				modificarContadorDeReferencias(val_peek(0).sval);
+	   			  modificarContadorDeReferencias(val_peek(0).sval);
 	   					 }
 break;
 case 62:
