@@ -1,1 +1,5 @@
 Linea: 1. Declaracion de variable
+Linea: 3. Factor CTE 
+Linea: 3. Factor CTE 
+Linea: 3. Suma 
+Linea: 3. Asignacion 

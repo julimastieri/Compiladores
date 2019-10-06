@@ -1,1 +1,0 @@
-ERROR: Linea 2: Sentencia ejecutable invalida 

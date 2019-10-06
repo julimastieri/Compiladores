@@ -759,7 +759,7 @@ case 32:
 break;
 case 33:
 //#line 82 "gramatica.y"
-{ Parser.errores.add(new Error("ERROR", "Sentencia ejecutable invalida ", AnalizadorLexico.cantLineas)); }
+{ Parser.errores.add(new analizadorLexico.Error("ERROR", "Sentencia ejecutable invalida ", AnalizadorLexico.cantLineas)); }
 break;
 case 36:
 //#line 100 "gramatica.y"

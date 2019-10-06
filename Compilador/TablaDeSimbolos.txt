@@ -1,2 +1,3 @@
 Lexema: a , Tipo: identificador
-Lexema: b , Tipo: identificador
+Lexema: 2 , Tipo: constante
+Lexema: 3 , Tipo: constante

@@ -1,17 +1,11 @@
 palabra reservada int
 identificador a
  ;
-palabra reservada int
-identificador b
- ;
 palabra reservada begin
-palabra reservada if
- (
 identificador a
- <
-identificador b
- )
-palabra reservada begin
-palabra reservada end
-palabra reservada end_if
+ :=
+constante 2
+ +
+constante 3
+ ;
 palabra reservada end
