@@ -1,8 +1,0 @@
-int a ;
-int b ;
-begin
-	if (a < b )
-		begin
-		end
-	end_if	
-end

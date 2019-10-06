@@ -1,11 +1,44 @@
 palabra reservada int
 identificador a
  ;
+palabra reservada ulong
+identificador b
+ ;
+palabra reservada int
+identificador c
+ [
+constante 1
+ ,
+ _
+ ,
+constante 5
+ ]
+ ;
 palabra reservada begin
 identificador a
  :=
-constante 2
- +
-constante 3
+constante 32767
+ ;
+identificador b
+ :=
+constante 32768
+ ;
+identificador c
+ :=
+ -
+constante 32768
+ ;
+identificador d
+ :=
+ -
+constante 32769
+ ;
+identificador e
+ :=
+constante 4294967295
+ ;
+identificador f
+ :=
+constante 4294967295
  ;
 palabra reservada end

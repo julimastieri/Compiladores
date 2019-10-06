@@ -21,17 +21,21 @@ import analizadorLexico.Token;
 
 
 %%
-programa :sentencias_declarativas sentencias_ejecutables { System.out.println("Reconoce bien el programa"); }
+programa : sentencias_declarativas sentencias_ejecutables { System.out.println("Reconoce bien el programa"); }
 ;
 
-sentencias_declarativas :tipo lista_de_variables';'
-						|lista_de_variables';' { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba el tipo de la variable ", AnalizadorLexico.cantLineas)); }
-						|tipo lista_de_variables { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba ';' ", AnalizadorLexico.cantLineas)); }
+sentencias_declarativas : sentencia_declarativa
+						| sentencia_declarativa sentencias_declarativas
+;
+
+sentencia_declarativa : tipo lista_de_variables ';'
+					  //| lista_de_variables ';' { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba el tipo de la variable ", AnalizadorLexico.cantLineas)); }
+					  | tipo lista_de_variables { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba ';' ", AnalizadorLexico.cantLineas)); }
 ;
 
 tipo :INT
 	 |ULONG
-	 |error';' { errores.add(new analizadorLexico.Error("ERROR", "Tipo inexistente ", AnalizadorLexico.cantLineas)); }
+	 //|error';' { errores.add(new analizadorLexico.Error("ERROR", "Tipo inexistente ", AnalizadorLexico.cantLineas)); }
 ;
 
 lista_de_variables :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion de variable" + "\n"); }
@@ -60,7 +64,7 @@ elem_lista :CTE
 
 sentencias_ejecutables :BEGIN lista_de_sentencias END
 					   |lista_de_sentencias END { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'BEGIN' al comienzo ", AnalizadorLexico.cantLineas)); }
-					   |BEGIN lista_de_sentencias     { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'END' al final ", AnalizadorLexico.cantLineas)); }
+					   |BEGIN lista_de_sentencias { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'END' al final ", AnalizadorLexico.cantLineas)); }
 					   //| error ';' { Parser.errores.add(new Error("ERROR", "Sentencia ejecutable incorrecta ", AnalizadorLexico.cantLineas)); }
 ;
 
@@ -82,8 +86,8 @@ sentencia_ejecutable :sentencia_if { estructuras.add("Linea: " + AnalizadorLexic
 					 |error';' { Parser.errores.add(new analizadorLexico.Error("ERROR", "Sentencia ejecutable invalida ", AnalizadorLexico.cantLineas)); }
 ;					 
 
-sentencia_if :IF'('condicion')'bloque_de_sentencias END_IF
-			 |IF'('condicion')'bloque_de_sentencias ELSE bloque_de_sentencias END_IF
+sentencia_if :IF '(' condicion ')' bloque_de_sentencias END_IF
+			 |IF '(' condicion ')' bloque_de_sentencias ELSE bloque_de_sentencias END_IF
 
 			 //| error ';' { Parser.errores.add(new Error("ERROR", "Error sintactico en sentencia if ", AnalizadorLexico.cantLineas)); }
 
@@ -97,34 +101,34 @@ sentencia_if :IF'('condicion')'bloque_de_sentencias END_IF
 			
 ;
 
-condicion :expresion comparador expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); }
+condicion : expresion comparador expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); }
 
-		  |comparador expresion { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado derecho para comparar ", AnalizadorLexico.cantLineas)); }
-		  |expresion comparador { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar ", AnalizadorLexico.cantLineas)); }
+		  | comparador expresion { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado derecho para comparar ", AnalizadorLexico.cantLineas)); }
+		  | expresion comparador { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar ", AnalizadorLexico.cantLineas)); }
 ;		  
 
-comparador :MAYORIGUAL  
-		   |MENORIGUAL 
-		   |IGUALIGUAL 
-		   |DISTINTO
-		   |'<'
-		   |'>'
-		   |error';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba un comparador valido ", AnalizadorLexico.cantLineas)); }
+comparador : MAYORIGUAL  
+		   | MENORIGUAL 
+		   | IGUALIGUAL 
+		   | DISTINTO
+		   | '<'
+		   | '>'
+		   | error';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba un comparador valido ", AnalizadorLexico.cantLineas)); }
 ;		   
 
-sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';'
+sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias ';'
 
-				  |FOREACH IN ID bloque_de_sentencias';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la variable para iterar ", AnalizadorLexico.cantLineas)); } 
-				  |FOREACH ID ID bloque_de_sentencias';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion ", AnalizadorLexico.cantLineas));  } 
-				  |FOREACH ID IN bloque_de_sentencias';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias ", AnalizadorLexico.cantLineas));  } 
+				  |FOREACH IN ID bloque_de_sentencias ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la variable para iterar ", AnalizadorLexico.cantLineas)); } 
+				  |FOREACH ID ID bloque_de_sentencias ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion ", AnalizadorLexico.cantLineas));  } 
+				  |FOREACH ID IN bloque_de_sentencias ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias ", AnalizadorLexico.cantLineas));  } 
 				  //| FOREACH ID IN ID bloque_de_sentencias     { Parser.errores.add(new Error("ERROR", "Se esperaba ';' al final ", AnalizadorLexico.cantLineas));  } 
 ;
 
-sentencia_print :PRINT'('CADENA')'';'
+sentencia_print :PRINT '(' CADENA ')' ';'
 
 				//| PRINT '(' CADENA ')' { Parser.errores.add(new Error("ERROR", "Se esperaba ';' al final ", AnalizadorLexico.cantLineas)); } 
-				|PRINT CADENA')'';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '(' y se encontro una cadena ", AnalizadorLexico.cantLineas));  } 
-				|PRINT'('CADENA';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ')' y se encontro ';' ", AnalizadorLexico.cantLineas));  } 
+				|PRINT CADENA ')' ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '(' y se encontro una cadena ", AnalizadorLexico.cantLineas));  } 
+				|PRINT '(' CADENA ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ')' y se encontro ';' ", AnalizadorLexico.cantLineas));  } 
 ;
 
 expresion :termino'+'expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma " + "\n"); }
@@ -153,15 +157,15 @@ factor :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor
 subindice :ID 
 		  |CTE
 
-asignacion :ID ASIGN expresion';' 
-		   |ID'['subindice']'ASIGN expresion';'
+asignacion :ID ASIGN expresion ';' 
+		   |ID'['subindice']'ASIGN expresion ';'
 			
 		   //| ID ASIGN expresion  { Parser.errores.add(new Error("ERROR", "Se esperaba ';' al final ", AnalizadorLexico.cantLineas));  } 
 		   //|    ASIGN expresion ';' { Parser.errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para realizar la asignacion ", AnalizadorLexico.cantLineas));  } 
-		   |ID ASIGN';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion para realizar la asignacion ", AnalizadorLexico.cantLineas));  }
-		   |ID subindice']'ASIGN expresion';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '[' para indicar la posicion de la coleccion ", AnalizadorLexico.cantLineas));  }
-		   |ID'['subindice ASIGN expresion';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ']' para indicar la posicion de la coleccion ", AnalizadorLexico.cantLineas));  }
-		   |ID'['']'ASIGN expresion';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba un subindice para realizar la asignacion ", AnalizadorLexico.cantLineas));  }
+		   |ID ASIGN ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion para realizar la asignacion ", AnalizadorLexico.cantLineas));  }
+		   |ID subindice']'ASIGN expresion ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '[' para indicar la posicion de la coleccion ", AnalizadorLexico.cantLineas));  }
+		   |ID'['subindice ASIGN expresion ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ']' para indicar la posicion de la coleccion ", AnalizadorLexico.cantLineas));  }
+		   |ID'[' ']'ASIGN expresion ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba un subindice para realizar la asignacion ", AnalizadorLexico.cantLineas));  }
 ;
 
 %%

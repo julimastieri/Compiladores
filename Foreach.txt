@@ -1,0 +1,12 @@
+int a ;
+ulong b ;
+int c [ 1 , _ , 5 ];
+
+begin
+	foreach a in c
+	begin
+		a := 9 ;
+		b := 8 ;
+	end
+	;
+end

@@ -1,0 +1,4 @@
+ERROR: Linea 11: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 11: Sentencia ejecutable invalida 
+ERROR: Linea 12: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 12: Sentencia ejecutable invalida 

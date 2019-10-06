@@ -1,5 +1,11 @@
 Linea: 1. Declaracion de variable
-Linea: 3. Factor CTE 
-Linea: 3. Factor CTE 
-Linea: 3. Suma 
-Linea: 3. Asignacion 
+Linea: 2. Declaracion de variable
+Linea: 3. Declaracion de coleccion
+Linea: 6. Factor CTE 
+Linea: 6. Asignacion 
+Linea: 7. Factor CTE 
+Linea: 7. Asignacion 
+Linea: 8. Factor CTE negativa 
+Linea: 8. Asignacion 
+Linea: 9. Factor CTE negativa 
+Linea: 9. Asignacion 

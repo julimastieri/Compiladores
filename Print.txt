@@ -1,0 +1,8 @@
+int a ;
+ulong b ;
+int c [ 1 , _ , 5 ];
+
+begin
+	print ({esta cadena});
+	
+end

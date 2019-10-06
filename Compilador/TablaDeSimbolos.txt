@@ -1,3 +1,13 @@
 Lexema: a , Tipo: identificador
-Lexema: 2 , Tipo: constante
-Lexema: 3 , Tipo: constante
+Lexema: b , Tipo: identificador
+Lexema: c , Tipo: identificador
+Lexema: d , Tipo: identificador
+Lexema: e , Tipo: identificador
+Lexema: f , Tipo: identificador
+Lexema: 4294967295 , Tipo: constante
+Lexema: 1 , Tipo: constante
+Lexema: 5 , Tipo: constante
+Lexema: 32768 , Tipo: constante
+Lexema: -32768 , Tipo: constante
+Lexema: -32769 , Tipo: constante
+Lexema: 32767 , Tipo: constante
