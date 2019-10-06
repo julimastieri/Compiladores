@@ -1,7 +1,5 @@
 package analizadorLexico;
 
-import java.security.Identity;
-
 public class Token {
 	
 	String lexema;

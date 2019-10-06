@@ -47,7 +47,7 @@ lista_de_valores_iniciales : CTE ',' elem_lista
 						   | '_' ',' elem_lista 
 						   | CTE ',' lista_de_valores_iniciales 
 						   | '_' ',' lista_de_valores_iniciales
-						   | error ';' { errores.add(new analizadorLexico.Error("ERROR", "Formato de valores iniciales incorrectos ", AnalizadorLexico.cantLineas)); }
+						   //| error ';' { errores.add(new analizadorLexico.Error("ERROR", "Formato de valores iniciales incorrectos ", AnalizadorLexico.cantLineas)); }
 ;
 
 elem_lista : CTE
@@ -79,23 +79,22 @@ sentencia_ejecutable : sentencia_if { estructuras.add("Linea: " + AnalizadorLexi
 					 | sentencia_foreach { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia foreach " + "\n");}
 					 | sentencia_print { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia print " + "\n");}
 					 | asignacion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Asignacion " + "\n");}
-					 //| error ';' { Parser.errores.add(new Error("ERROR", "Sentencia ejecutable invalida ", AnalizadorLexico.cantLineas)); }
+					 | error ';' { Parser.errores.add(new analizadorLexico.Error("ERROR", "Sentencia ejecutable invalida ", AnalizadorLexico.cantLineas)); }
 ;					 
 
-sentencia_if : IF '(' condicion ')' bloque_de_sentencias END_IF 
-			 | IF '(' condicion ')' bloque_de_sentencias ELSE bloque_de_sentencias END_IF
+sentencia_if : IF '('condicion')' bloque_de_sentencias END_IF
+			 | IF '('condicion')' bloque_de_sentencias ELSE bloque_de_sentencias END_IF
 
-			 //| error ';' { Parser.errores.add(new Error("ERROR", "Sentencia ejecutable invalida ", AnalizadorLexico.cantLineas)); }
-			 
-			/*
-			   IF '(' condicion ')' bloque_de_sentencias declaracion
-			 | IF '(' condicion ')' bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba 'end_if' al final.", AnalizadorLexico.cantLineas));  }
-			 | IF '(' condicion ')' bloque_de_sentencias ELSE bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba 'end_if' al final.", AnalizadorLexico.cantLineas));  }
-			 | IF     condicion ')' bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba '(' antes de la condicion ", AnalizadorLexico.cantLineas));  }
-			 | IF '(' condicion     bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba ')' luego de la condicion ", AnalizadorLexico.cantLineas));  }
-			 | IF     condicion     bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaban '(' y ')' para definir la condicion ", AnalizadorLexico.cantLineas));  }
-			 | IF '('           ')' bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba una condicion ", AnalizadorLexico.cantLineas));  }
-			*/
+			 //| error ';' { Parser.errores.add(new Error("ERROR", "Error sintactico en sentencia if ", AnalizadorLexico.cantLineas)); }
+
+			 //| IF '(' condicion ')' bloque_de_sentencias declaracion
+			 //| IF '(' condicion ')' bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba 'end_if' al final.", AnalizadorLexico.cantLineas));  }
+			 //| IF '(' condicion ')' bloque_de_sentencias ELSE bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba 'end_if' al final.", AnalizadorLexico.cantLineas));  }
+			 //| IF     condicion ')' bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba '(' antes de la condicion ", AnalizadorLexico.cantLineas));  }
+			 //| IF '(' condicion     bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba ')' luego de la condicion ", AnalizadorLexico.cantLineas));  }
+			 //| IF     condicion     bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaban '(' y ')' para definir la condicion ", AnalizadorLexico.cantLineas));  }
+			 //| IF '('           ')' bloque_de_sentencias { Parser.errores.add(new Error("ERROR", "Se esperaba una condicion ", AnalizadorLexico.cantLineas));  }
+			
 ;
 
 condicion : expresion comparador expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); }
@@ -118,7 +117,7 @@ sentencia_foreach : FOREACH ID IN ID bloque_de_sentencias ';'
 				  | FOREACH    IN ID bloque_de_sentencias ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la variable para iterar ", AnalizadorLexico.cantLineas)); } 
 				  | FOREACH ID    ID bloque_de_sentencias ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion ", AnalizadorLexico.cantLineas));  } 
 				  | FOREACH ID IN    bloque_de_sentencias ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias ", AnalizadorLexico.cantLineas));  } 
-				 // | FOREACH ID IN ID bloque_de_sentencias     { Parser.errores.add(new Error("ERROR", "Se esperaba ';' al final ", AnalizadorLexico.cantLineas));  } 
+				  //| FOREACH ID IN ID bloque_de_sentencias     { Parser.errores.add(new Error("ERROR", "Se esperaba ';' al final ", AnalizadorLexico.cantLineas));  } 
 ;
 
 sentencia_print : PRINT '(' CADENA ')' ';'
@@ -154,7 +153,7 @@ factor : ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Facto
 subindice : ID 
 		  | CTE
 
-asignacion : ID ASIGN expresion ';' 
+asignacion : ID ASIGN expresion';' 
 		   | ID '[' subindice ']' ASIGN expresion ';'
 			
 		   //| ID ASIGN expresion  { Parser.errores.add(new Error("ERROR", "Se esperaba ';' al final ", AnalizadorLexico.cantLineas));  } 

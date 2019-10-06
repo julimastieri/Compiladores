@@ -1,1 +1,1 @@
-ERROR: Linea 4: Se esperaba un '=' 
+ERROR: Linea 2: Sentencia ejecutable invalida 

@@ -1,6 +1,17 @@
 palabra reservada int
 identificador a
+ ;
 palabra reservada int
 identificador b
+ ;
 palabra reservada begin
+palabra reservada if
+ (
 identificador a
+ <
+identificador b
+ )
+palabra reservada begin
+palabra reservada end
+palabra reservada end_if
+palabra reservada end

@@ -1,5 +1,8 @@
-int a;
-int b;
+int a ;
+int b ;
 begin
-a:=5;
+	if (a < b )
+		begin
+		end
+	end_if	
 end
