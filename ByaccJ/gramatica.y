@@ -26,9 +26,9 @@ programa : sentencias_declarativas sentencias_ejecutables { System.out.println("
 
 sentencias_declarativas : sentencia_declarativa
 						| sentencia_declarativa sentencias_declarativas
-;
+;							
 
-sentencia_declarativa : tipo lista_de_variables ';'
+sentencia_declarativa : tipo lista_de_variables';'
 					  //| lista_de_variables ';' { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba el tipo de la variable ", AnalizadorLexico.cantLineas)); }
 					  | tipo lista_de_variables { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba ';' ", AnalizadorLexico.cantLineas)); }
 ;
@@ -39,10 +39,12 @@ tipo :INT
 ;
 
 lista_de_variables :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion de variable" + "\n"); }
-				   |ID '[' lista_de_valores_iniciales ']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion de coleccion" + "\n"); }
-				   |ID '[' CTE ']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion de coleccion" + "\n"); }
+				   |ID '['lista_de_valores_iniciales']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion de coleccion" + "\n"); }
+				   |ID '['CTE']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion de coleccion" + "\n"); }
 				   |ID ',' lista_de_variables
-
+				   |ID '['lista_de_valores_iniciales']'',' lista_de_variables
+				   |ID '['CTE']' ',' lista_de_variables
+				   
 				   |ID     lista_de_valores_iniciales ']' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '[' para definir los valores iniciales de la coleccion ", AnalizadorLexico.cantLineas)); }
 				   |ID '[' lista_de_valores_iniciales     { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ']' para definir los valores iniciales de la coleccion ", AnalizadorLexico.cantLineas)); }
 ;				   

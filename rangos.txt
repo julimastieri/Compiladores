@@ -1,16 +1,15 @@
-int a ;
-ulong b ;
-int c [ 1 , _ , 5 ];
+int a, h, w;
+ulong b;
+int c[1,_,5];
 
 begin
-	a := 32767 ;
-	b := 32768 ; #la toma como ulong supongo
-	c := -32768 ; 
-	d := -32769 ; #deberia dar algun error y no lo da
+	a:=-2;
+	#b:=32768; #la toma como ulong supongo
+	c:=-32768; 
+	d:=-32769; #deberia dar algun error y no lo da
 
-	#tiran error de sentencia ejecutable invalida, esta bien?
 	#el max_value por el que son reemplazados esta 1 sola vez en TdeS. 
-	e := 4294967298 ;
-	f := 4294967300 ;
+	h:=4294967298;
+	w:=4294967300;
 	
 end

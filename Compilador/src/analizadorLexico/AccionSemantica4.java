@@ -24,35 +24,40 @@ public class AccionSemantica4 implements AccionSemantica{
 			
 		    if (token != null) { //si ya esta
 		    	token.incrementarContadorDeReferencias();
-		    	return token;
 		    }
 		    else {
 		    	id = AnalizadorLexico.palabras_reservadas.get("cte");
 		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
-		    	return token;
 		    }
+		    return token;
 			
 		}else if (num <= AnalizadorLexico.MAX_LONG) { //si es ulong
 			
 			if (token != null) { //si ya esta
 		    	token.incrementarContadorDeReferencias();
-		    	return token;
 		    }
 		    else {
 		    	id = AnalizadorLexico.palabras_reservadas.get("cte");
 		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
-		    	return token;
 		    }
+			
+			return token;
 			
 		} else {
 			Error error = new Error("ERROR", "Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango", AnalizadorLexico.cantLineas);
 			AnalizadorLexico.errores.add(error);
 			lexema = "" + AnalizadorLexico.MAX_LONG;
-			id = AnalizadorLexico.palabras_reservadas.get("ulong");
-			token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
-			AnalizadorLexico.tablaSimbolos.put(lexema, token);
+			
+			if (token != null) {//si ya esta
+				token.incrementarContadorDeReferencias();
+			}
+			else {
+				id = AnalizadorLexico.palabras_reservadas.get("cte");
+				token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
+				AnalizadorLexico.tablaSimbolos.put(lexema, token);
+			}
 			return token;
 		}
 		

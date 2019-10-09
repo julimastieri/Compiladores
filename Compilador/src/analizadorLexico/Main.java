@@ -26,6 +26,8 @@ public class Main {
     	List<Error> errores = new ArrayList<Error>();
     	
     	Parser parser = new Parser(errores, file);
+    	AnalizadorLexico aLex = new AnalizadorLexico(file, errores);
+    
     	parser.parse();
     	
        // parser.analizador_lex = aLexico;

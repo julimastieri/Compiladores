@@ -1,7 +1,26 @@
 palabra reservada int
 identificador a
+ ,
+identificador h
+ [
+constante 2
+ ]
+ ,
+identificador v
+ ,
+identificador q
+ [
+constante 8
+ ]
  ;
 palabra reservada ulong
+identificador p
+ [
+ _
+ ,
+ _
+ ]
+ ,
 identificador b
  ;
 palabra reservada int
@@ -17,28 +36,103 @@ constante 5
 palabra reservada begin
 identificador a
  :=
-constante 32767
+constante 8
+ ;
+identificador a
+ :=
+identificador b
+ ;
+identificador a
+ :=
+constante 8
+ *
+constante 2
+ ;
+identificador a
+ :=
+constante 8
+ /
+constante 2
+ ;
+identificador a
+ :=
+constante 8
+ +
+constante 2
+ ;
+identificador a
+ :=
+constante 8
+ -
+constante 2
+ ;
+identificador a
+ :=
+constante 2
+ *
+constante 3
+ +
+constante 1
+ ;
+identificador a
+ :=
+constante 2
+ *
+constante 3
+ +
+constante 1
+ *
+constante 5
+ ;
+identificador a
+ :=
+constante 2
+ *
+constante 3
+ -
+constante 1
+ *
+constante 5
+ ;
+identificador a
+ :=
+constante 10
+ /
+constante 2
+ +
+constante 4
+ /
+constante 2
  ;
 identificador b
  :=
-constante 32768
+identificador c
+ [
+identificador a
+ ]
+ ;
+identificador a
+ :=
+ -
+constante 8
+ ;
+identificador a
+ :=
+ -
+constante 27
  ;
 identificador c
+ [
+constante 1
+ ]
  :=
- -
-constante 32768
+identificador a
  ;
-identificador d
+identificador c
+ [
+identificador b
+ ]
  :=
- -
-constante 32769
- ;
-identificador e
- :=
-constante 4294967295
- ;
-identificador f
- :=
-constante 4294967295
+constante 2
  ;
 palabra reservada end

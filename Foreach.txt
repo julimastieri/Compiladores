@@ -1,12 +1,15 @@
-int a ;
-ulong b ;
-int c [ 1 , _ , 5 ];
+int a;
+ulong b;
+int c[1,_,5];
+ulong w;
 
 begin
 	foreach a in c
 	begin
-		a := 9 ;
-		b := 8 ;
-	end
-	;
+		a:=9;
+		b:=8;
+	end;
+
+	#foreach b in w a:=b;;
+
 end

@@ -1,21 +1,21 @@
-int a ;
-ulong b ;
-int c [ 1 , _ , 5 ];
+int a;
+ulong b;
+int c[1,_,5];
 
 begin
-	if ( a >= b )
-		a := 2 + 3 ;
+	if(a>=b)
+		a:=2+3;
 	end_if
 
-	if ( a == b )
-	begin
-		a := 2 ;
-		b := 12 ;
-	end
+	if(a==b)
+		begin
+			a:=2;
+			b:=12;
+		end
 	else
-	begin
-		a := 3 ;
-		b := 8 ;
-	end
+		begin
+			a:=3;
+			b:=8;
+		end
 	end_if
 end

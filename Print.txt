@@ -1,8 +1,7 @@
-int a ;
-ulong b ;
-int c [ 1 , _ , 5 ];
+int a;
+ulong b;
+int c[1,_,5];
 
 begin
-	print ({esta cadena});
-	
+	print({esta cadena});
 end
