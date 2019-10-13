@@ -4,11 +4,10 @@ int c[1,_,5];
 
 begin
 	a:=-2;
-	#b:=32768; #la toma como ulong supongo
-	c:=-32768; 
-	d:=-32769; #deberia dar algun error y no lo da
+	#b:=32768;
+	#c:=-32768;
+	d:=-32769;
 
-	#el max_value por el que son reemplazados esta 1 sola vez en TdeS. 
 	h:=4294967298;
 	w:=4294967300;
 	

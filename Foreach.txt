@@ -10,6 +10,8 @@ begin
 		b:=8;
 	end;
 
-	#foreach b in w a:=b;;
+	foreach b in w 
+		a:=b;
+	;
 
 end

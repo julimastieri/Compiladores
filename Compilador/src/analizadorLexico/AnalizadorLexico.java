@@ -73,7 +73,7 @@ public class AnalizadorLexico {
     	palabras_reservadas.put("foreach", 272);
     	palabras_reservadas.put("in", 273);
     	palabras_reservadas.put("ulong", 274);
-    	palabras_reservadas.put("to_ulong", 274);
+    	palabras_reservadas.put("to_ulong", 275);
     	
     }
     

@@ -1,138 +1,278 @@
 palabra reservada int
 identificador a
+ ;
+palabra reservada int
+identificador c
+constante 1
  ,
-identificador h
- [
-constante 2
+ _
+ ,
+constante 5
  ]
- ,
-identificador v
- ,
-identificador q
+ ;
+palabra reservada int
+identificador j
  [
-constante 8
  ]
  ;
 palabra reservada ulong
 identificador p
  [
- _
- ,
+constante 3
+constante 2
  _
  ]
  ,
 identificador b
  ;
 palabra reservada int
-identificador c
+identificador q
  [
-constante 1
- ,
- _
- ,
-constante 5
- ]
+constante 8
  ;
 palabra reservada begin
 identificador a
  :=
-constante 8
  ;
 identificador a
- :=
 identificador b
- ;
-identificador a
+ ]
  :=
 constante 8
- *
-constante 2
  ;
 identificador a
+ [
+identificador b
  :=
-constante 8
- /
-constante 2
+identificador j
  ;
 identificador a
+ [
+ ]
  :=
-constante 8
- +
-constante 2
- ;
-identificador a
- :=
-constante 8
- -
-constante 2
- ;
-identificador a
- :=
-constante 2
- *
-constante 3
- +
-constante 1
- ;
-identificador a
- :=
-constante 2
- *
-constante 3
- +
-constante 1
- *
-constante 5
- ;
-identificador a
- :=
-constante 2
- *
-constante 3
- -
-constante 1
- *
-constante 5
- ;
-identificador a
- :=
-constante 10
- /
-constante 2
- +
-constante 4
- /
 constante 2
  ;
 identificador b
  :=
-identificador c
- [
+palabra reservada to_ulong
+ (
 identificador a
- ]
  ;
+palabra reservada print
+ (
+constante 3
+ )
+ ;
+palabra reservada print
+ (
+cadena 3
+ ;
+palabra reservada foreach
+palabra reservada in
+identificador b
 identificador a
  :=
- -
-constante 8
+identificador b
  ;
+ ;
+palabra reservada foreach
+identificador a
+palabra reservada in
 identificador a
  :=
- -
-constante 27
+identificador b
  ;
-identificador c
- [
-constante 1
- ]
+ ;
+palabra reservada foreach
+identificador a
+identificador b
+identificador a
+ :=
+identificador b
+ ;
+ ;
+palabra reservada if
+ (
+ <
+identificador b
+ )
+identificador a
+ :=
+identificador b
+ ;
+palabra reservada else
+identificador b
  :=
 identificador a
  ;
-identificador c
+palabra reservada end_if
+ ;
+palabra reservada if
+ (
+identificador a
+ <
+ )
+identificador a
+ :=
+identificador b
+ ;
+palabra reservada else
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end_if
+ ;
+ (
+identificador a
+ <
+identificador b
+ )
+identificador a
+ :=
+identificador b
+ ;
+palabra reservada else
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end_if
+ ;
+palabra reservada if
+ (
+identificador a
+ <
+identificador b
+ )
+identificador a
+ :=
+identificador b
+ ;
+palabra reservada else
+identificador b
+ :=
+identificador a
+ ;
+ ;
+palabra reservada if
+ (
+identificador a
+ <
+identificador b
+identificador a
+ :=
+identificador b
+ ;
+palabra reservada else
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end_if
+ ;
+palabra reservada if
+ (
+ )
+identificador a
+ :=
+identificador b
+ ;
+palabra reservada else
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end_if
+ ;
+palabra reservada if
+ (
+identificador a
+ ==
+identificador b
+ )
+palabra reservada begin
+identificador a
+ :=
+identificador b
+ ;
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end_if
+ ;
+palabra reservada if
+ (
+identificador a
+ ==
+identificador b
+ )
+identificador a
+ :=
+identificador b
+ ;
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end
+palabra reservada end_if
+ ;
+palabra reservada if
+ (
+identificador a
+ ==
+identificador b
+ )
+identificador a
+ :=
+identificador b
+ ;
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end_if
+ ;
+identificador a
  [
 identificador b
  ]
  :=
-constante 2
+identificador c
+ [
+identificador b
+ ]
+ ;
+palabra reservada foreach
+identificador a
+palabra reservada in
+identificador b
+identificador a
+ :=
+identificador b
+ ;
+ ;
+palabra reservada if
+ (
+identificador a
+ <
+identificador b
+ )
+identificador a
+ :=
+identificador b
+ ;
+palabra reservada else
+identificador b
+ :=
+identificador a
+ ;
+palabra reservada end_if
+ ;
+identificador a
+ :=
+identificador b
  ;
 palabra reservada end
