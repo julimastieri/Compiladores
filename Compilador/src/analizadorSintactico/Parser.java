@@ -559,7 +559,7 @@ public void modificarContadorDeReferencias(String lexema){
 		String negativo = "-" + lexema;
 		t = AnalizadorLexico.tablaSimbolos.get(negativo);
 
-		if (Long.parseLong(lexema) <= AnalizadorLexico.MAX_INT) {
+		if (Integer.parseInt(lexema) <= AnalizadorLexico.MAX_INT) {
 			if (t != null){ //ya esta en TS
 				t.incrementarContadorDeReferencias();
 			}
@@ -625,7 +625,7 @@ public String estructurasToString(){
 }
 
 public int parse() throws IOException{
-	return yyparse(); // si devuelve 0 -> sintaxis correcta
+	return yyparse();
 }
 
 //#line 560 "Parser.java"
@@ -717,7 +717,7 @@ boolean doaction;
       {
       if (yyerrflag==0)
         {
-        yyerror("Programa sintacticamente incorrecto.");
+        yyerror("syntax error");
         yynerrs++;
         }
       if (yyerrflag < 3) //low error count?

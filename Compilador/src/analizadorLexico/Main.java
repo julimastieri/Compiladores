@@ -33,7 +33,8 @@ public class Main {
     		System.out.println("Programa sintacticamente correcto.");
     	}
 
-
+    	
+    	
     //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
     	/*
     	Token t;

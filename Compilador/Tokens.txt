@@ -52,6 +52,10 @@ identificador IN
  ,
 identificador ULONG
  ;
+palabra reservada int
+ _
+identificador variable
+ ;
 palabra reservada begin
 identificador a
  :=

@@ -23,5 +23,6 @@ Lexema: 3 , Tipo: constante
 Lexema: 4 , Tipo: constante
 Lexema: 5 , Tipo: constante
 Lexema: v , Tipo: identificador
+Lexema: variable , Tipo: identificador
 Lexema: 8 , Tipo: constante
 Lexema: END , Tipo: identificador

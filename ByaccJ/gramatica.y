@@ -272,7 +272,7 @@ public String estructurasToString(){
 	return out.toString();
 }
 
-public void parse() throws IOException{
-	int res = yyparse();
+public int parse() throws IOException{
+	return yyparse();
 }
 
