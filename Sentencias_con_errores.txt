@@ -14,16 +14,18 @@
 #Ejecutables con errores
 
 begin
+		
 
-		#b:=3 #falta ';', si abajo hay una sentencia bien escrita tira "Sentencia invalida", osea anda bien pero sola no
-		#b 3; 
-		#:= 3;
+		#b:=3 #falta ';' 	#sentencia invalida
+		#b 3; #sentencia invalida
+		#:= 3; #sentencia invalida
+		#b := to_ulong (a ; #sentencia invalida
+
 		#a:=;
 		#a b]:=8;
 		#a [b:=j;
 		#a []:=2;
 		#b := to_ulong a);
-		#b := to_ulong (a;
 
 		#print(3);
 		#print({3};
@@ -53,15 +55,10 @@ begin
 	
 
 
-	#a[b]:= c[b]; #bien escrita	
-
-	#foreach a in b #bien escrita
-	#	a:=b;
-	#;
-
-	#if (a<b) a:=b; else b:=a; end_if; #bien escrita
-	
-
-	#a:=b; #bien escrita
+	#Bien escritas
+		#a[b]:= c[b]; 
+		#foreach a in b	a:=b;;
+		#if (a<b) a:=b; else b:=a; end_if;
+		#a:=b;
 
 end

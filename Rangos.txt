@@ -1,0 +1,15 @@
+int a, h, w;
+ulong b;
+int c[1,_,5];
+
+begin
+	a:=25;
+	a:=-24;
+	c:=-32768; #valor maximo
+	d:=-32769; #Constante negativa fuera de rango, se reemplaza por el valor limite permitido del rango.
+
+	h:=4294967295; #valor maximo
+	w:=4294967300; #exede valor maximo
+
+	j:=-4294967295;  #Constante negativa fuera de rango, se reemplaza por el valor limite permitido del rango.
+end

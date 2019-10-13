@@ -1,6 +1,8 @@
-int a, h[2], v, q[8];
+int a1, h[2], v, q[8];
 ulong p[_,_], b;
-int c[1,_,5];
+int c[1,_,5];}
+ulong identificador_Mas_De_25_caracteres;
+int IF, ELSE, END_IF, PRINT, INT, BEGIN, END, FOREACH, IN, ULONG; #las reconoce como identificadores, no como palabras reservadas ya que es case sensitive
 
 begin
 	a:=8;
@@ -23,5 +25,20 @@ begin
 
 	c[1]:=a;
 	c[b]:=2;
+
+	#Sentencias con errores
+
+		a:=; #Se esperaba una expresion para realizar la asignacion. 
+		a b]:=8; #Se esperaba '[' para indicar la posicion de la coleccion.
+		a [b:=j; #Se esperaba ']' para indicar la posicion de la coleccion.
+		a []:=2; #Se esperaba un subindice para realizar la asignacion.
+		b := to_ulong a); #Se esperaba '(' para realizar la conversion. 
+
+		_var:= 1; #Sentencia invalida.#variable que comienza con '_', lo cual no es valido
+		b 3; #Sentencia invalida.
+		:= 3; #Sentencia invalida.
+		b := to_ulong (a ; #Sentencia invalida.
+
+
 	
 end

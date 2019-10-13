@@ -1,10 +1,93 @@
+Linea: 1. Declaracion
+Linea: 2. Declaracion
 Linea: 3. Declaracion
-Linea: 11. Declaracion
+Linea: 4. Declaracion
+Linea: 5. Declaracion
+Linea: 8. Factor CTE. 
+Linea: 8. Asignacion. 
+Linea: 9. Factor ID. 
+Linea: 9. Asignacion. 
+Linea: 10. Factor CTE. 
+Linea: 10. Factor CTE. 
+Linea: 10. Multiplicacion. 
+Linea: 10. Asignacion. 
+Linea: 11. Factor CTE. 
+Linea: 11. Factor CTE. 
+Linea: 11. Division. 
+Linea: 11. Asignacion. 
+Linea: 12. Factor CTE. 
+Linea: 12. Factor CTE. 
+Linea: 12. Suma. 
+Linea: 12. Asignacion. 
+Linea: 13. Factor CTE. 
+Linea: 13. Factor CTE. 
+Linea: 13. Resta. 
+Linea: 13. Asignacion. 
+Linea: 14. Factor CTE. 
+Linea: 14. Factor CTE. 
+Linea: 14. Multiplicacion. 
+Linea: 14. Factor CTE. 
+Linea: 14. Suma. 
+Linea: 14. Asignacion. 
+Linea: 15. Factor CTE. 
+Linea: 15. Factor CTE. 
+Linea: 15. Multiplicacion. 
+Linea: 15. Factor CTE. 
+Linea: 15. Factor CTE. 
+Linea: 15. Multiplicacion. 
+Linea: 15. Suma. 
+Linea: 15. Asignacion. 
+Linea: 16. Factor CTE. 
+Linea: 16. Factor CTE. 
+Linea: 16. Multiplicacion. 
+Linea: 16. Factor CTE. 
+Linea: 16. Factor CTE. 
+Linea: 16. Multiplicacion. 
+Linea: 16. Resta. 
+Linea: 16. Asignacion. 
+Linea: 17. Factor CTE. 
+Linea: 17. Factor CTE. 
+Linea: 17. Division. 
+Linea: 17. Factor CTE. 
+Linea: 17. Factor CTE. 
+Linea: 17. Division. 
+Linea: 17. Suma. 
+Linea: 17. Asignacion. 
+Linea: 18. Factor ID. 
+Linea: 18. Factor conversion. 
+Linea: 18. Asignacion. 
+Linea: 19. Factor CTE. 
+Linea: 19. Factor ID. 
+Linea: 19. Suma. 
+Linea: 19. Factor conversion. 
+Linea: 19. Factor coleccion. 
+Linea: 19. Division. 
+Linea: 19. Asignacion. 
+Linea: 20. Factor ID. 
+Linea: 20. Factor conversion. 
+Linea: 20. Factor CTE. 
+Linea: 20. Division. 
+Linea: 20. Factor CTE. 
+Linea: 20. Factor CTE. 
+Linea: 20. Multiplicacion. 
+Linea: 20. Resta. 
+Linea: 20. Asignacion. 
+Linea: 21. Factor coleccion. 
 Linea: 21. Asignacion. 
-Linea: 22. Factor CTE. 
-Linea: 22. Asignacion. 
-Linea: 23. Factor ID. 
+Linea: 23. Factor CTE Negativa. 
 Linea: 23. Asignacion. 
-Linea: 24. Factor CTE. 
+Linea: 24. Factor CTE Negativa. 
 Linea: 24. Asignacion. 
 Linea: 26. Factor ID. 
+Linea: 26. Asignacion. 
+Linea: 27. Factor CTE. 
+Linea: 27. Asignacion. 
+Linea: 31. Asignacion. 
+Linea: 32. Factor CTE. 
+Linea: 32. Asignacion. 
+Linea: 33. Factor ID. 
+Linea: 33. Asignacion. 
+Linea: 34. Factor CTE. 
+Linea: 34. Asignacion. 
+Linea: 35. Factor ID. 
+Linea: 35. Asignacion. 

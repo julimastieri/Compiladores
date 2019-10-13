@@ -559,7 +559,7 @@ public void modificarContadorDeReferencias(String lexema){
 		String negativo = "-" + lexema;
 		t = AnalizadorLexico.tablaSimbolos.get(negativo);
 
-		if (Integer.parseInt(lexema) <= AnalizadorLexico.MAX_INT) {
+		if (Long.parseLong(lexema) <= AnalizadorLexico.MAX_INT) {
 			if (t != null){ //ya esta en TS
 				t.incrementarContadorDeReferencias();
 			}

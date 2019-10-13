@@ -1,52 +1,11 @@
-ERROR: Linea 9: Se esperaba '[' para definir los valores iniciales de la coleccion. 
-ERROR: Linea 10: Se esperaba valor entre '[' ']' para definir a la coleccion. 
-ERROR: Linea 11: Se esperaba caracter ',' de separacion de valores iniciales. 
-ERROR: Linea 11: Se esperaba caracter ',' de separacion de valores iniciales. 
-ERROR: Linea 12: Se esperaba ']' para definir tamaño de la coleccion. 
-ERROR: Linea 21: Se esperaba una expresion para realizar la asignacion. 
-ERROR: Linea 22: Se esperaba '[' para indicar la posicion de la coleccion. 
-ERROR: Linea 23: Se esperaba ']' para indicar la posicion de la coleccion. 
-ERROR: Linea 24: Se esperaba un subindice para realizar la asignacion. 
-ERROR: Linea 26: Sentencia invalida.
-ERROR: Linea 28: Sentencia invalida.
-ERROR: Linea 29: Sentencia invalida.
-ERROR: Linea 33: Sentencia invalida.
-ERROR: Linea 34: Sentencia invalida.
+ERROR: Linea 3: Caracter "}" invalido
+Warning: Linea 4: identificador supera los 25 caracteres
+ERROR: Linea 31: Se esperaba una expresion para realizar la asignacion. 
+ERROR: Linea 32: Se esperaba '[' para indicar la posicion de la coleccion. 
+ERROR: Linea 33: Se esperaba ']' para indicar la posicion de la coleccion. 
+ERROR: Linea 34: Se esperaba un subindice para realizar la asignacion. 
+ERROR: Linea 35: Se esperaba '(' para realizar la conversion. 
 ERROR: Linea 37: Sentencia invalida.
 ERROR: Linea 38: Sentencia invalida.
-ERROR: Linea 41: Sentencia invalida.
-ERROR: Linea 42: Sentencia invalida.
-ERROR: Linea 44: Sentencia invalida.
-ERROR: Linea 44: Sentencia invalida.
-ERROR: Linea 44: Sentencia invalida.
-ERROR: Linea 45: Sentencia invalida.
-ERROR: Linea 45: Sentencia invalida.
-ERROR: Linea 45: Sentencia invalida.
-ERROR: Linea 46: Sentencia invalida.
-ERROR: Linea 46: Sentencia invalida.
-ERROR: Linea 46: Sentencia invalida.
-ERROR: Linea 47: Sentencia invalida.
-ERROR: Linea 47: Sentencia invalida.
-ERROR: Linea 47: Sentencia invalida.
-ERROR: Linea 48: Sentencia invalida.
-ERROR: Linea 48: Sentencia invalida.
-ERROR: Linea 48: Sentencia invalida.
-ERROR: Linea 49: Sentencia invalida.
-ERROR: Linea 49: Sentencia invalida.
-ERROR: Linea 49: Sentencia invalida.
-ERROR: Linea 50: Sentencia invalida.
-ERROR: Linea 50: Sentencia invalida.
-ERROR: Linea 50: Sentencia invalida.
-ERROR: Linea 51: Sentencia invalida.
-ERROR: Linea 51: Sentencia invalida.
-ERROR: Linea 51: Sentencia invalida.
-ERROR: Linea 52: Sentencia invalida.
-ERROR: Linea 52: Sentencia invalida.
-ERROR: Linea 52: Sentencia invalida.
-ERROR: Linea 56: Sentencia invalida.
-ERROR: Linea 59: Sentencia invalida.
-ERROR: Linea 60: Sentencia invalida.
-ERROR: Linea 62: Sentencia invalida.
-ERROR: Linea 62: Sentencia invalida.
-ERROR: Linea 62: Sentencia invalida.
-ERROR: Linea 65: Sentencia invalida.
+ERROR: Linea 39: Sentencia invalida.
+ERROR: Linea 40: Sentencia invalida.

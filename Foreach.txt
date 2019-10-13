@@ -14,4 +14,18 @@ begin
 		a:=b;
 	;
 
+	#Sentencias con errores
+		foreach  in b
+			a:=b;
+		;
+
+		foreach a in 
+			a:=b;
+		;
+
+		foreach a b
+			a:=b;
+		;
+
+
 end

@@ -1,8 +1,31 @@
 palabra reservada int
-identificador a
+identificador a1
+ ,
+identificador h
+ [
+constante 2
+ ]
+ ,
+identificador v
+ ,
+identificador q
+ [
+constante 8
+ ]
+ ;
+palabra reservada ulong
+identificador p
+ [
+ _
+ ,
+ _
+ ]
+ ,
+identificador b
  ;
 palabra reservada int
 identificador c
+ [
 constante 1
  ,
  _
@@ -10,27 +33,166 @@ constante 1
 constante 5
  ]
  ;
-palabra reservada int
-identificador j
- [
- ]
- ;
 palabra reservada ulong
-identificador p
- [
-constante 3
-constante 2
- _
- ]
- ,
-identificador b
+identificador identificador_Mas_De_25_c
  ;
 palabra reservada int
-identificador q
- [
-constante 8
+identificador IF
+ ,
+identificador ELSE
+ ,
+identificador END_IF
+ ,
+identificador PRINT
+ ,
+identificador INT
+ ,
+identificador BEGIN
+ ,
+identificador END
+ ,
+identificador FOREACH
+ ,
+identificador IN
+ ,
+identificador ULONG
  ;
 palabra reservada begin
+identificador a
+ :=
+constante 8
+ ;
+identificador a
+ :=
+identificador b
+ ;
+identificador a
+ :=
+constante 8
+ *
+constante 2
+ ;
+identificador a
+ :=
+constante 8
+ /
+constante 2
+ ;
+identificador a
+ :=
+constante 8
+ +
+constante 2
+ ;
+identificador a
+ :=
+constante 8
+ -
+constante 2
+ ;
+identificador a
+ :=
+constante 2
+ *
+constante 3
+ +
+constante 1
+ ;
+identificador a
+ :=
+constante 2
+ *
+constante 3
+ +
+constante 1
+ *
+constante 5
+ ;
+identificador a
+ :=
+constante 2
+ *
+constante 3
+ -
+constante 1
+ *
+constante 5
+ ;
+identificador a
+ :=
+constante 10
+ /
+constante 2
+ +
+constante 4
+ /
+constante 2
+ ;
+identificador a
+ :=
+palabra reservada to_ulong
+ (
+identificador a
+ )
+ ;
+identificador b
+ :=
+palabra reservada to_ulong
+ (
+constante 2
+ +
+identificador a
+ )
+ /
+identificador c
+ [
+constante 2
+ ]
+ ;
+identificador a
+ :=
+palabra reservada to_ulong
+ (
+identificador a
+ )
+ /
+constante 2
+ -
+constante 4
+ *
+constante 2
+ ;
+identificador b
+ :=
+identificador c
+ [
+identificador a
+ ]
+ ;
+identificador a
+ :=
+ -
+constante 8
+ ;
+identificador a
+ :=
+ -
+constante 27
+ ;
+identificador c
+ [
+constante 1
+ ]
+ :=
+identificador a
+ ;
+identificador c
+ [
+identificador b
+ ]
+ :=
+constante 2
+ ;
 identificador a
  :=
  ;
@@ -55,224 +217,24 @@ constante 2
 identificador b
  :=
 palabra reservada to_ulong
- (
 identificador a
+ )
  ;
-palabra reservada print
- (
+ _
+identificador var
+ :=
+constante 1
+ ;
+identificador b
 constante 3
- )
  ;
-palabra reservada print
- (
-cadena 3
- ;
-palabra reservada foreach
-palabra reservada in
-identificador b
-identificador a
  :=
-identificador b
+constante 3
  ;
- ;
-palabra reservada foreach
-identificador a
-palabra reservada in
-identificador a
- :=
-identificador b
- ;
- ;
-palabra reservada foreach
-identificador a
-identificador b
-identificador a
- :=
-identificador b
- ;
- ;
-palabra reservada if
- (
- <
-identificador b
- )
-identificador a
- :=
-identificador b
- ;
-palabra reservada else
 identificador b
  :=
-identificador a
- ;
-palabra reservada end_if
- ;
-palabra reservada if
+palabra reservada to_ulong
  (
 identificador a
- <
- )
-identificador a
- :=
-identificador b
- ;
-palabra reservada else
-identificador b
- :=
-identificador a
- ;
-palabra reservada end_if
- ;
- (
-identificador a
- <
-identificador b
- )
-identificador a
- :=
-identificador b
- ;
-palabra reservada else
-identificador b
- :=
-identificador a
- ;
-palabra reservada end_if
- ;
-palabra reservada if
- (
-identificador a
- <
-identificador b
- )
-identificador a
- :=
-identificador b
- ;
-palabra reservada else
-identificador b
- :=
-identificador a
- ;
- ;
-palabra reservada if
- (
-identificador a
- <
-identificador b
-identificador a
- :=
-identificador b
- ;
-palabra reservada else
-identificador b
- :=
-identificador a
- ;
-palabra reservada end_if
- ;
-palabra reservada if
- (
- )
-identificador a
- :=
-identificador b
- ;
-palabra reservada else
-identificador b
- :=
-identificador a
- ;
-palabra reservada end_if
- ;
-palabra reservada if
- (
-identificador a
- ==
-identificador b
- )
-palabra reservada begin
-identificador a
- :=
-identificador b
- ;
-identificador b
- :=
-identificador a
- ;
-palabra reservada end_if
- ;
-palabra reservada if
- (
-identificador a
- ==
-identificador b
- )
-identificador a
- :=
-identificador b
- ;
-identificador b
- :=
-identificador a
- ;
-palabra reservada end
-palabra reservada end_if
- ;
-palabra reservada if
- (
-identificador a
- ==
-identificador b
- )
-identificador a
- :=
-identificador b
- ;
-identificador b
- :=
-identificador a
- ;
-palabra reservada end_if
- ;
-identificador a
- [
-identificador b
- ]
- :=
-identificador c
- [
-identificador b
- ]
- ;
-palabra reservada foreach
-identificador a
-palabra reservada in
-identificador b
-identificador a
- :=
-identificador b
- ;
- ;
-palabra reservada if
- (
-identificador a
- <
-identificador b
- )
-identificador a
- :=
-identificador b
- ;
-palabra reservada else
-identificador b
- :=
-identificador a
- ;
-palabra reservada end_if
- ;
-identificador a
- :=
-identificador b
  ;
 palabra reservada end
