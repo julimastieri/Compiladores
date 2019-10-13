@@ -624,8 +624,8 @@ public String estructurasToString(){
 	return out.toString();
 }
 
-public void parse() throws IOException{
-	int res = yyparse();
+public int parse() throws IOException{
+	return yyparse(); // si devuelve 0 -> sintaxis correcta
 }
 
 //#line 560 "Parser.java"
@@ -717,7 +717,7 @@ boolean doaction;
       {
       if (yyerrflag==0)
         {
-        yyerror("syntax error");
+        yyerror("Programa sintacticamente incorrecto.");
         yynerrs++;
         }
       if (yyerrflag < 3) //low error count?

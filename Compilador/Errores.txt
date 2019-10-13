@@ -1,11 +1,10 @@
-ERROR: Linea 3: Caracter "}" invalido
-Warning: Linea 4: identificador supera los 25 caracteres
-ERROR: Linea 31: Se esperaba una expresion para realizar la asignacion. 
-ERROR: Linea 32: Se esperaba '[' para indicar la posicion de la coleccion. 
-ERROR: Linea 33: Se esperaba ']' para indicar la posicion de la coleccion. 
-ERROR: Linea 34: Se esperaba un subindice para realizar la asignacion. 
-ERROR: Linea 35: Se esperaba '(' para realizar la conversion. 
-ERROR: Linea 37: Sentencia invalida.
-ERROR: Linea 38: Sentencia invalida.
-ERROR: Linea 39: Sentencia invalida.
-ERROR: Linea 40: Sentencia invalida.
+Warning: Linea 5: identificador supera los 25 caracteres
+ERROR: Linea 37: Se esperaba una expresion para realizar la asignacion. 
+ERROR: Linea 38: Se esperaba '[' para indicar la posicion de la coleccion. 
+ERROR: Linea 39: Se esperaba ']' para indicar la posicion de la coleccion. 
+ERROR: Linea 40: Se esperaba un subindice para realizar la asignacion. 
+ERROR: Linea 41: Se esperaba '(' para realizar la conversion. 
+ERROR: Linea 43: Sentencia invalida.
+ERROR: Linea 44: Sentencia invalida.
+ERROR: Linea 45: Sentencia invalida.
+ERROR: Linea 46: Sentencia invalida.

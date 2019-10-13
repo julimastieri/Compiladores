@@ -28,18 +28,11 @@ public class Main {
     	Parser parser = new Parser(errores, file);
     	AnalizadorLexico aLex = new AnalizadorLexico(file, errores);
     
-    	parser.parse();
-    	
-       // parser.analizador_lex = aLexico;
-       // parser.errores = aLexico.errores;
-       // int resultado = parser.parsepublico();
+    	int res_sintactico = parser.parse();
+    	if (res_sintactico == 0) {
+    		System.out.println("Programa sintacticamente correcto.");
+    	}
 
-/*
-        if (resultado == 0)
-            System.out.print("ACCEPT, se reconocio la gramatica");
-        else
-            System.out.print("No se reconocio la gramatica");
-*/
 
     //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
     	/*

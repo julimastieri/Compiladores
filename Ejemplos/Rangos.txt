@@ -1,0 +1,32 @@
+int a, h, w;
+ulong b;
+int c[1,_,5];
+
+begin
+
+	#Constantes con el primer y último valor dentro del rango.
+	  #Se espera que el analizador lexico reconozca los 4 identificadores, las asignaciones, el menos y los numeros como tokens.
+	cte_entera_max := 32767;
+	cte_entera_min := -32768;
+
+	cte_ulong_max:=4294967295;
+	cte_ulong_min:=0;
+
+	#Constantes con el primer y último valor fuera del rango.
+	  #Se espera que el analizador lexico reconozca el 32800 y el 40000 como ulong. El 4400000000 tambien como ulong reemplazandolo por el maximo
+	  #y el 2 como constante entera y el menos como token.
+
+	a:= 32800 ; #error sintactico: constante fuera de rango
+	b:= -40000; #error sintactico: constante fuera de rango
+
+	a:=4400000000;
+	b:= -1;
+
+	#Otros ejemplos:
+
+	a:=25;
+	a:=-24;
+	d:=-32769; #error sintactico: Constante negativa fuera de rango, se reemplaza por el valor limite permitido del rango.
+	j:=-4294967295; #error sintactico: Constante negativa fuera de rango, se reemplaza por el valor limite permitido del rango.
+
+end

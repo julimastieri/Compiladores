@@ -7,6 +7,8 @@ cte_entera_min := -32768
 cte_ulong_max:=4294967295
 cte_ulong_min:=0
 
+
+
 #Constantes con el primer y último valor fuera del rango.
 	#Se espera que reconozca el 32800 y el 40000 como ulong. El 4400000000 tambien como ulong reemplazandolo por el maximo
 	# el 2 como constante entera y el menos como token.
@@ -26,15 +28,17 @@ identificador_Mas_De_25_caracteres
 identificadorCorto
 
 #Identificadores que empiecen "_".
-	#Se espera que genere un error por el _ y que reconozca variable como token
+	#Se espera que reconozca como token por un lado el _ y por otro la variable
 
 _variable
 _
 
+
+
+
 #Palabras reservadas escritas en minúsculas y mayúsculas.
 	#Se espera que las escritas en minúsculas se reconozcan como palabras reservadas
 	# y las escritas con mayúsculas como identificadores
-
 
 if 
 else
@@ -56,6 +60,10 @@ END
 FOREACH, IN
 ULONG 
 
+
+
+----
+
 #Comentarios bien y mal definidos. 
 	#Se espera que se elimine el comentario bien definido y que se reconozcan como tokens
 	# las palabras del mal definido
@@ -65,14 +73,16 @@ ULONG
   comentario mal definido
 
 
-# Cadenas bien y mal definidas.
+
+
+---# Cadenas bien y mal definidas.
 	#Se espera que guarde el mensaje de la cadena bien definida en la TdeS y que genere un 
 	# error por la cadena mal definida.
 {
 	cadena bien definida < > , ; ? &@!
 }
 
-#Se espera que almacene una unica vez en la TdeS los tokens a y b. 
+---#Se espera que almacene una unica vez en la TdeS los tokens a y b. 
 
 a + b 
 a - b 

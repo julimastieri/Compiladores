@@ -15,13 +15,10 @@ Lexema: IN , Tipo: identificador
 Lexema: var , Tipo: identificador
 Lexema: h , Tipo: identificador
 Lexema: j , Tipo: identificador
-Lexema: -8 , Tipo: constante
 Lexema: a1 , Tipo: identificador
 Lexema: p , Tipo: identificador
-Lexema: q , Tipo: identificador
 Lexema: 1 , Tipo: constante
 Lexema: 2 , Tipo: constante
-Lexema: -27 , Tipo: constante
 Lexema: 3 , Tipo: constante
 Lexema: 4 , Tipo: constante
 Lexema: 5 , Tipo: constante

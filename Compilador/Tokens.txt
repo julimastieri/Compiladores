@@ -7,11 +7,6 @@ constante 2
  ]
  ,
 identificador v
- ,
-identificador q
- [
-constante 8
- ]
  ;
 palabra reservada ulong
 identificador p
@@ -128,6 +123,20 @@ constante 4
  /
 constante 2
  ;
+identificador c
+ [
+constante 1
+ ]
+ :=
+identificador a
+ ;
+identificador c
+ [
+identificador b
+ ]
+ :=
+constante 2
+ ;
 identificador a
  :=
 palabra reservada to_ulong
@@ -168,30 +177,6 @@ identificador c
  [
 identificador a
  ]
- ;
-identificador a
- :=
- -
-constante 8
- ;
-identificador a
- :=
- -
-constante 27
- ;
-identificador c
- [
-constante 1
- ]
- :=
-identificador a
- ;
-identificador c
- [
-identificador b
- ]
- :=
-constante 2
  ;
 identificador a
  :=

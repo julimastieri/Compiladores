@@ -1,0 +1,27 @@
+int a;
+ulong b;
+int c[1,_,5];
+
+begin
+	# Cadenas bien y mal definidas.
+		#Se espera que el lexico guarde el mensaje de la cadena bien definida en la TdeS y que genere un 
+		# error por la cadena mal definida.
+
+	print({cadena _ bien definida < > , ; ? &@!});
+	print({cadena mal def);
+
+	#sentencias con errores
+		print({3};
+		print {3});
+		print(cadena mal def});
+		print(3);
+
+	#Comentarios bien y mal definidos. 
+	#Se espera que se elimine el comentario bien definido y que se reconozcan como tokens
+	# las palabras del mal definido
+
+  		#Comentario bien definido
+
+  		comentario mal definido
+		
+end
