@@ -1,6 +1,0 @@
-Warning: Linea 5: identificador supera los 25 caracteres
-ERROR: Linea 38: Se esperaba una expresion para realizar la asignacion. 
-ERROR: Linea 40: Se esperaba '[' para indicar la posicion de la coleccion. 
-ERROR: Linea 41: Se esperaba ']' para indicar la posicion de la coleccion. 
-ERROR: Linea 42: Se esperaba un subindice para realizar la asignacion. 
-ERROR: Linea 43: Se esperaba '(' para realizar la conversion. 

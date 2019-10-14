@@ -21,14 +21,10 @@ import analizadorLexico.Token;
 
 
 %%
-programa : conjunto_de_sentencias
-			
+programa : sentencias_declarativas sentencias_ejecutables
+		 |sentencias_declarativas
+		 |sentencias_ejecutables	
 ;
-
-conjunto_de_sentencias: sentencias_declarativas sentencias_ejecutables
-					  |sentencias_declarativas
-					  |sentencias_ejecutables
-;					  
 
 sentencias_declarativas : sentencia_declarativa
 						| sentencia_declarativa sentencias_declarativas
