@@ -28,22 +28,8 @@ public class Main {
     	Parser parser = new Parser(errores, file);
     	AnalizadorLexico aLex = new AnalizadorLexico(file, errores);
     
-    	int res_sintactico = parser.parse();
-    	if (res_sintactico == 0) {
-    		System.out.println("Programa sintacticamente correcto.");
-    	}
+    	parser.parse();
 
-    	
-    	
-    //SOLO PARA PROBARLO AHORA. LUEGO, SE HACE EN yyparse()
-    	/*
-    	Token t;
-
-    	for (int j=0; j<100; j++) { //repetir la cantidad de tokens que queramos
-    		t = aLexico.getNextToken();
-    	}
-    	*/
-    	
     //Genero archivo con los tokens y los errores
     	File archTokens = new File("Tokens.txt");
     	FileManager.write(parser.tokensToString() , archTokens);
@@ -59,6 +45,8 @@ public class Main {
     //Genero archivo con las estructuras	
     	File archEstruct = new File("EstructurasSintacticas.txt");
     	FileManager.write(parser.estructurasToString(), archEstruct);
+    	
+    System.out.println("Compilación finalizada");
     	
 	}
 	

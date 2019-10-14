@@ -53,8 +53,7 @@ identificador IN
 identificador ULONG
  ;
 palabra reservada int
- _
-identificador variable
+identificador a
  ;
 palabra reservada begin
 identificador a
@@ -208,22 +207,5 @@ identificador b
 palabra reservada to_ulong
 identificador a
  )
- ;
- _
-identificador var
- :=
-constante 1
- ;
-identificador b
-constante 3
- ;
- :=
-constante 3
- ;
-identificador b
- :=
-palabra reservada to_ulong
- (
-identificador a
  ;
 palabra reservada end
