@@ -55,22 +55,18 @@ lista_de_variables :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas
 				   |ID '['                            ']' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba valor entre '[' ']' para definir a la coleccion. ", AnalizadorLexico.cantLineas)); }
 ;				   
 
-lista_de_valores_iniciales :CTE ',' elem_lista 
-						   |'_' ',' elem_lista 
+lista_de_valores_iniciales :'_'
+						   |CTE ',' CTE 
+						   |'_' ',' CTE 
 						   |CTE ',' lista_de_valores_iniciales 
 						   |'_' ',' lista_de_valores_iniciales
 
-						   |CTE elem_lista { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
+						   |CTE CTE { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
 						   |CTE lista_de_valores_iniciales { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
-						   |'_' elem_lista { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
+						   |'_' CTE { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
 						   |'_' lista_de_valores_iniciales { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
 
 ;
-
-elem_lista :CTE
-		   |'_'
-;
-
 
 sentencias_ejecutables :BEGIN lista_de_sentencias END
 					   |BEGIN END

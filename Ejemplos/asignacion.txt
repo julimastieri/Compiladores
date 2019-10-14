@@ -1,6 +1,7 @@
 #Identificadores de menos y más de 25 caracteres.
 int a1, h[2], v;
-ulong p[_,_], b;
+ulong p[_,_], i[_,2], o[1,_], u[1,2], p_30[_] ;
+int e[_5]; #Se esperaba caracter ',' de separacion de valores iniciales. 
 int c[1,_,5];
 ulong identificador_Mas_De_25_caracteres; #Se espera que el lexico lo trunque hasta el caracter 25 y genere un mensaje avisando.
 int IF, ELSE, END_IF, PRINT, INT, BEGIN, END, FOREACH, IN, ULONG; #Se espera que el lexico las reconozca como identificadores, no como palabras reservadas ya que es case sensitive

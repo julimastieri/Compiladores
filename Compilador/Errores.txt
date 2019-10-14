@@ -1,0 +1,12 @@
+ERROR: Linea 4: Se esperaba caracter ',' de separacion de valores iniciales. 
+Warning: Linea 6: identificador supera los 25 caracteres
+ERROR: Linea 11: Sentencia invalida.
+ERROR: Linea 39: Se esperaba una expresion para realizar la asignacion. 
+ERROR: Linea 40: Sentencia invalida.
+ERROR: Linea 41: Se esperaba '[' para indicar la posicion de la coleccion. 
+ERROR: Linea 42: Se esperaba ']' para indicar la posicion de la coleccion. 
+ERROR: Linea 43: Se esperaba un subindice para realizar la asignacion. 
+ERROR: Linea 44: Se esperaba '(' para realizar la conversion. 
+ERROR: Linea 46: Sentencia invalida.
+ERROR: Linea 47: Sentencia invalida.
+ERROR: Linea 48: Sentencia invalida.

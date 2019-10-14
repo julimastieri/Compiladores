@@ -46,7 +46,7 @@ public class Main {
     	File archEstruct = new File("EstructurasSintacticas.txt");
     	FileManager.write(parser.estructurasToString(), archEstruct);
     	
-    System.out.println("Compilación finalizada");
+    System.out.println("Compilacion finalizada");
     	
 	}
 	
