@@ -31,6 +31,10 @@ public class AnalizadorLexico {
     static final String TIPO_OPERADOR = "";
     static final String TIPO_COMPARADOR = "comparador";
     static final String TIPO_PALABRA_RESERVADA = "palabra reservada";
+    
+    //tipos de datos
+    public static final String TIPO_DATO_ENTERO = "int";
+    public static final String TIPO_DATO_ULONG = "ulong";
 
     
     public AnalizadorLexico(File file, List<Error> listae) throws FileNotFoundException {
@@ -205,8 +209,12 @@ public class AnalizadorLexico {
 		for (Token entrada : tablaSimbolos.values()) { 
 			out.append("Lexema: ");
 			out.append(entrada.getLexema());
-			out.append(" , Tipo: ");
+			out.append(" , Tipo de token: ");
 			out.append(entrada.getTipoDeToken());
+			out.append(" , Tipo de dato: ");
+			out.append(entrada.getTipoDeDato());
+			out.append(" , cantidad de de veces que es referenciado: ");
+			out.append(entrada.getContadorDeReferencias());
 			
 			out.append("\n");
 		}

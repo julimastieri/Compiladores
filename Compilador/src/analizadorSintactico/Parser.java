@@ -570,25 +570,28 @@ public void modificarContadorDeReferencias(String lexema){
 		String negativo = "-" + lexema;
 		t = AnalizadorLexico.tablaSimbolos.get(negativo);
 
-		if (Integer.parseInt(lexema) <= AnalizadorLexico.MAX_INT) {
+		if (Long.parseLong(lexema) <= AnalizadorLexico.MAX_INT) {
 			if (t != null){ //ya esta en TS
 				t.incrementarContadorDeReferencias();
 			}
 			else{
 				Integer id = AnalizadorLexico.palabras_reservadas.get("cte");
 				t = new Token(negativo, AnalizadorLexico.TIPO_CTE, id);
+				t.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ENTERO);
 				AnalizadorLexico.tablaSimbolos.put(negativo, t);
 			}
 		}
 		else{ //generar error
 			errores.add(new analizadorLexico.Error("ERROR", "Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango", AnalizadorLexico.cantLineas));	
+			negativo = "-" + AnalizadorLexico.MAX_INT;
+			t = AnalizadorLexico.tablaSimbolos.get(negativo);
 			if (t != null) {//si ya esta
 				t.incrementarContadorDeReferencias();
 			}
 			else {
-				negativo = "-" + AnalizadorLexico.MAX_INT;
 				Integer id = AnalizadorLexico.palabras_reservadas.get("cte");
 				t = new Token(negativo, AnalizadorLexico.TIPO_CTE, id);
+				t.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ENTERO);
 				AnalizadorLexico.tablaSimbolos.put(negativo, t);
 			}
 		}
@@ -639,7 +642,7 @@ public int parse() throws IOException{
 	return yyparse();
 }
 
-//#line 571 "Parser.java"
+//#line 574 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -998,7 +1001,7 @@ case 90:
 //#line 163 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas));  }
 break;
-//#line 925 "Parser.java"
+//#line 928 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

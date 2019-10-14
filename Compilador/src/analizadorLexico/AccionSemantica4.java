@@ -28,6 +28,7 @@ public class AccionSemantica4 implements AccionSemantica{
 		    else {
 		    	id = AnalizadorLexico.palabras_reservadas.get("cte");
 		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
+		    	token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ENTERO);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
 		    }
 		    return token;
@@ -40,6 +41,7 @@ public class AccionSemantica4 implements AccionSemantica{
 		    else {
 		    	id = AnalizadorLexico.palabras_reservadas.get("cte");
 		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
+		    	token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ULONG);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
 		    }
 			
@@ -49,6 +51,7 @@ public class AccionSemantica4 implements AccionSemantica{
 			Error error = new Error("ERROR", "Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango", AnalizadorLexico.cantLineas);
 			AnalizadorLexico.errores.add(error);
 			lexema = "" + AnalizadorLexico.MAX_LONG;
+			token = AnalizadorLexico.tablaSimbolos.get(lexema);
 			
 			if (token != null) {//si ya esta
 				token.incrementarContadorDeReferencias();
@@ -56,6 +59,7 @@ public class AccionSemantica4 implements AccionSemantica{
 			else {
 				id = AnalizadorLexico.palabras_reservadas.get("cte");
 				token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
+				token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ULONG);
 				AnalizadorLexico.tablaSimbolos.put(lexema, token);
 			}
 			return token;

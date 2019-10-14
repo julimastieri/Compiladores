@@ -6,12 +6,14 @@ public class Token {
 	String tipoDeToken;
 	int id;
 	int contadorDeReferencias;
+	String tipoDeDato;
 	
 	public Token(String l, String t, int id) {
 		this.id = id;
 		lexema = l;
 		tipoDeToken = t;
 		contadorDeReferencias = 1;
+		tipoDeDato = "no definido";
 	}
 	
 	public String getTipoDeToken() {
@@ -37,6 +39,14 @@ public class Token {
 	
 	public void decrementarContadorDeReferencias() {
 		this.contadorDeReferencias--;
+	}
+	
+	public void setTipoDeDato(String tdd) {
+		tipoDeDato = tdd;
+	}
+	
+	public String getTipoDeDato() {
+		return tipoDeDato;
 	}
 
 	
