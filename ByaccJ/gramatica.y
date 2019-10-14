@@ -28,7 +28,6 @@ programa : conjunto_de_sentencias
 conjunto_de_sentencias: sentencias_declarativas sentencias_ejecutables
 					  |sentencias_declarativas
 					  |sentencias_ejecutables
-					  |error';'{ errores.add(new analizadorLexico.Error("ERROR", "Sentencia invalida.", AnalizadorLexico.cantLineas)); }
 ;					  
 
 sentencias_declarativas : sentencia_declarativa
@@ -37,7 +36,9 @@ sentencias_declarativas : sentencia_declarativa
 
 sentencia_declarativa : tipo lista_de_variables';'
 					  | tipo lista_de_variables { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba ';'.", AnalizadorLexico.cantLineas)); }
+					  | error';'{ errores.add(new analizadorLexico.Error("ERROR", "Sentencia invalida.", AnalizadorLexico.cantLineas)); }
 ;
+				  		   
 
 tipo :INT
 	 |ULONG
