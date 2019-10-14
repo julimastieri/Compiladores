@@ -36,16 +36,15 @@ begin
 	#Sentencias con errores
 
 		a:=; #Se esperaba una expresion para realizar la asignacion. 
-		:= 3;
+		:= 3; #Sentencia invalida.
 		a b]:=8; #Se esperaba '[' para indicar la posicion de la coleccion.
 		a [b:=j; #Se esperaba ']' para indicar la posicion de la coleccion.
 		a []:=2; #Se esperaba un subindice para realizar la asignacion.
 		b := to_ulong a); #Se esperaba '(' para realizar la conversion. 
 
-		#_var:= 1; #Sentencia invalida.#variable que comienza con '_', lo cual no es valido
-		#b 3; #Sentencia invalida.
-		#:= 3; #Sentencia invalida.
-		#b := to_ulong (a ; #Sentencia invalida.
+		_var:= 1; #Sentencia invalida. #Variable que comienza con '_', lo cual no es valido
+		b 3; #Sentencia invalida.
+		b := to_ulong (a ; #Sentencia invalida.
 
 
 	
