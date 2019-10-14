@@ -20,7 +20,7 @@ public class AccionSemantica4 implements AccionSemantica{
 			e.printStackTrace();
 		}
 	    
-		if (num <= AnalizadorLexico.MAX_INT) { //si es constante
+		if (num < AnalizadorLexico.MAX_INT) { //si es constante entera positiva (cdo es negativa se resuelve con accion de la gramatica)
 			
 		    if (token != null) { //si ya esta
 		    	token.incrementarContadorDeReferencias();
@@ -32,7 +32,7 @@ public class AccionSemantica4 implements AccionSemantica{
 		    }
 		    return token;
 			
-		}else if (num <= AnalizadorLexico.MAX_LONG) { //si es ulong
+		}else if (num <= AnalizadorLexico.MAX_LONG) { //si es ulong (si el valor es max_int se reconoce como tipo ulong)
 			
 			if (token != null) { //si ya esta
 		    	token.incrementarContadorDeReferencias();
