@@ -11,8 +11,6 @@ begin
 
 	cte_ulong_max:=4294967295;
 	cte_ulong_limite :=32768; 
-	cte:=0; #Se espera que se reconozca como cte entera
-
 	#Constantes con el primer y último valor fuera del rango.
 	  #Se espera que el analizador lexico reconozca el 32800 y el 40000 como ulong. El 4400000000 tambien como ulong reemplazandolo por el maximo
 	  #y el 2 como constante entera y el menos como token.
@@ -20,7 +18,7 @@ begin
 	a:= 32800 ; 
 	b:= -40000; #constante negativa fuera de rango
 
-	a:=4400000000;#
+	a:=4400000000;
 
 	b:= -2;
 

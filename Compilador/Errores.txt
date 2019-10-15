@@ -1,3 +1,4 @@
-ERROR: Linea 20: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 22: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 29: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 19: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 21: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 30: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 31: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
