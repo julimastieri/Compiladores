@@ -19,7 +19,7 @@ public class AccionSemantica2 implements AccionSemantica{
 			e.printStackTrace();
 		}
 		 
-		 if (id_pr != null) { //encontró palabra reservada
+		 if (id_pr != null) { //encuentra palabra reservada
 			 token = new Token(lexema, AnalizadorLexico.TIPO_PALABRA_RESERVADA, id_pr);
 			 return token;
 		 
@@ -46,7 +46,18 @@ public class AccionSemantica2 implements AccionSemantica{
 					AnalizadorLexico.errores.add(error);
 					
 					lexema = buffer.subSequence(0, 25).toString();
-					token = new Token(lexema,AnalizadorLexico.TIPO_ID, id_identif);
+					token = AnalizadorLexico.tablaSimbolos.get(lexema);
+					
+					if (token != null) {//si ya esta
+						token.incrementarContadorDeReferencias();
+					}
+					else {
+						Integer id = AnalizadorLexico.palabras_reservadas.get("id");
+						token = new Token(lexema, AnalizadorLexico.TIPO_ID, id);
+						AnalizadorLexico.tablaSimbolos.put(lexema, token);
+					}
+					
+					return token;
 					
 				}
 				AnalizadorLexico.tablaSimbolos.put(lexema, token);

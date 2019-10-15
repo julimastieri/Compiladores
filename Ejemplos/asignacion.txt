@@ -8,8 +8,8 @@ int IF, ELSE, END_IF, PRINT, INT, BEGIN, END, FOREACH, IN, ULONG; #Se espera que
 
 #Identificadores que empiecen "_".
 	#Se espera que reconozca como token por un lado el _ y por otro la variable
-int _variable;
-int a;
+int a
+int variable;
 
 
 begin

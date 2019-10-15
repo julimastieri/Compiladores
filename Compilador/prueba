@@ -1,5 +1,8 @@
-begin
 
+int mas_de_25_caracteres_anda_mal;
+int mas_de_25_caracteres_anda_ya_da_lo_mismo;
+
+begin
 
 a:=-32968;
 a:=-32800;

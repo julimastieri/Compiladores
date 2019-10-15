@@ -1,29 +1,24 @@
-Linea: 1. Declaracion
 Linea: 2. Declaracion
 Linea: 3. Declaracion
-Linea: 9. Factor CTE. 
+Linea: 7. Factor CTE Negativa. 
+Linea: 7. Asignacion. 
+Linea: 8. Factor CTE Negativa. 
+Linea: 8. Asignacion. 
+Linea: 9. Factor CTE Negativa. 
 Linea: 9. Asignacion. 
 Linea: 10. Factor CTE Negativa. 
 Linea: 10. Asignacion. 
-Linea: 12. Factor CTE. 
-Linea: 12. Asignacion. 
+Linea: 11. Factor CTE Negativa. 
+Linea: 11. Asignacion. 
 Linea: 13. Factor CTE. 
 Linea: 13. Asignacion. 
+Linea: 14. Factor CTE. 
+Linea: 14. Asignacion. 
+Linea: 16. Factor CTE. 
+Linea: 16. Asignacion. 
+Linea: 17. Factor CTE. 
+Linea: 17. Asignacion. 
 Linea: 18. Factor CTE. 
 Linea: 18. Asignacion. 
-Linea: 19. Factor CTE Negativa. 
+Linea: 19. Factor CTE. 
 Linea: 19. Asignacion. 
-Linea: 21. Factor CTE. 
-Linea: 21. Asignacion. 
-Linea: 23. Factor CTE Negativa. 
-Linea: 23. Asignacion. 
-Linea: 27. Factor CTE. 
-Linea: 27. Asignacion. 
-Linea: 28. Factor CTE. 
-Linea: 28. Asignacion. 
-Linea: 29. Factor CTE Negativa. 
-Linea: 29. Asignacion. 
-Linea: 30. Factor CTE Negativa. 
-Linea: 30. Asignacion. 
-Linea: 31. Factor CTE Negativa. 
-Linea: 31. Asignacion. 
