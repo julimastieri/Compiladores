@@ -1,0 +1,8 @@
+
+#Comentarios bien y mal definidos. 
+	#Se espera que se elimine el comentario bien definido y que se reconozcan como tokens
+	# las palabras del mal definido
+
+  	#Comentario bien definido
+
+  	comentario mal definido

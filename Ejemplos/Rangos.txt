@@ -16,9 +16,9 @@ begin
 	  #y el 2 como constante entera y el menos como token.
 
 	a:= 32800 ; 
-	b:= -40000; #constante negativa fuera de rango
+	b:= -40000; # Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
 
-	a:=4400000000;
+	a:=4400000000; # Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
 
 	b:= -2;
 
@@ -27,7 +27,5 @@ begin
 	a:=25;
 	j:=25;
 	a:=-24;
-	d:=-32769; #Constante negativa fuera de rango, se reemplaza por el valor limite permitido del rango.
-	j:=-4294967295; #Constante negativa fuera de rango, se reemplaza por el valor limite permitido del rango.
 
 end

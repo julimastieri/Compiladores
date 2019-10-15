@@ -1,6 +1,2 @@
-Warning: Linea 2: identificador supera los 25 caracteres
-Warning: Linea 3: identificador supera los 25 caracteres
-ERROR: Linea 7: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 8: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 10: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 14: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 4: Sentencia invalida.
+ERROR: Linea 5: Caracter "'" invalido

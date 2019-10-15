@@ -1,57 +1,13 @@
 palabra reservada int
-identificador mas_de_25_caracteres_anda
- ;
-palabra reservada int
-identificador mas_de_25_caracteres_anda
+identificador a
  ;
 palabra reservada begin
-identificador a
- :=
- -
-constante 32968
+palabra reservada print
+ (
+constante 3
+ )
  ;
-identificador a
- :=
- -
-constante 32800
- ;
-identificador a
- :=
- -
-constante 32768
- ;
-identificador a
- :=
- -
-constante 32769
- ;
-identificador a
- :=
- -
-constante 32768
- ;
-identificador b
- :=
-constante 4294967295
- ;
-identificador b
- :=
-constante 4294967295
- ;
-identificador c
- :=
-constante 32968
- ;
-identificador c
- :=
-constante 32968
- ;
-identificador c
- :=
-constante 32968
- ;
-identificador c
- :=
-constante 32969
- ;
+palabra reservada print
+ (
+cadena cadena mal def); # Falta cerrar cadena multilinea con '
 palabra reservada end

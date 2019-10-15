@@ -9,23 +9,14 @@ begin
 		print({3}; # Se esperaba ')' y se encontro ';'.
 		print {3}); # Se esperaba '(' y se encontro una cadena. 
 		print(cadena mal def}); # Caracter "}" invalido  - Sentencia invalida.
-		print(3); # NO TIRA ERROR
-
-
-	#Comentarios bien y mal definidos. 
-	#Se espera que se elimine el comentario bien definido y que se reconozcan como tokens
-	# las palabras del mal definido
-
-  		#Comentario bien definido
-
-  		comentario mal definido
+		print(3); 
 
 
   	# Cadenas bien y mal definidas.
 		#Se espera que el lexico guarde el mensaje de la cadena bien definida en la TdeS y que genere un 
 		# error por la cadena mal definida.
 
-	print({cadena _ bien definida < > , ; ? &@!}); #TIRA ERROR
-	print({cadena mal def);
+	print({cadena _ bien definida < > , ; ? &@!}); 
+	print({cadena mal def); # Falta cerrar cadena multilinea con }
 		
 end
