@@ -1,1 +1,7 @@
 Linea: 1. Declaracion
+Linea: 2. Declaracion
+Linea: 3. Declaracion
+Linea: 6. Sentencia print. 
+Linea: 9. Sentencia print. 
+Linea: 10. Sentencia print. 
+Linea: 19. Sentencia print. 
