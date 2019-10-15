@@ -56,7 +56,7 @@ constante 4294967295
 identificador b
  :=
  -
-constante 1
+constante 2
  ;
 identificador a
  :=

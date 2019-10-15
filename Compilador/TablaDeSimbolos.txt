@@ -3,8 +3,8 @@ Lexema: b , Tipo de token: identificador , Tipo de dato: no definido , cantidad 
 Lexema: c , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
 Lexema: 25 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2
 Lexema: cte_entera_min , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: -1 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1
 Lexema: d , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
+Lexema: -2 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1
 Lexema: cte_ulong_max , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
 Lexema: h , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
 Lexema: j , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 2
