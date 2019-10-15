@@ -1,6 +1,3 @@
-ERROR: Linea 14: Sentencia invalida.
-ERROR: Linea 21: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 23: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 32: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 33: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 35: Se esperaba 'begin' al comienzo. 
+ERROR: Linea 20: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 22: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 29: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango

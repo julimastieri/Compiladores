@@ -32,11 +32,7 @@ identificador cte_ulong_max
  :=
 constante 4294967295
  ;
-identificador cte_ulong_limite
- :=
-constante 32768
- ;
-palabra reservada cte
+identificador cte_ulong_min
  :=
 constante 0
  ;
@@ -56,13 +52,9 @@ constante 4294967295
 identificador b
  :=
  -
-constante 2
+constante 1
  ;
 identificador a
- :=
-constante 25
- ;
-identificador j
  :=
 constante 25
  ;
@@ -75,10 +67,5 @@ identificador d
  :=
  -
 constante 32769
- ;
-identificador j
- :=
- -
-constante 4294967295
  ;
 palabra reservada end
