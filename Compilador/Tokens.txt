@@ -1,51 +1,84 @@
+palabra reservada int
+identificador a
+ ,
+identificador h
+ ,
+identificador w
+ ;
+palabra reservada ulong
+identificador b
+ ;
+palabra reservada int
+identificador c
+ [
+constante 1
+ ,
+ _
+ ,
+constante 5
+ ]
+ ;
 palabra reservada begin
-identificador a
+identificador cte_entera_max
  :=
- -
-constante 32968
+constante 32767
  ;
-identificador a
- :=
- -
-constante 32800
- ;
-identificador a
+identificador cte_entera_min
  :=
  -
 constante 32768
  ;
+identificador cte_ulong_max
+ :=
+constante 4294967295
+ ;
+identificador cte_ulong_limite
+ :=
+constante 32768
+ ;
+palabra reservada cte
+ :=
+constante 0
+ ;
 identificador a
+ :=
+constante 32800
+ ;
+identificador b
+ :=
+ -
+constante 40000
+ ;
+identificador a
+ :=
+constante 4294967295
+ ;
+identificador b
+ :=
+ -
+constante 1
+ ;
+identificador a
+ :=
+constante 25
+ ;
+identificador j
+ :=
+constante 25
+ ;
+identificador a
+ :=
+ -
+constante 24
+ ;
+identificador d
  :=
  -
 constante 32769
  ;
-identificador a
+identificador j
  :=
  -
-constante 32768
- ;
-identificador b
- :=
 constante 4294967295
- ;
-identificador b
- :=
-constante 4294967295
- ;
-identificador c
- :=
-constante 32968
- ;
-identificador c
- :=
-constante 32968
- ;
-identificador c
- :=
-constante 32968
- ;
-identificador c
- :=
-constante 32969
  ;
 palabra reservada end

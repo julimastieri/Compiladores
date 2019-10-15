@@ -19,16 +19,16 @@ begin
 		end
 	end_if;
 
-	#Sentencias con errores
+	#Sentencias con errores sintacticos
 
-		if (<b) a:=b; else b:=a; end_if;
-		if (a<) a:=b; else b:=a; end_if;
-		(a<b) a:=b; else b:=a; end_if; #falta if
-		if (a<b) a:=b; else b:=a; ; #falta end_if
-		if (a<b a:=b; else b:=a; end_if;
-		if () a:=b; else b:=a; end_if; 
-		if (a==b) begin a:=b; b:=a; end_if; #falta end
-		if (a==b) a:=b; b:=a; end end_if; #falta begin
-		if (a==b) a:=b; b:=a; end_if; #falta begin end
+		if (<b) a:=b; else b:=a; end_if; # Se esperaba una expresion del lado derecho para comparar. 
+		if (a<) a:=b; else b:=a; end_if; # Se esperaba una expresion del lado izquierdo para comparar. 
+		(a<b) a:=b; else b:=a; end_if; # Ausencia de palabra reservada 'if'. 
+		if (a<b) a:=b; else b:=a; ; # Ausencia de palabra reservada 'end_if'.
+		if (a<b a:=b; else b:=a; end_if; # Se esperaba ')' que cierre condicion.
+		if () a:=b; else b:=a; end_if; # Se esperaba una condicion entre '(' ')'.
+		if (a==b) begin a:=b; b:=a; end_if; # Se esperaba 'end' al final del bloque de sentencias.
+		if (a==b) a:=b; b:=a; end end_if; # Se esperaba 'begin' al comienzo del bloque de sentencias. 
+		if (a==b) a:=b; b:=a; end_if; # Sentencia invalida.
 	
 end

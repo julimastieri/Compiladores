@@ -10,19 +10,19 @@ begin
 	cte_entera_min := -32768;
 
 	cte_ulong_max:=4294967295;
-	cte_ulong_limit :=32768; #tipo de dato es ulong ya que no entra en el rango de los enteros
-	cte:=0; #tipo de dato int ya que si entra en el rango de los enteros
+	cte_ulong_limite :=32768; 
+	cte:=0; #Se espera que se reconozca como cte entera
 
 	#Constantes con el primer y último valor fuera del rango.
 	  #Se espera que el analizador lexico reconozca el 32800 y el 40000 como ulong. El 4400000000 tambien como ulong reemplazandolo por el maximo
 	  #y el 2 como constante entera y el menos como token.
 
-	a:= 32800 ; #reconoce como ulong
+	a:= 32800 ; 
 	b:= -40000; #constante negativa fuera de rango
 
-	a:=4400000000;#constante fuera de rango
+	a:=4400000000;#
 
-	b:= -1;
+	b:= -2;
 
 	#Otros ejemplos:
 

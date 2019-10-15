@@ -14,16 +14,16 @@ begin
 		a:=b;
 	;
 
-	#Sentencias con errores
-		foreach  in b
+	#Sentencias con errores sintacticos
+		foreach  in b #Se esperaba el nombre de la variable para iterar.
 			a:=b;
 		;
 
-		foreach a in 
+		foreach a in #Se esperaba el nombre de la coleccion y se encontraron sentencias.
 			a:=b;
 		;
 
-		foreach a b
+		foreach a b #Se esperaba 'in' y se encontró el nombre de la coleccion. 
 			a:=b;
 		;
 
