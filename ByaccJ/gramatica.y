@@ -40,9 +40,9 @@ tipo :INT
 	 |ULONG
 ;
 
-lista_de_variables :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); }
-				   |ID '['lista_de_valores_iniciales']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); }
-				   |ID '['CTE']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); }
+lista_de_variables :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\r\n"); }
+				   |ID '['lista_de_valores_iniciales']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\r\n"); }
+				   |ID '['CTE']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\r\n"); }
 
 				   |ID ',' lista_de_variables
 				   |ID '['lista_de_valores_iniciales']'',' lista_de_variables
@@ -87,10 +87,10 @@ bloque_de_sentencias :sentencia_ejecutable
 					 |BEGIN lista_de_sentencias     { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'end' al final del bloque de sentencias. ", AnalizadorLexico.cantLineas));  }
 ;
 
-sentencia_ejecutable :sentencia_if { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia if. " + "\n");}
-					 |sentencia_foreach { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia foreach. " + "\n");}
-					 |sentencia_print { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia print. " + "\n");}
-					 |asignacion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Asignacion. " + "\n");}
+sentencia_ejecutable :sentencia_if { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia if. " + "\r\n");}
+					 |sentencia_foreach { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia foreach. " + "\r\n");}
+					 |sentencia_print { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia print. " + "\r\n");}
+					 |asignacion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Asignacion. " + "\r\n");}
 ;					 
 
 sentencia_if :IF condicion bloque_de_sentencias END_IF';'
@@ -101,7 +101,7 @@ sentencia_if :IF condicion bloque_de_sentencias END_IF';'
 			 |IF condicion bloque_de_sentencias ';' { errores.add(new analizadorLexico.Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); }
 ;
 
-condicion :'(' expresion comparador expresion ')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); }
+condicion :'(' expresion comparador expresion ')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\r\n"); }
 
 		  |'(' comparador expresion ')'{ errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado derecho para comparar. ", AnalizadorLexico.cantLineas)); }
 		  |'(' expresion comparador ')' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar. ", AnalizadorLexico.cantLineas)); }
@@ -130,22 +130,22 @@ sentencia_print :PRINT '(' CADENA ')' ';'
 				|PRINT '(' CADENA ';' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ')' y se encontro ';'. ", AnalizadorLexico.cantLineas));  } 
 ;
 
-expresion :termino'+'expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma. " + "\n"); }
-		  |termino'-'expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta. " + "\n"); }
+expresion :termino'+'expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma. " + "\r\n"); }
+		  |termino'-'expresion { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta. " + "\r\n"); }
 		  |termino
 ;		  
 
-termino :factor'*'termino { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion. " + "\n"); }
-		|factor'/'termino { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division. " + "\n"); }
+termino :factor'*'termino { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion. " + "\r\n"); }
+		|factor'/'termino { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division. " + "\r\n"); }
 		|factor
 ;		
 
-factor :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor ID. " + "\n"); }
-	   |CTE { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE. " + "\n"); }
-	   |'-'CTE {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\n");
+factor :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor ID. " + "\r\n"); }
+	   |CTE { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE. " + "\r\n"); }
+	   |'-'CTE {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\r\n");
 	   			  modificarContadorDeReferencias($2.sval);	 }
-	   |ID'['subindice']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor coleccion. " + "\n"); }
-	   |TO_ULONG'('expresion')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion. " + "\n"); }
+	   |ID'['subindice']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor coleccion. " + "\r\n"); }
+	   |TO_ULONG'('expresion')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion. " + "\r\n"); }
 
 	   |TO_ULONG expresion')' { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '(' para realizar la conversion. ", AnalizadorLexico.cantLineas)); }
 ;	   
