@@ -16,7 +16,7 @@
 
 
 
-//#line 2 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 2 ".\gramatica.y"
 package analizadorSintactico;
 
 import java.io.File;
@@ -533,7 +533,7 @@ final static String yyrule[] = {
 "asignacion : ID '[' ']' ASIGN expresion ';'",
 };
 
-//#line 167 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 167 ".\gramatica.y"
 
 public AnalizadorLexico aLexico;
 public static List<analizadorLexico.Error> errores;
@@ -797,208 +797,208 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 7:
-//#line 34 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 34 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Declaracion incorrecta. Se esperaba ';'.", AnalizadorLexico.cantLineas)); }
 break;
 case 8:
-//#line 35 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 35 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Sentencia invalida.", AnalizadorLexico.cantLineas)); }
 break;
 case 11:
-//#line 43 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\r\n"); }
+//#line 43 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); }
 break;
 case 12:
-//#line 44 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\r\n"); }
+//#line 44 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); }
 break;
 case 13:
-//#line 45 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\r\n"); }
+//#line 45 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); }
 break;
 case 17:
-//#line 51 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 51 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '[' para definir tamaño de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 18:
-//#line 52 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 52 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ']' para definir tamaño de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 19:
-//#line 53 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 53 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '[' para definir los valores iniciales de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 20:
-//#line 54 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 54 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ']' para definir los valores iniciales de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 21:
-//#line 55 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 55 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba valor entre '[' ']' para definir a la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 27:
-//#line 64 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 64 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
 break;
 case 28:
-//#line 65 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 65 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
 break;
 case 29:
-//#line 66 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 66 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
 break;
 case 30:
-//#line 67 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 67 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
 break;
 case 33:
-//#line 73 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 73 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'begin' al comienzo. ", AnalizadorLexico.cantLineas)); }
 break;
 case 34:
-//#line 74 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 74 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'end' al final. ", AnalizadorLexico.cantLineas)); }
 break;
 case 35:
-//#line 75 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 75 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Ausencia de begin y end de sentencias ejecutables.", AnalizadorLexico.cantLineas)); }
 break;
 case 41:
-//#line 86 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 86 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'begin' al comienzo del bloque de sentencias. ", AnalizadorLexico.cantLineas));  }
 break;
 case 42:
-//#line 87 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 87 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'end' al final del bloque de sentencias. ", AnalizadorLexico.cantLineas));  }
 break;
 case 43:
-//#line 90 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia if. " + "\r\n");}
+//#line 90 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia if. " + "\n");}
 break;
 case 44:
-//#line 91 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia foreach. " + "\r\n");}
+//#line 91 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia foreach. " + "\n");}
 break;
 case 45:
-//#line 92 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia print. " + "\r\n");}
+//#line 92 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia print. " + "\n");}
 break;
 case 46:
-//#line 93 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Asignacion. " + "\r\n");}
+//#line 93 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Asignacion. " + "\n");}
 break;
 case 49:
-//#line 98 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 98 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Ausencia de palabra reservada 'if'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 50:
-//#line 99 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 99 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Ausencia de palabra reservada 'if'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 51:
-//#line 100 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 100 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 52:
-//#line 101 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 101 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 53:
-//#line 104 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\r\n"); }
+//#line 104 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); }
 break;
 case 54:
-//#line 106 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 106 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado derecho para comparar. ", AnalizadorLexico.cantLineas)); }
 break;
 case 55:
-//#line 107 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 107 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar. ", AnalizadorLexico.cantLineas)); }
 break;
 case 56:
-//#line 108 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 108 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ')' que cierre condicion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 57:
-//#line 109 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 109 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una condicion entre '(' ')'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 65:
-//#line 122 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 122 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la variable para iterar. ", AnalizadorLexico.cantLineas)); }
 break;
 case 66:
-//#line 123 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 123 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 67:
-//#line 124 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 124 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias. ", AnalizadorLexico.cantLineas));  }
 break;
 case 69:
-//#line 129 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 129 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '(' y se encontro una cadena. ", AnalizadorLexico.cantLineas));  }
 break;
 case 70:
-//#line 130 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 130 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ')' y se encontro ';'. ", AnalizadorLexico.cantLineas));  }
 break;
 case 71:
-//#line 133 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma. " + "\r\n"); }
+//#line 133 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma. " + "\n"); }
 break;
 case 72:
-//#line 134 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta. " + "\r\n"); }
+//#line 134 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta. " + "\n"); }
 break;
 case 74:
-//#line 138 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion. " + "\r\n"); }
+//#line 138 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion. " + "\n"); }
 break;
 case 75:
-//#line 139 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division. " + "\r\n"); }
+//#line 139 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division. " + "\n"); }
 break;
 case 77:
-//#line 143 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor ID. " + "\r\n"); }
+//#line 143 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor ID. " + "\n"); }
 break;
 case 78:
-//#line 144 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE. " + "\r\n"); }
+//#line 144 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE. " + "\n"); }
 break;
 case 79:
-//#line 145 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\r\n");
+//#line 145 ".\gramatica.y"
+{  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\n");
 	   			  modificarContadorDeReferencias(val_peek(0).sval);	 }
 break;
 case 80:
-//#line 147 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor coleccion. " + "\r\n"); }
+//#line 147 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor coleccion. " + "\n"); }
 break;
 case 81:
-//#line 148 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
-{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion. " + "\r\n"); }
+//#line 148 ".\gramatica.y"
+{ estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion. " + "\n"); }
 break;
 case 82:
-//#line 150 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 150 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '(' para realizar la conversion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 87:
-//#line 160 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 160 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba una expresion para realizar la asignacion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 88:
-//#line 161 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 161 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba '[' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 89:
-//#line 162 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 162 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba ']' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 90:
-//#line 163 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
+//#line 163 ".\gramatica.y"
 { errores.add(new analizadorLexico.Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas));  }
 break;
 //#line 928 "Parser.java"

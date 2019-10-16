@@ -127,7 +127,7 @@ public class AnalizadorLexico {
              if (as != null) //Ejecuto la AS
             	 token = as.ejecutar(buffer, c);
              
-             if ((c != null) && ( (c == '\n') || (c == '\r') ) ){ //si no es fin de archivo y es un nl
+             if ((c != null) && (c == '\n') ){ //si no es fin de archivo y es un nl
             	 
             	 if (unreadNl == false){ //No deslei nl
                 	 cantLineas++;
@@ -192,7 +192,7 @@ public class AnalizadorLexico {
 			out.append(token.getTipoDeToken());
 			out.append(" ");
 			out.append(token.getLexema());
-			out.append("\r\n");	
+			out.append("\n");	
 		}
 		
 		return out.toString();
@@ -215,7 +215,7 @@ public class AnalizadorLexico {
 			out.append(" , cantidad de de veces que es referenciado: ");
 			out.append(entrada.getContadorDeReferencias());
 			
-			out.append("\r\n");
+			out.append("\n");
 		}
 
 		return out.toString();

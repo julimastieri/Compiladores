@@ -1,9 +1,5 @@
 palabra reservada int
 identificador a
- ,
-identificador h
- ,
-identificador w
  ;
 palabra reservada ulong
 identificador b
@@ -19,52 +15,37 @@ constante 5
  ]
  ;
 palabra reservada begin
-identificador cte_entera_max
- :=
-constante 32767
+palabra reservada print
+ (
+cadena mensaje para imprimir por pantalla
+ )
  ;
-identificador cte_entera_min
- :=
- -
-constante 32768
+palabra reservada print
+ (
+cadena 3
  ;
-identificador cte_ulong_max
- :=
-constante 4294967295
+palabra reservada print
+cadena 3
+ )
  ;
-identificador cte_ulong_limite
- :=
-constante 32768
+palabra reservada print
+ (
+palabra reservada cadena
+identificador mal
+identificador def
+ )
  ;
-identificador a
- :=
-constante 32800
+palabra reservada print
+ (
+identificador hola
+ )
  ;
-identificador b
- :=
- -
-constante 40000
+palabra reservada print
+ (
+cadena cadena _ bien definida < > , ; ? &@!
+ )
  ;
-identificador a
- :=
-constante 4294967295
- ;
-identificador b
- :=
- -
-constante 2
- ;
-identificador a
- :=
-constante 25
- ;
-identificador j
- :=
-constante 25
- ;
-identificador a
- :=
- -
-constante 24
- ;
+palabra reservada print
+ (
+cadena cadena mal def	 # Falta cerrar cadena multilinea con 
 palabra reservada end

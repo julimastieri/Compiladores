@@ -1,2 +1,5 @@
-ERROR: Linea 37: Constante negativa fuera de rango. Fue reemplazado por el valor limite permitido del rango
-ERROR: Linea 41: Constante fuera de rango. Fue reemplazado por el valor limite permitido del rango
+ERROR: Linea 9: Se esperaba ')' y se encontro ';'. 
+ERROR: Linea 10: Se esperaba '(' y se encontro una cadena. 
+ERROR: Linea 11: Caracter "}" invalido
+ERROR: Linea 11: Sentencia invalida.
+ERROR: Linea 12: Sentencia invalida.
