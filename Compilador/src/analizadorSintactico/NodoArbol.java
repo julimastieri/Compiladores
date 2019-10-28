@@ -33,7 +33,7 @@ public class NodoArbol extends ParserVal{
 		if (tipoDeDatoIzq == tipoDeDatoDer)
 			this.tipoDeDato = tipoDeDatoIzq;
 		else {
-			Error error = new Error("ERROR", "Tipos de satos incompatibles", AnalizadorLexico.cantLineas);
+			Error error = new Error("ERROR", "Tipos de datos incompatibles", AnalizadorLexico.cantLineas);
 			Parser.errores.add(error);
 		}
 	}

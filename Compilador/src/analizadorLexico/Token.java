@@ -6,7 +6,7 @@ public class Token {
 	String tipoDeToken;
 	int id;
 	int contadorDeReferencias;
-	String tipoDeDato;
+	String tipoDeDato, uso;
 	
 	public Token(String l, String t, int id) {
 		this.id = id;
@@ -14,6 +14,7 @@ public class Token {
 		tipoDeToken = t;
 		contadorDeReferencias = 1;
 		tipoDeDato = "no definido";
+		uso = "no definido";
 	}
 	
 	public String getTipoDeToken() {
@@ -47,6 +48,14 @@ public class Token {
 	
 	public String getTipoDeDato() {
 		return tipoDeDato;
+	}
+	
+	public void setUso(String u) {
+		uso = u;
+	}
+	
+	public String getUso() {
+		return uso;
 	}
 
 	
