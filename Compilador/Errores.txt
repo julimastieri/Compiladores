@@ -1,5 +1,0 @@
-ERROR: Linea 9: Se esperaba ')' y se encontro ';'. 
-ERROR: Linea 10: Se esperaba '(' y se encontro una cadena. 
-ERROR: Linea 11: Caracter "}" invalido
-ERROR: Linea 11: Sentencia invalida.
-ERROR: Linea 12: Sentencia invalida.

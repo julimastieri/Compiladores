@@ -1,0 +1,5 @@
+PROGRAMA
+	S
+		:=
+			a
+			8

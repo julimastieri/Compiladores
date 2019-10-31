@@ -31,8 +31,8 @@ public class Main {
     	parser.parse();
 
     //Genero archivo con los tokens y los errores
-    	File archTokens = new File("Tokens.txt");
-    	FileManager.write(parser.tokensToString() , archTokens);
+    	//File archTokens = new File("Tokens.txt");
+    	//FileManager.write(parser.tokensToString() , archTokens);
     	
     	File archErrores = new File("Errores.txt");
     	FileManager.write(parser.erroresToString(), archErrores);
@@ -43,8 +43,13 @@ public class Main {
     	FileManager.write(parser.tDeStoString(), archTdeS);
     
     //Genero archivo con las estructuras	
-    	File archEstruct = new File("EstructurasSintacticas.txt");
-    	FileManager.write(parser.estructurasToString(), archEstruct);
+    	//File archEstruct = new File("EstructurasSintacticas.txt");
+    	//FileManager.write(parser.estructurasToString(), archEstruct);
+    	
+    //Genero archivo con el arbol sintactico	
+    	parser.imprimirArbol(parser.raiz, "");
+    	File archArbol = new File("ArbolSintactico.txt");
+    	FileManager.write(parser.arbolString.toString(), archArbol);
     	
     System.out.println("Compilacion finalizada");
     	

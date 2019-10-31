@@ -1,5 +1,7 @@
 package analizadorSintactico;
 
+import java.security.PublicKey;
+
 import analizadorLexico.AnalizadorLexico;
 import analizadorLexico.Error;
 
@@ -13,9 +15,11 @@ public class NodoArbol extends ParserVal{
 	
 	public NodoArbol(String nombre, ParserVal nodoIzq, ParserVal nodoDer) {
 		this.nombre = nombre;
-		this.nodoIzq = (NodoArbol) nodoIzq;
-		this.nodoDer = (NodoArbol) nodoDer;
+
+		this.nodoIzq = nodoIzq != null ? (NodoArbol) nodoIzq : null;
+		this.nodoDer = nodoDer != null ? (NodoArbol) nodoDer : null;
 	}
+	
 	
 	public void setTipoDeDato(String tipoDeDato) { //AnalizadorLexico.TIPO_DATO_ENTERO; o AnalizadorLexico.TIPO_DATO_ULONG;
 		this.tipoDeDato = tipoDeDato;
@@ -40,6 +44,18 @@ public class NodoArbol extends ParserVal{
 	
 	public String getTipoDeDato() {
 		return this.tipoDeDato;
+	}
+	
+	public NodoArbol getNodoDer() {
+		return nodoDer;
+	}
+	
+	public NodoArbol getNodoIzq() {
+		return nodoIzq;
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 	
 }

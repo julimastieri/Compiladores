@@ -1,0 +1,4 @@
+int a,a,a;
+begin
+	a:=8;
+end

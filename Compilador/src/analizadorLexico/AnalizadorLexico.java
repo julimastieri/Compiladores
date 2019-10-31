@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.text.TabableView;
+
 
 public class AnalizadorLexico {
 	
@@ -52,6 +54,8 @@ public class AnalizadorLexico {
         
         cantLineas = 1; 
         unreadNl = false;
+        
+       
     }
     
     private void llenarPalabrasRes() {

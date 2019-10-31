@@ -1,12 +1,2 @@
-Lexema: a , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: 1 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1
-Lexema: b , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: c , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: 3 , Tipo de token: cadena , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: def , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: 5 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1
-Lexema: cadena mal def	 # Falta cerrar cadena multilinea con  , Tipo de token: cadena , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: mal , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: hola , Tipo de token: identificador , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: cadena _ bien definida < > , ; ? &@! , Tipo de token: cadena , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
-Lexema: mensaje para imprimir por pantalla , Tipo de token: cadena , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1
+Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 4
+Lexema: 8 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1
