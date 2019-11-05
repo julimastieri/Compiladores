@@ -1,9 +1,8 @@
 package analizadorSintactico;
 
-import java.security.PublicKey;
-
 import analizadorLexico.AnalizadorLexico;
 import analizadorLexico.Error;
+import analizadorLexico.Token;
 
 public class NodoArbol extends ParserVal{
 
@@ -34,11 +33,23 @@ public class NodoArbol extends ParserVal{
 		String tipoDeDatoIzq = nodoIzq.getTipoDeDato();
 		String tipoDeDatoDer = nodoDer.getTipoDeDato();
 		
-		if (tipoDeDatoIzq == tipoDeDatoDer)
+		if (tipoDeDatoIzq.equals(tipoDeDatoDer))
 			this.tipoDeDato = tipoDeDatoIzq;
 		else {
-			Error error = new Error("ERROR", "Tipos de datos incompatibles", AnalizadorLexico.cantLineas);
+			Error error = new Error("ERROR", "Tipo de dato " + tipoDeDatoIzq + " no es compatible con " + tipoDeDatoDer, AnalizadorLexico.cantLineas);
 			Parser.errores.add(error);
+			this.tipoDeDato = Token.UNDEFINED;
+		}
+	}
+	
+	public void setTipoDeDato(String tipoDeDatoIzq, String tipoDeDatoDer) {
+		
+		if (tipoDeDatoIzq.equals(tipoDeDatoDer))
+			this.tipoDeDato = tipoDeDatoIzq;
+		else {
+			Error error = new Error("ERROR", "Tipo de dato " + tipoDeDatoIzq + " no es compatible con " + tipoDeDatoDer, AnalizadorLexico.cantLineas);
+			Parser.errores.add(error);
+			this.tipoDeDato = Token.UNDEFINED;
 		}
 	}
 	

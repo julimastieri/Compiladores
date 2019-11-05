@@ -1,2 +1,2 @@
-ERROR: Linea 1: Redeclaracion de la variable b
-ERROR: Linea 1: Redeclaracion de la variable a
+ERROR: Linea 22: Tipo de dato ulong no es compatible con int
+ERROR: Linea 22: Tipo de dato ulong no es compatible con no definido

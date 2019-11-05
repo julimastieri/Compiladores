@@ -1,17 +1,18 @@
 package analizadorLexico;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Token {
 	
 	public static final String UNDEFINED = "no definido";
+	public static final String USO_COLECCION = "Nombre de coleccion";
+	public static final String USO_VARIABLE = "Variable";
 	
 	String lexema;
 	String tipoDeToken;
 	int id;
 	int contadorDeReferencias;
-	String tipoDeDato, uso;
+	String tipoDeDato, uso;	
 	int tamanio;
 	ArrayList<String> valoresIniciales;
 	
@@ -23,6 +24,7 @@ public class Token {
 		tipoDeDato = UNDEFINED;
 		uso = UNDEFINED;
 		tamanio = 1;
+		valoresIniciales = new ArrayList<String>();
 	}
 	
 	public String getTipoDeToken() {
@@ -75,23 +77,26 @@ public class Token {
 
 	public void setValoresIniciales(ArrayList<String> valores) {
 		String v;
-		valoresIniciales = new ArrayList<String>();
 		
 		for (int i =0; i<valores.size(); i++) {
 			v = valores.get(i);
 			if (v != "_") {
 				valoresIniciales.add(v);
 			}else {
-				valoresIniciales.add("");
+				valoresIniciales.add("_");
 			}
 		}
 	}
 	
 	public String getValorInicial(int pos) {
-		if( ( pos > 0) && (pos < valoresIniciales.size()) ) {
+		if( ( pos >= 0) && (pos < valoresIniciales.size()) ) {
 			return valoresIniciales.get(pos);
 		} 
 		return null;
+	}
+	
+	public int getCantidadValoresIniciales() {
+		return valoresIniciales.size();
 	}
 	
 }

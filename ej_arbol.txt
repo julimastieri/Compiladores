@@ -1,1 +1,49 @@
-int a, b , b[_,-3], a[-5,-6];
+int b[_,-3,6], c[-5,-6];
+int a;
+ulong w;
+ulong h[11];
+
+begin
+	#Andan:
+
+	#a := c[w];
+	#foreach c in a a:= a;; #3 Errores: Nombre de coleccion es usada como Variable, Variable es usada como Nombre de coleccion, c no es del mismo tipo que a
+	#w:=a+w*h[5]; #con dist tipo da el error q corresponde, sino lo acepta
+	#w:= a*h[12]; #con dist tipo da el error q corresponde, sino lo acepta
+	#w := a; #con dist tipo da el error q corresponde, sino lo acepta
+	#a[3] := w; #a debe ser una coleccion
+	#b := w #b debe ser una variable
+	#a := b; #Nombre de coleccion es usada como Variable
+	#a := a[2]; #Variable es usada como Nombre de coleccion
+	#b[w] := b[32780]; #El tipo de dato del subindice debe ser entero y no ulong (x2)
+	#w := to_ulong(a); #la acepta ya que w es ulong y a es int pero con conver explicita
+	#w := to_ulong(w);
+	#a := to_ulong(a); #tipos incompatibles
+	#h[4]:= a; 
+	#w := to_ulong(a*a);
+	#w := to_ulong(a+a*a-a/a);
+	#w := to_ulong(300+a*2-a/3);
+	#Inferir tamanio ahora anda 
+	#Valores iniciales de un arreglo ahora si se cargan bien.
+
+
+	#MAL
+	#w := to_ulong(3); #si no pongo la conversion da error, tendria que permitir solo el 3 ya que esta dentro del rango de ulong 
+	#w := -3; #esta bn pero solo pq es de tipo int no por ser negarivo, como el caso de w:=3 me lo rechaza este obvio tambn, cdo se cambie probar este de nuevo 
+
+	#w := to_ulong(-3); #Deberia tirar error ya que -3 no esta dentro del rango de ulong
+	#w := 510; # no permite pero deberia
+	#w := w*3; #no me deja pq 3 es int y w ulong
+	
+
+	#Probar:
+	#no probe ningun if, ni print.
+	#ver si el arbol que genera para cada tipo de sentencia que existe lo hace bien.
+
+
+	#Preguntas:
+		#¿Aprovechamos el arreglo valores iniciales para almacenar el valor de una variable? ¿y cdo un valor cambia lo tenemos q cambiar (ya sea en colecciones como varibales simples)?
+		#¿Que valor poner cdo hay "_"? La lista de valores iniciales es de tipo string ¿Esta bien o la hacemos del tipo de la variable o qsy?
+		#¿Que pasaria si hay una operacion del lado derecho y da - o se pasa de rango? Esto supongo que se chequea en ejecucion...
+
+end

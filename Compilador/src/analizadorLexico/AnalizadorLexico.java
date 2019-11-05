@@ -81,7 +81,6 @@ public class AnalizadorLexico {
     	palabras_reservadas.put("in", 273);
     	palabras_reservadas.put("ulong", 274);
     	palabras_reservadas.put("to_ulong", 275);
-    	
     }
     
     private void llenarEquivalentes() {
@@ -218,6 +217,20 @@ public class AnalizadorLexico {
 			out.append(entrada.getTipoDeDato());
 			out.append(" , cantidad de de veces que es referenciado: ");
 			out.append(entrada.getContadorDeReferencias());
+			out.append(" , Uso: ");
+			out.append(entrada.getUso());
+			out.append(" , Tamanio: ");
+			out.append(entrada.getTamanio());
+			
+			int tamanio = entrada.getCantidadValoresIniciales();
+			if (tamanio > 0) {
+				out.append(" , Valores Iniciales: ");
+				for (int i=0; i < tamanio-1;i++) { 
+					out.append(entrada.getValorInicial(i) + ", ");				
+				}
+				out.append(entrada.getValorInicial(tamanio-1) + " ");	
+			}
+			
 			
 			out.append("\n");
 		}

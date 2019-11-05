@@ -47,7 +47,8 @@ public class Main {
     	//FileManager.write(parser.estructurasToString(), archEstruct);
     	
     //Genero archivo con el arbol sintactico	
-    	parser.imprimirArbol(parser.raiz, "");
+    	if (parser.raiz != null)
+    		parser.imprimirArbol(parser.raiz, "");
     	File archArbol = new File("ArbolSintactico.txt");
     	FileManager.write(parser.arbolString.toString(), archArbol);
     	
