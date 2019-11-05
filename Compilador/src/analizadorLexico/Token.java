@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Token {
 	
+	public static final String UNDEFINED = "no definido";
+	
 	String lexema;
 	String tipoDeToken;
 	int id;
@@ -18,8 +20,8 @@ public class Token {
 		lexema = l;
 		tipoDeToken = t;
 		contadorDeReferencias = 1;
-		tipoDeDato = "no definido";
-		uso = "no definido";
+		tipoDeDato = UNDEFINED;
+		uso = UNDEFINED;
 		tamanio = 1;
 	}
 	

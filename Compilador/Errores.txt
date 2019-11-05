@@ -1,0 +1,2 @@
+ERROR: Linea 1: Redeclaracion de la variable b
+ERROR: Linea 1: Redeclaracion de la variable a

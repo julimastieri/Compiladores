@@ -1,4 +1,1 @@
-int a,a,a;
-begin
-	a:=8;
-end
+int a, b , b[_,-3], a[-5,-6];
