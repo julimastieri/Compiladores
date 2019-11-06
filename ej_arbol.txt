@@ -1,12 +1,12 @@
 int b[_,-3,6], c[-5,-6];
-int a;
+#int a;
 ulong w;
 ulong h[11];
 
 begin
 	#Andan:
 
-	#a := c[w];
+	a := c[w];
 	#foreach c in a a:= a;; #3 Errores: Nombre de coleccion es usada como Variable, Variable es usada como Nombre de coleccion, c no es del mismo tipo que a
 	#w:=a+w*h[5]; #con dist tipo da el error q corresponde, sino lo acepta
 	#w:= a*h[12]; #con dist tipo da el error q corresponde, sino lo acepta

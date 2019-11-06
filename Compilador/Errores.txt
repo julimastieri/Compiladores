@@ -1,2 +1,0 @@
-ERROR: Linea 22: Tipo de dato ulong no es compatible con int
-ERROR: Linea 22: Tipo de dato ulong no es compatible con no definido

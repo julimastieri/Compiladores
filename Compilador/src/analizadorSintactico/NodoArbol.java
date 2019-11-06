@@ -42,6 +42,7 @@ public class NodoArbol extends ParserVal{
 		}
 	}
 	
+	
 	public void setTipoDeDato(String tipoDeDatoIzq, String tipoDeDatoDer) {
 		
 		if (tipoDeDatoIzq.equals(tipoDeDatoDer))
