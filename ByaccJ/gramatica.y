@@ -38,7 +38,7 @@ sentencias_declarativas : sentencia_declarativa
 sentencia_declarativa : tipo lista_de_variables';' { agregarTipoTS($1.sval, $2.obj);}
 
 					  | tipo lista_de_variables { errores.add(new Error("ERROR", "Declaracion incorrecta. Se esperaba ';'.", AnalizadorLexico.cantLineas)); }
-					  | error';'{ errores.add(new Error("ERROR", "Sentencia invalida.", AnalizadorLexico.cantLineas)); }
+					  | error';'{ errores.add(new Error("ERROR", "Sentencia invalida.", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
 ;
 				  		   
 
@@ -56,8 +56,9 @@ lista_de_variables :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas
 
 				   |ID '['lista_de_valores_iniciales']' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); 
 				   										  agregarUsoTS($1.sval, Token.USO_COLECCION);
-				   										  inferirTamanio($1.sval, $3.obj);
-
+				   										  if ($3 != null)
+				   										  	inferirTamanio($1.sval, $3.obj);
+				   										  
 				   										  ArrayList<String> listaDeVariables = new ArrayList<String>();
 				   										  listaDeVariables.add(0, $1.sval);
 				   										  $$.obj = listaDeVariables;
@@ -78,7 +79,8 @@ lista_de_variables :ID { estructuras.add("Linea: " + AnalizadorLexico.cantLineas
 				   							  }
 
 				   |ID '['lista_de_valores_iniciales']'',' lista_de_variables { agregarUsoTS($1.sval, Token.USO_COLECCION);
-				   																inferirTamanio($1.sval, $3.obj);
+				   																if ($3 != null)
+				   																	inferirTamanio($1.sval, $3.obj);
 
 				   																((ArrayList<String>)$6.obj).add(0, $1.sval);
 				   																$$.obj = $6.obj;
@@ -123,26 +125,23 @@ lista_de_valores_iniciales :'_' { ArrayList<String> listaDeVariables = new Array
 				   												$$.obj = $3.obj;
 						   									   }
 
-						   |cte cte { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
-						   |cte lista_de_valores_iniciales { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
-						   |'_' cte { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
-						   |'_' lista_de_valores_iniciales { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); }
+						   |cte cte { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); $$=null;}
+						   |cte lista_de_valores_iniciales { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); $$=null;}
+						   |'_' cte { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); $$=null;}
+						   |'_' lista_de_valores_iniciales { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); $$=null;}
 
 ;
 
 cte : CTE 
-	| '-'CTE {modificarContadorDeReferencias($2.sval);
-			  $$.sval = $1.sval + $2.sval;
-			 }
+	| '-'CTE {$$.sval = modificarContadorDeReferencias($2.sval);}
 ;
 
-sentencias_ejecutables :BEGIN lista_de_sentencias END { $$ = $2;
-						}
+sentencias_ejecutables :BEGIN lista_de_sentencias END {$$ = $2;}
 					   |BEGIN END {$$=null;}
 
-					   |lista_de_sentencias END { errores.add(new Error("ERROR", "Se esperaba 'begin' al comienzo. ", AnalizadorLexico.cantLineas)); }
-					   |BEGIN lista_de_sentencias { errores.add(new Error("ERROR", "Se esperaba 'end' al final. ", AnalizadorLexico.cantLineas)); }
-					   |lista_de_sentencias { errores.add(new Error("ERROR", "Ausencia de begin y end de sentencias ejecutables.", AnalizadorLexico.cantLineas)); }
+					   |lista_de_sentencias END { errores.add(new Error("ERROR", "Se esperaba 'begin' al comienzo. ", AnalizadorLexico.cantLineas)); $$=null;}
+					   |BEGIN lista_de_sentencias { errores.add(new Error("ERROR", "Se esperaba 'end' al final. ", AnalizadorLexico.cantLineas)); $$=null;}
+					   |lista_de_sentencias { errores.add(new Error("ERROR", "Ausencia de begin y end de sentencias ejecutables.", AnalizadorLexico.cantLineas)); $$=null;}
 ;
 
 lista_de_sentencias :sentencia_ejecutable { $$ = $1 ; }
@@ -167,7 +166,7 @@ sentencia_ejecutable :seleccion { estructuras.add("Linea: " + AnalizadorLexico.c
 seleccion : IF condicion cuerpo_if { $$ = new NodoArbol("IF", $2, $3);
 			                       }
 
-		  |condicion cuerpo_if { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'if'. ", AnalizadorLexico.cantLineas)); }
+		  |condicion cuerpo_if { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'if'. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
 
 ;
 
@@ -179,8 +178,8 @@ cuerpo_if : bloque_de_sentencias_if END_IF ';' {
 		  																		$$ = new NodoArbol("CUERPO", $1, $3);
 		                                                                     }
 
-		  | bloque_de_sentencias_if ';'  { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); }
-		  | bloque_de_sentencias_if ELSE bloque_de_sentencias_else ';' { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); }
+		  | bloque_de_sentencias_if ';'  { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); $$=null;}
+		  | bloque_de_sentencias_if ELSE bloque_de_sentencias_else ';' { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); $$=null;}
 
 //THEN
 bloque_de_sentencias_if : bloque_de_sentencias {  $$ = new NodoArbol("THEN", $1, null);
@@ -200,8 +199,8 @@ bloque_de_sentencias :sentencia_ejecutable { $$ = $1;						                   }
 					 |BEGIN END { $$ = new NodoArbol("Sentencia Ejecutable", null, null);
 					            }
 
-					 |lista_de_sentencias END { errores.add(new Error("ERROR", "Se esperaba 'begin' al comienzo del bloque de sentencias. ", AnalizadorLexico.cantLineas));  }
-					 |BEGIN lista_de_sentencias { errores.add(new Error("ERROR", "Se esperaba 'end' al final del bloque de sentencias. ", AnalizadorLexico.cantLineas));  }
+					 |lista_de_sentencias END { errores.add(new Error("ERROR", "Se esperaba 'begin' al comienzo del bloque de sentencias. ", AnalizadorLexico.cantLineas));  $$=new NodoArbol("ERROR SINTACTICO", null, null);}
+					 |BEGIN lista_de_sentencias { errores.add(new Error("ERROR", "Se esperaba 'end' al final del bloque de sentencias. ", AnalizadorLexico.cantLineas));  $$=new NodoArbol("ERROR SINTACTICO", null, null);}
 ;
 
 
@@ -210,10 +209,10 @@ condicion :'(' expresion comparador expresion ')' { estructuras.add("Linea: " + 
 													$$ = new NodoArbol("CONDICION", nodo_cond, null);
 												  }
 
-		  |'(' comparador expresion ')'{ errores.add(new Error("ERROR", "Se esperaba una expresion del lado derecho para comparar. ", AnalizadorLexico.cantLineas)); }
-		  |'(' expresion comparador ')' { errores.add(new Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar. ", AnalizadorLexico.cantLineas)); }
-		  | '(' expresion comparador expresion { errores.add(new Error("ERROR", "Se esperaba ')' que cierre condicion. ", AnalizadorLexico.cantLineas)); }
-		  | '(' ')' { errores.add(new Error("ERROR", "Se esperaba una condicion entre '(' ')'. ", AnalizadorLexico.cantLineas)); }
+		  |'(' comparador expresion ')'{ errores.add(new Error("ERROR", "Se esperaba una expresion del lado derecho para comparar. ", AnalizadorLexico.cantLineas)); $$=null;}
+		  |'(' expresion comparador ')' { errores.add(new Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar. ", AnalizadorLexico.cantLineas)); $$=null;}
+		  | '(' expresion comparador expresion { errores.add(new Error("ERROR", "Se esperaba ')' que cierre condicion. ", AnalizadorLexico.cantLineas)); $$=null;}
+		  | '(' ')' { errores.add(new Error("ERROR", "Se esperaba una condicion entre '(' ')'. ", AnalizadorLexico.cantLineas)); $$=null;}
 ;		  
 
 comparador : MAYORIGUAL 
@@ -246,9 +245,9 @@ sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { String tipo_variab
 															  $$ = new NodoArbol("FOREACH",nodo_condicion ,$5);
 					                                        }
 
-				  |FOREACH IN ID bloque_de_sentencias';' { errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para iterar. ", AnalizadorLexico.cantLineas)); } 
-				  |FOREACH ID ID bloque_de_sentencias';' { errores.add(new Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion. ", AnalizadorLexico.cantLineas));  } 
-				  |FOREACH ID IN bloque_de_sentencias';' { errores.add(new Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias. ", AnalizadorLexico.cantLineas));  } 
+				  |FOREACH IN ID bloque_de_sentencias';' { errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para iterar. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);} 
+				  |FOREACH ID ID bloque_de_sentencias';' { errores.add(new Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion. ", AnalizadorLexico.cantLineas));  $$=new NodoArbol("ERROR SINTACTICO", null, null);} 
+				  |FOREACH ID IN bloque_de_sentencias';' { errores.add(new Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);} 
 ;
 
 
@@ -256,8 +255,8 @@ sentencia_print :PRINT '(' CADENA ')' ';' { NodoArbol nodo_cadena = new NodoArbo
 											$$ = new NodoArbol("PRINT", nodo_cadena, null);
 				 						  }
  
-				|PRINT CADENA ')' ';' { errores.add(new Error("ERROR", "Se esperaba '(' y se encontro una cadena. ", AnalizadorLexico.cantLineas));  } 
-				|PRINT '(' CADENA ';' { errores.add(new Error("ERROR", "Se esperaba ')' y se encontro ';'. ", AnalizadorLexico.cantLineas));  } 
+				|PRINT CADENA ')' ';' { errores.add(new Error("ERROR", "Se esperaba '(' y se encontro una cadena. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);} 
+				|PRINT '(' CADENA ';' { errores.add(new Error("ERROR", "Se esperaba ')' y se encontro ';'. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);} 
 
 
 ;
@@ -311,9 +310,8 @@ factor :ID { estaDeclarada($1.sval);
 			}
 
 	   |'-'CTE {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\n");
-	   			  modificarContadorDeReferencias($2.sval);
+	   			  String lexema = modificarContadorDeReferencias($2.sval);
 
-	   			  String lexema = $1.sval + $2.sval;
 	   			  NodoArbol aux = new NodoArbol(lexema, null, null);
 			      aux.setTipoDeDato(AnalizadorLexico.tablaSimbolos.get(lexema).getTipoDeDato());
 			      $$ = aux;
@@ -336,12 +334,13 @@ factor :ID { estaDeclarada($1.sval);
 						  }
 
 	   |TO_ULONG'('expresion')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion. " + "\n"); 
-	   							  NodoArbol aux = new NodoArbol("CONVERSION", $3, null); 
+
+	   							  NodoArbol aux = new NodoArbol("CONVERSION", $3, null);
 	   							  aux.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ULONG);
 	   							  $$ = aux;
 								}
 
-	   |TO_ULONG expresion')' { errores.add(new Error("ERROR", "Se esperaba '(' para realizar la conversion. ", AnalizadorLexico.cantLineas)); }
+	   |TO_ULONG expresion')' { errores.add(new Error("ERROR", "Se esperaba '(' para realizar la conversion. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
 ;	   
 
 subindice :ID {	String tipoDeDato = Token.UNDEFINED;
@@ -409,10 +408,10 @@ asignacion :ID ASIGN expresion ';' {  estaDeclarada($1.sval);
 
 		                                         }
 			
-		   |ID ASIGN ';' { errores.add(new Error("ERROR", "Se esperaba una expresion para realizar la asignacion. ", AnalizadorLexico.cantLineas));  }
-		   |ID subindice']'ASIGN expresion ';' { errores.add(new Error("ERROR", "Se esperaba '[' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas));  }
-		   |ID'['subindice ASIGN expresion ';' { errores.add(new Error("ERROR", "Se esperaba ']' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas));  }
-		   |ID'[' ']'ASIGN expresion ';' { errores.add(new Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas));  }
+		   |ID ASIGN ';' { errores.add(new Error("ERROR", "Se esperaba una expresion para realizar la asignacion. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
+		   |ID subindice']'ASIGN expresion ';' { errores.add(new Error("ERROR", "Se esperaba '[' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
+		   |ID'['subindice ASIGN expresion ';' { errores.add(new Error("ERROR", "Se esperaba ']' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
+		   |ID'[' ']'ASIGN expresion ';' { errores.add(new Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
 ;
 
 %%
@@ -443,7 +442,7 @@ public void yyerror ( String error){
 }
 
 
-public void modificarContadorDeReferencias(String lexema){
+public String modificarContadorDeReferencias(String lexema){
 		Token t = AnalizadorLexico.tablaSimbolos.get(lexema);
 		t.decrementarContadorDeReferencias();
 
@@ -479,6 +478,7 @@ public void modificarContadorDeReferencias(String lexema){
 				AnalizadorLexico.tablaSimbolos.put(negativo, t);
 			}
 		}
+		return negativo;
 	}
 
 
@@ -553,10 +553,10 @@ public void agregarTamanio (String variable , String tamanio){
 
 
 public void inferirTamanio (String coleccion , Object listaValoresIniciales){ //aca tambien seteamos los valores iniciales
-	ArrayList<String> listaVal = (ArrayList<String>) listaValoresIniciales;
-	Token t = AnalizadorLexico.tablaSimbolos.get(coleccion);
-	t.setTamanio(listaVal.size());
-	t.setValoresIniciales(listaVal);
+		ArrayList<String> listaVal = (ArrayList<String>) listaValoresIniciales;
+		Token t = AnalizadorLexico.tablaSimbolos.get(coleccion);
+		t.setTamanio(listaVal.size());
+		t.setValoresIniciales(listaVal);
 }
 
 public boolean estaDeclarada(String lexema){

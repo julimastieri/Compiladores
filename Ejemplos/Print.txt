@@ -12,7 +12,7 @@ begin
 		print(hola); #Sentencia invalida.
 
 
-  	# Cadenas bien y mal definidas.
+  	#Cadenas bien y mal definidas.
 		#Se espera que el lexico guarde el mensaje de la cadena bien definida en la TdeS y que genere un 
 		# error por la cadena mal definida.
 

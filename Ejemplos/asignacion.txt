@@ -48,5 +48,5 @@ begin
 		b := to_ulong (a ; #Sentencia invalida.
 
 
-	
+	#$$=new NodoArbol("ERROR SINTACTICO", null, null);
 end
