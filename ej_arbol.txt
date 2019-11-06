@@ -6,7 +6,7 @@ ulong h[11];
 begin
 	#Andan:
 
-	a := c[w];
+	#a := c[w];
 	#foreach c in a a:= a;; #3 Errores: Nombre de coleccion es usada como Variable, Variable es usada como Nombre de coleccion, c no es del mismo tipo que a
 	#w:=a+w*h[5]; #con dist tipo da el error q corresponde, sino lo acepta
 	#w:= a*h[12]; #con dist tipo da el error q corresponde, sino lo acepta
@@ -31,7 +31,7 @@ begin
 	#w := to_ulong(3); #si no pongo la conversion da error, tendria que permitir solo el 3 ya que esta dentro del rango de ulong 
 	#w := -3; #esta bn pero solo pq es de tipo int no por ser negarivo, como el caso de w:=3 me lo rechaza este obvio tambn, cdo se cambie probar este de nuevo 
 
-	#w := to_ulong(-3); #Deberia tirar error ya que -3 no esta dentro del rango de ulong
+	w := to_ulong(-3); #Deberia tirar error ya que -3 no esta dentro del rango de ulong
 	#w := 510; # no permite pero deberia
 	#w := w*3; #no me deja pq 3 es int y w ulong
 	

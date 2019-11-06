@@ -543,7 +543,7 @@ final static String yyrule[] = {
 "asignacion : ID '[' ']' ASIGN expresion ';'",
 };
 
-//#line 419 "gramatica.y"
+//#line 421 "gramatica.y"
 
 public AnalizadorLexico aLexico;
 public static List<Error> errores;
@@ -1055,125 +1055,127 @@ case 36:
 break;
 case 37:
 //#line 145 "gramatica.y"
-{ errores.add(new Error("ERROR", "Ausencia de begin y end de sentencias ejecutables.", AnalizadorLexico.cantLineas)); }
+{ errores.add(new Error("ERROR", "Ausencia de begin y end de sentencias ejecutables.", AnalizadorLexico.cantLineas)); 
+					   						  yyval=null;
+											}
 break;
 case 38:
-//#line 148 "gramatica.y"
+//#line 150 "gramatica.y"
 { yyval = val_peek(0) ; }
 break;
 case 39:
-//#line 149 "gramatica.y"
+//#line 151 "gramatica.y"
 { yyval = new NodoArbol("Sentencia Ejecutable", val_peek(1), val_peek(0)); }
 break;
 case 40:
-//#line 153 "gramatica.y"
+//#line 155 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia if. " + "\n"); 
 								  yyval = val_peek(0);
 						        }
 break;
 case 41:
-//#line 156 "gramatica.y"
+//#line 158 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia foreach. " + "\n");
 					 			          yyval = val_peek(0);
 					                    }
 break;
 case 42:
-//#line 159 "gramatica.y"
+//#line 161 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia print. " + "\n");
 					 			        yyval = val_peek(0);
 					                  }
 break;
 case 43:
-//#line 162 "gramatica.y"
+//#line 164 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Asignacion. " + "\n");
 					 			   yyval = val_peek(0);
 					             }
 break;
 case 44:
-//#line 167 "gramatica.y"
+//#line 169 "gramatica.y"
 { yyval = new NodoArbol("IF", val_peek(1), val_peek(0));
 			                       }
 break;
 case 45:
-//#line 170 "gramatica.y"
+//#line 172 "gramatica.y"
 { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'if'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 46:
-//#line 174 "gramatica.y"
+//#line 176 "gramatica.y"
 {  
 												  yyval = new NodoArbol("CUERPO", val_peek(2), null);
 			                                   }
 break;
 case 47:
-//#line 178 "gramatica.y"
+//#line 180 "gramatica.y"
 { 
 		  																		yyval = new NodoArbol("CUERPO", val_peek(4), val_peek(2));
 		                                                                     }
 break;
 case 48:
-//#line 182 "gramatica.y"
+//#line 184 "gramatica.y"
 { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 49:
-//#line 183 "gramatica.y"
+//#line 185 "gramatica.y"
 { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 50:
-//#line 186 "gramatica.y"
+//#line 188 "gramatica.y"
 {  yyval = new NodoArbol("THEN", val_peek(0), null);
 							                   }
 break;
 case 51:
-//#line 191 "gramatica.y"
+//#line 193 "gramatica.y"
 { yyval = new NodoArbol("ELSE", val_peek(0), null);
 					                             }
 break;
 case 52:
-//#line 196 "gramatica.y"
+//#line 198 "gramatica.y"
 { yyval = val_peek(0);						                   }
 break;
 case 53:
-//#line 198 "gramatica.y"
+//#line 200 "gramatica.y"
 { yyval = val_peek(1); }
 break;
 case 54:
-//#line 200 "gramatica.y"
+//#line 202 "gramatica.y"
 { yyval = new NodoArbol("Sentencia Ejecutable", null, null);
 					            }
 break;
 case 55:
-//#line 203 "gramatica.y"
+//#line 205 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'begin' al comienzo del bloque de sentencias. ", AnalizadorLexico.cantLineas));  }
 break;
 case 56:
-//#line 204 "gramatica.y"
+//#line 206 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'end' al final del bloque de sentencias. ", AnalizadorLexico.cantLineas));  }
 break;
 case 57:
-//#line 208 "gramatica.y"
+//#line 210 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); 
 													NodoArbol nodo_cond = new NodoArbol(val_peek(2).sval, val_peek(3), val_peek(1));
 													yyval = new NodoArbol("CONDICION", nodo_cond, null);
 												  }
 break;
 case 58:
-//#line 213 "gramatica.y"
+//#line 215 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una expresion del lado derecho para comparar. ", AnalizadorLexico.cantLineas)); }
 break;
 case 59:
-//#line 214 "gramatica.y"
+//#line 216 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar. ", AnalizadorLexico.cantLineas)); }
 break;
 case 60:
-//#line 215 "gramatica.y"
+//#line 217 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ')' que cierre condicion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 61:
-//#line 216 "gramatica.y"
+//#line 218 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una condicion entre '(' ')'. ", AnalizadorLexico.cantLineas)); }
 break;
 case 68:
-//#line 227 "gramatica.y"
+//#line 229 "gramatica.y"
 { String tipo_variable, tipo_coleccion;
 															  Boolean variable_declarada = estaDeclarada(val_peek(4).sval);
 															  Boolean coleccion_declarada = estaDeclarada(val_peek(2).sval);
@@ -1197,33 +1199,33 @@ case 68:
 					                                        }
 break;
 case 69:
-//#line 249 "gramatica.y"
+//#line 251 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para iterar. ", AnalizadorLexico.cantLineas)); }
 break;
 case 70:
-//#line 250 "gramatica.y"
+//#line 252 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 71:
-//#line 251 "gramatica.y"
+//#line 253 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias. ", AnalizadorLexico.cantLineas));  }
 break;
 case 72:
-//#line 255 "gramatica.y"
+//#line 257 "gramatica.y"
 { NodoArbol nodo_cadena = new NodoArbol("Cadena", null, null);
 											yyval = new NodoArbol("PRINT", nodo_cadena, null);
 				 						  }
 break;
 case 73:
-//#line 259 "gramatica.y"
+//#line 261 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '(' y se encontro una cadena. ", AnalizadorLexico.cantLineas));  }
 break;
 case 74:
-//#line 260 "gramatica.y"
+//#line 262 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ')' y se encontro ';'. ", AnalizadorLexico.cantLineas));  }
 break;
 case 75:
-//#line 266 "gramatica.y"
+//#line 268 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma. " + "\n"); 
 								NodoArbol aux = new NodoArbol("+", val_peek(2), val_peek(0));
 								aux.setTipoDeDato((NodoArbol)val_peek(2), (NodoArbol) val_peek(0));
@@ -1231,7 +1233,7 @@ case 75:
 								}
 break;
 case 76:
-//#line 271 "gramatica.y"
+//#line 273 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta. " + "\n"); 
 		  						NodoArbol aux = new NodoArbol("-", val_peek(2), val_peek(0));
 		  						aux.setTipoDeDato((NodoArbol) val_peek(2), (NodoArbol) val_peek(0)); 
@@ -1239,12 +1241,12 @@ case 76:
 		                       }
 break;
 case 77:
-//#line 276 "gramatica.y"
+//#line 278 "gramatica.y"
 { yyval = val_peek(0);
 		           }
 break;
 case 78:
-//#line 280 "gramatica.y"
+//#line 282 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion. " + "\n"); 
 							NodoArbol aux = new NodoArbol("*", val_peek(2), val_peek(0));
 							aux.setTipoDeDato((NodoArbol)val_peek(2), (NodoArbol) val_peek(0)); /*adentro se chequea que los tipos sean iguales*/
@@ -1252,7 +1254,7 @@ case 78:
 						  }
 break;
 case 79:
-//#line 286 "gramatica.y"
+//#line 288 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division. " + "\n"); 
 							NodoArbol aux = new NodoArbol("/", val_peek(2), val_peek(0));
 							aux.setTipoDeDato((NodoArbol)val_peek(2), (NodoArbol)val_peek(0)); /*chequear que los tipos sean iguales*/
@@ -1260,12 +1262,12 @@ case 79:
 						  }
 break;
 case 80:
-//#line 292 "gramatica.y"
+//#line 294 "gramatica.y"
 { yyval = val_peek(0);
 		        }
 break;
 case 81:
-//#line 296 "gramatica.y"
+//#line 298 "gramatica.y"
 { estaDeclarada(val_peek(0).sval);
 
 			 Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(0).sval);
@@ -1278,7 +1280,7 @@ case 81:
 		   }
 break;
 case 82:
-//#line 307 "gramatica.y"
+//#line 309 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE. " + "\n"); 
 	   		  NodoArbol aux = new NodoArbol(val_peek(0).sval, null, null);
 			  aux.setTipoDeDato(AnalizadorLexico.tablaSimbolos.get(val_peek(0).sval).getTipoDeDato());
@@ -1286,7 +1288,7 @@ case 82:
 			}
 break;
 case 83:
-//#line 313 "gramatica.y"
+//#line 315 "gramatica.y"
 {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\n");
 	   			  modificarContadorDeReferencias(val_peek(0).sval);
 
@@ -1298,7 +1300,7 @@ case 83:
 	   			}
 break;
 case 84:
-//#line 323 "gramatica.y"
+//#line 325 "gramatica.y"
 { estaDeclarada(val_peek(3).sval);
 
 	   						Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(3).sval);
@@ -1315,7 +1317,7 @@ case 84:
 						  }
 break;
 case 85:
-//#line 338 "gramatica.y"
+//#line 340 "gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion. " + "\n"); 
 	   							  NodoArbol aux = new NodoArbol("CONVERSION", val_peek(1), null); 
 	   							  aux.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ULONG);
@@ -1323,11 +1325,11 @@ case 85:
 								}
 break;
 case 86:
-//#line 344 "gramatica.y"
+//#line 346 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '(' para realizar la conversion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 87:
-//#line 347 "gramatica.y"
+//#line 349 "gramatica.y"
 {	String tipoDeDato = Token.UNDEFINED;
 				if (estaDeclarada(val_peek(0).sval)){
 
@@ -1348,7 +1350,7 @@ case 87:
 			  }
 break;
 case 88:
-//#line 365 "gramatica.y"
+//#line 367 "gramatica.y"
 {
 		  		Token cons = AnalizadorLexico.tablaSimbolos.get(val_peek(0).sval);
 		  		String tipoDeDato = cons.getTipoDeDato();
@@ -1364,7 +1366,7 @@ case 88:
 			   }
 break;
 case 89:
-//#line 380 "gramatica.y"
+//#line 382 "gramatica.y"
 {  estaDeclarada(val_peek(3).sval);
 
 									Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(3).sval);
@@ -1380,7 +1382,7 @@ case 89:
 			                       }
 break;
 case 90:
-//#line 394 "gramatica.y"
+//#line 396 "gramatica.y"
 {  estaDeclarada(val_peek(6).sval);
 
 		   											Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(6).sval); 
@@ -1400,22 +1402,22 @@ case 90:
 		                                         }
 break;
 case 91:
-//#line 412 "gramatica.y"
+//#line 414 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una expresion para realizar la asignacion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 92:
-//#line 413 "gramatica.y"
+//#line 415 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '[' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 93:
-//#line 414 "gramatica.y"
+//#line 416 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ']' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas));  }
 break;
 case 94:
-//#line 415 "gramatica.y"
+//#line 417 "gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas));  }
 break;
-//#line 1342 "Parser.java"
+//#line 1344 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

@@ -1,0 +1,5 @@
+ERROR: Linea 9: El tipo de dato del subindice debe ser entero y no ulong
+ERROR: Linea 9: Variable a no declarada
+ERROR: Linea 9: no definido es usada como Variable
+ERROR: Linea 9: Tipo de dato no definido no es compatible con int
+ERROR: Linea 49: Ausencia de begin y end de sentencias ejecutables.
