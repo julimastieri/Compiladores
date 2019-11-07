@@ -1,0 +1,8 @@
+int z;
+int a, b , c, d, e, f;
+
+
+
+begin
+	z:= a + b * c - d / e + f + 20;
+end

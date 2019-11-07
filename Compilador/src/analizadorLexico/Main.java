@@ -2,12 +2,15 @@ package analizadorLexico;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
 
+import analizadorSintactico.NodoArbol;
 import analizadorSintactico.Parser;
+import analizadorSintactico.Traductor;
 
 
 public class Main {
@@ -52,7 +55,13 @@ public class Main {
     	File archArbol = new File("ArbolSintactico.txt");
     	FileManager.write(parser.arbolString.toString(), archArbol);
     	
+    Traductor t = new Traductor();
+    NodoArbol nodoArbol = Traductor.subIzquierdoConHojas(parser.raiz);
+    System.out.println(nodoArbol);
+    System.out.println("HOLA");
     System.out.println("Compilacion finalizada");
+    
+    
     	
 	}
 	
