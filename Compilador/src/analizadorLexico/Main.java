@@ -56,9 +56,9 @@ public class Main {
     	FileManager.write(parser.arbolString.toString(), archArbol);
     	
     Traductor t = new Traductor();
-    NodoArbol nodoArbol = Traductor.subIzquierdoConHojas(parser.raiz);
-    System.out.println(nodoArbol);
-    System.out.println("HOLA");
+    NodoArbol nodoArbol = t.subIzquierdoConHojas(parser.raiz);
+    System.out.println(nodoArbol.getNombre());
+
     System.out.println("Compilacion finalizada");
     
     
