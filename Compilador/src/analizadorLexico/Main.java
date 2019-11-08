@@ -58,6 +58,7 @@ public class Main {
     Traductor t = new Traductor();
     NodoArbol nodoArbol = t.subIzquierdoConHojas(parser.raiz);
     System.out.println(nodoArbol.getNombre());
+    
 
     System.out.println("Compilacion finalizada");
     
