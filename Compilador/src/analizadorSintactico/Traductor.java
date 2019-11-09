@@ -107,20 +107,27 @@ public class Traductor {
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
 				
 			int reg = primerRegLibre();
+			
 			if (reg != -1) { // si hay algun registro libre	
 				if ((nodoIzq.getTipoDeDato() == "ULONG") && (nodoDer.getTipoDeDato() == "ULONG")) { 
 				// Sitacion 1a (32 bits)
+					
 					assembler.append("MOV E" + hashRegs.get(reg) + "," + opIzq.getValor() + "\n"); //MOV EAX,valor1
 					assembler.append("ADD E" + hashRegs.get(reg) + "," + opDer.getValor() + "\n"); //ADD EAX,valor2
+					
 					//Actualizo el arbol
-					nodo.reemplazar("E" + hashRegs.get(reg)); 
+					nodo.reemplazar("E" + hashRegs.get(reg), reg);
+					
 				} else if ((nodoIzq.getTipoDeDato() == "INT") && (nodoDer.getTipoDeDato() == "INT")) { 
 				// Situacion 1b (16 bits)
+					
 					assembler.append("MOV " + hashRegs.get(reg) + "," + opIzq.getValor() + "\n"); //MOV AX,valor1
 					assembler.append("ADD " + hashRegs.get(reg) + "," + opDer.getValor() + "\n"); //ADD AX,valor2
+					
 					//Actualizo el arbol
-					nodo.reemplazar(hashRegs.get(reg));
+					nodo.reemplazar(hashRegs.get(reg), reg);
 				}
+				
 				registros[reg] = "O";
 				
 			}else {
@@ -128,35 +135,53 @@ public class Traductor {
 				// ver que pasa si no hay ningun registro libre
 			}	
 			
-		} else if ( (nodoIzq.esRegistro()) || (nodoDer.esRegistro()) ) { 
+		} else if ( (nodoIzq.esRegistro()) && !(nodoDer.esRegistro()) ) { 
 		// Situacion 2 (REG - VAR/CONST)	
-		// Situacion 4 (VAR/CONST - REG) (Operacion conmutativa)	
 			
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
-			String registro = hashRegs.get(Integer.parseInt(nodoIzq.getNombre()));
+			String registro = nodoIzq.getNombre();
+			int nroReg = nodoIzq.getNroReg();
 			
 			//Genero codigo sobre el registro
 			assembler.append("ADD "+ registro + "," + opDer.getValor() + "\n"); //ADD AX,valor
 			
 			//Actualizo el arbol
-			nodo.reemplazar(registro);
+			nodo.reemplazar(registro, nroReg);
 			
 		} else if ( (nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
 		//Situacion 3 (REG - REG)
-			int nroReg1 = Integer.parseInt(nodoIzq.getNombre());
-			int nroReg2 = Integer.parseInt(nodoDer.getNombre());
-			String registro1 = hashRegs.get(nroReg1);
-			String registro2 = hashRegs.get(nroReg2);
+			
+			String registro1 = nodoIzq.getNombre();
+			String registro2 = nodoDer.getNombre();
+			int nroReg2 = nodoDer.getNroReg();
+			int nroReg1 = nodoIzq.getNroReg();
 			
 			//Genero codigo sobre el primer registro
 			assembler.append("ADD "+ registro1 + "," + registro2 + "\n"); //ADD AX,BX
 			registros[nroReg2] = "L"; //Libero el 2do registro
 			
 			//Actualizo el arbol
-			nodo.reemplazar(registro1);
-		} 	
-		
+			nodo.reemplazar(registro1, nroReg1);
+			
+		} else if ( !(nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
+		// Situacion 4 (VAR/CONST - REG) (Operacion conmutativa)
+			
+			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
+			String registro = nodoDer.getNombre();
+			int nroReg = nodoDer.getNroReg();
+			
+			//Genero codigo sobre el registro
+			assembler.append("ADD "+ registro + "," + opDer.getValor() + "\n"); //ADD AX,valor
+			
+			//Actualizo el arbol
+			nodo.reemplazar(registro, nroReg);	
+		}		
 	}
+	
+	// -----------------------------------------------------------
+	
+	
+	
 	
 	// -----------------------------------------------------------
 	

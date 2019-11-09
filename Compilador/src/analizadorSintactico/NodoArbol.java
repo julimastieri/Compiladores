@@ -11,6 +11,7 @@ public class NodoArbol extends ParserVal{
 	NodoArbol nodoIzq;
 	NodoArbol nodoDer;
 	Boolean esRegistro;
+	int nroReg;
 	
 	
 	public NodoArbol(String nombre, ParserVal nodoIzq, ParserVal nodoDer) {
@@ -81,6 +82,29 @@ public class NodoArbol extends ParserVal{
 		nodoIzq = null;
 		nombre = nom;
 		esRegistro = true;
+		
+		if ((nom == "AX") || (nom == "EAX")) {
+			nroReg = 0;
+		} else if ((nom == "BX") || (nom == "EBX")) {
+			nroReg = 1;
+		}else if ((nom == "CX") || (nom == "ECX")) {
+			nroReg = 2;
+		} else if ((nom == "DX") || (nom == "EDX")) {
+			nroReg = 3;
+		}
+		
+	}
+	
+	public void reemplazar(String nom, int num) {
+		nodoDer = null;
+		nodoIzq = null;
+		nombre = nom;
+		nroReg = num;
+		esRegistro = true;
+	}
+	
+	public int getNroReg() {
+		return nroReg;
 	}
 	
 }
