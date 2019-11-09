@@ -76,7 +76,7 @@ public class NodoArbol extends ParserVal{
 	public Boolean esRegistro() {
 		return esRegistro;
 	}
-	
+	/*
 	public void reemplazar(String nom) {
 		nodoDer = null;
 		nodoIzq = null;
@@ -94,6 +94,7 @@ public class NodoArbol extends ParserVal{
 		}
 		
 	}
+	*/
 	
 	public void reemplazar(String nom, int num) {
 		nodoDer = null;
