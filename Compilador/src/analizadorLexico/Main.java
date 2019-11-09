@@ -55,15 +55,9 @@ public class Main {
     	File archArbol = new File("ArbolSintactico.txt");
     	FileManager.write(parser.arbolString.toString(), archArbol);
     	
-    Traductor t = new Traductor();
-    NodoArbol nodoArbol = t.subIzquierdoConHojas(parser.raiz);
-    System.out.println(nodoArbol.getNombre());
-    
 
     System.out.println("Compilacion finalizada");
     
-    
-    	
 	}
 	
 }

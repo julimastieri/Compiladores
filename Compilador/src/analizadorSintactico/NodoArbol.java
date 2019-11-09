@@ -10,6 +10,7 @@ public class NodoArbol extends ParserVal{
 	String tipoDeDato;
 	NodoArbol nodoIzq;
 	NodoArbol nodoDer;
+	Boolean esRegistro;
 	
 	
 	public NodoArbol(String nombre, ParserVal nodoIzq, ParserVal nodoDer) {
@@ -17,6 +18,7 @@ public class NodoArbol extends ParserVal{
 
 		this.nodoIzq = nodoIzq != null ? (NodoArbol) nodoIzq : null;
 		this.nodoDer = nodoDer != null ? (NodoArbol) nodoDer : null;
+		esRegistro = false;
 	}
 	
 	
@@ -68,6 +70,17 @@ public class NodoArbol extends ParserVal{
 	
 	public String getNombre() {
 		return nombre;
+	}
+	
+	public Boolean esRegistro() {
+		return esRegistro;
+	}
+	
+	public void reemplazar(String nom) {
+		nodoDer = null;
+		nodoIzq = null;
+		nombre = nom;
+		esRegistro = true;
 	}
 	
 }

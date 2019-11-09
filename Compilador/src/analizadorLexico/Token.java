@@ -7,6 +7,7 @@ public class Token {
 	public static final String UNDEFINED = "no definido";
 	public static final String USO_COLECCION = "Nombre de coleccion";
 	public static final String USO_VARIABLE = "Variable";
+	public static final String USO_CONSTANTE = "Constante";
 	
 	String lexema;
 	String tipoDeToken;
@@ -97,6 +98,10 @@ public class Token {
 	
 	public int getCantidadValoresIniciales() {
 		return valoresIniciales.size();
+	}
+
+	public String getValor() { //Es String para poder usarlo en assembler directamente
+		return null;
 	}
 	
 }
