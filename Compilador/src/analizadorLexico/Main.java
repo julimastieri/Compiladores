@@ -56,10 +56,12 @@ public class Main {
     	FileManager.write(parser.arbolString.toString(), archArbol);
     	
     //Archivo con assembler
+    	
     	Traductor traductor = new Traductor();
     	String assembler = traductor.traducir(parser.raiz);
     	File FileAssembler = new File("Programa.txt");
     	FileManager.write(assembler, FileAssembler);
+    	
     	
     System.out.println("Compilacion finalizada");
     

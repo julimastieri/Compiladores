@@ -1,6 +1,12 @@
 PROGRAMA
-	:=
-		a
-		+
-			4
-			5
+	Sentencia Ejecutable
+		:=
+			a
+			-
+				5
+				2
+		:=
+			a
+			+
+				8
+				3

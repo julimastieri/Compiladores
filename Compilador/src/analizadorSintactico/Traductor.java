@@ -104,20 +104,31 @@ public class Traductor {
 		assembler.append(".code" + "\n" + "start:" + "\n");
 		
 		NodoArbol nodo = subIzquierdoConHojas(raiz);
+		System.out.println("NODO: " + nodo.getNombre());
 		
-		while (nodo.getNombre() != ":=") { //PROGRAMA
-			System.out.println("NODO: "+ nodo.getNombre());
+		while ((nodo.getNombre() != "Sentencia Ejecutable") && (nodo.getNombre() != "PROGRAMA")) { //PROGRAMA o Sentencia Ejecutable
+			
 			
 			if (nodo.getNombre() == "+") {
 				generarSuma(nodo);
-				imprimirArbolmod(raiz, "");
-				
+				imprimirArbolmod(raiz, "");	
 			} else if (nodo.getNombre() == "-") {
 				generarResta(nodo);
+				imprimirArbolmod(raiz, "");
+			} else if (nodo.getNombre() == "*") {
+				generarMultiplicacion(nodo);
+				imprimirArbolmod(raiz, "");
+			} else if (nodo.getNombre() == "/") {
+				generarDivision(nodo);
+				imprimirArbolmod(raiz, "");
+			} else if (nodo.getNombre() == ":=") {
+				generarAsignacion(nodo);
+				imprimirArbolmod(raiz, "");
 			}
 			
 			nodo = subIzquierdoConHojas(raiz);
-			System.out.println("NODO: "+ nodo.getNombre());
+			System.out.println("NODO: " + nodo.getNombre());
+			
 		}
 		
 		assembler.append("end start" + "\n" );
@@ -134,6 +145,7 @@ public class Traductor {
 		
 		if (!(nodoIzq.esRegistro()) && !(nodoDer.esRegistro())) { //Si ninguno es registro son var o const los dos
 		//Situacion 1 (VAR - VAR o CONST-CONST)
+			//Falta probar var - var
 			
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
@@ -529,7 +541,9 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
-	
+	private void generarDivision (NodoArbol nodo) {
+		
+	}
 	// -----------------------------------------------------------
 	
 	private int primerRegLibre() {
@@ -541,6 +555,56 @@ public class Traductor {
 			return -1;
 		} else 
 			return i;
+	}
+	
+	// -----------------------------------------------------------
+	
+	private void generarAsignacion (NodoArbol nodo) {
+		
+		NodoArbol nodoIzq = nodo.getNodoIzq();
+		NodoArbol nodoDer = nodo.getNodoDer();
+		
+		if (nodoDer.esRegistro()) {
+			//Situacion I
+			assembler.append("MOV _" + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n"); //MOV _a,AX
+		    registros[nodoDer.getNroReg()] = "L";
+		    
+		} else {
+			//Situacion II
+			int nroReg = primerRegLibre();
+			Token tokenDerecha = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
+			
+			if (nroReg != -1) {
+				registros[nroReg] = "O";	
+				
+				String nombreReg = hashRegs.get(nroReg);
+				
+				if (tokenDerecha.getUso() == Token.USO_CONSTANTE) {
+					if (nodoDer.getTipoDeDato() == "ulong") {
+						assembler.append("MOV E" + nombreReg + "," + nodoDer.getNombre()+ "\n"); //MOV ECX,40.000
+						assembler.append("MOV _" + nodoIzq.getNombre() + ",E" + nombreReg + "\n"); //MOV _a,ECX
+						
+					} else if (nodoDer.getTipoDeDato() == "int") {
+						assembler.append("MOV " + nombreReg + "," + nodoDer.getNombre() + "\n"); //MOV CX,2
+						assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreReg + "\n"); //MOV _a,CX
+					}
+				} else if (tokenDerecha.getUso() == Token.USO_VARIABLE) {
+					if (nodoDer.getTipoDeDato() == "ulong") {
+						assembler.append("MOV E" + nombreReg + ",_" + nodoDer.getNombre() + "\n"); //MOV ECX,_b
+						assembler.append("MOV _" + nodoIzq.getNombre() + ",E" + nombreReg + "\n"); //MOV _a,ECX
+						
+					} else if (nodoDer.getTipoDeDato() == "int") {
+						assembler.append("MOV " + nombreReg + ",_" + nodoDer.getNombre() + "\n"); //MOV CX,_b
+						assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreReg + "\n"); //MOV _a,CX
+					}
+				}
+				registros[nroReg] = "L";
+				
+			} else {
+				//VER QUE PASA SI NO HAY NINGUNO LIBRE
+			}	
+		}
+		nodo.reemplazar(nodoIzq.getNombre());
 	}
 	
 	// -----------------------------------------------------------

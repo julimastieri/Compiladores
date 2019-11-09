@@ -96,7 +96,13 @@ public class NodoArbol extends ParserVal{
 	}
 	*/
 	
-	public void reemplazar(String nom, int num) {
+	public void reemplazar(String nom) { //Reemplaza por una variable
+		nodoDer = null;
+		nodoIzq = null;
+		nombre = nom;
+	}
+	
+	public void reemplazar(String nom, int num) { //Reemplaza por un registro
 		nodoDer = null;
 		nodoIzq = null;
 		nombre = nom;

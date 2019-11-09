@@ -9,6 +9,10 @@ includelib \masm32\lib\user32.lib
 .data
 .code
 start:
-MOV AX,4
-ADD AX,5
+MOV AX,5
+SUB AX,2
+MOV _a,AX
+MOV AX,8
+ADD AX,3
+MOV _a,AX
 end start
