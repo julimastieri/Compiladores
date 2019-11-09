@@ -30,6 +30,7 @@ public class AccionSemantica4 implements AccionSemantica{
 		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 		    	token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ENTERO);
 		    	token.setUso(Token.USO_CONSTANTE);
+		    	token.setValor(num);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
 		    }
 		    return token;
@@ -44,6 +45,7 @@ public class AccionSemantica4 implements AccionSemantica{
 		    	token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 		    	token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ULONG);
 		    	token.setUso(Token.USO_CONSTANTE);
+		    	token.setValor(num);
 		    	AnalizadorLexico.tablaSimbolos.put(lexema, token);
 		    }
 			
@@ -62,6 +64,7 @@ public class AccionSemantica4 implements AccionSemantica{
 				id = AnalizadorLexico.palabras_reservadas.get("cte");
 				token = new Token(lexema, AnalizadorLexico.TIPO_CTE, id);
 				token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ULONG);
+				token.setValor(AnalizadorLexico.MAX_LONG);
 				AnalizadorLexico.tablaSimbolos.put(lexema, token);
 			}
 			return token;

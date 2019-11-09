@@ -85,13 +85,44 @@ public class Traductor {
 	}
 	
 	// -----------------------------------------------------------
+	// PARA PROBAR LOS REEMPLAZOS EN EL ARBOL
+	public void imprimirArbolmod(NodoArbol nodo, String tabs) {
+   	 
+		System.out.println((tabs + nodo.getNombre() + "\n"));  //raiz
+		
+		if(nodo.nodoIzq!=null)
+			imprimirArbolmod(nodo.getNodoIzq(), tabs + "\t");
+	        
+	    if(nodo.nodoDer!=null)
+	        imprimirArbolmod(nodo.getNodoDer(), tabs + "\t");
+	 
+	}
 	
-	public void traducir () {
+	
+	
+	public String traducir (NodoArbol raiz) {
 		assembler.append(".code" + "\n" + "start:" + "\n");
 		
+		NodoArbol nodo = subIzquierdoConHojas(raiz);
 		
+		while (nodo.getNombre() != ":=") { //PROGRAMA
+			System.out.println("NODO: "+ nodo.getNombre());
+			
+			if (nodo.getNombre() == "+") {
+				generarSuma(nodo);
+				imprimirArbolmod(raiz, "");
+				
+			} else if (nodo.getNombre() == "-") {
+				generarResta(nodo);
+			}
+			
+			nodo = subIzquierdoConHojas(raiz);
+			System.out.println("NODO: "+ nodo.getNombre());
+		}
 		
 		assembler.append("end start" + "\n" );
+		
+		return assembler.toString();
 	}
 	
 	// -----------------------------------------------------------
@@ -106,11 +137,11 @@ public class Traductor {
 			
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
-				
+			
 			int reg = primerRegLibre();
 			
 			if (reg != -1) { // si hay algun registro libre	
-				if ((nodoIzq.getTipoDeDato() == "ULONG") && (nodoDer.getTipoDeDato() == "ULONG")) { 
+				if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
 				// Sitacion 1a (32 bits)
 					
 					assembler.append("MOV E" + hashRegs.get(reg) + "," + opIzq.getValor() + "\n"); //MOV EAX,valor1
@@ -119,7 +150,7 @@ public class Traductor {
 					//Actualizo el arbol
 					nodo.reemplazar("E" + hashRegs.get(reg), reg);
 					
-				} else if ((nodoIzq.getTipoDeDato() == "INT") && (nodoDer.getTipoDeDato() == "INT")) { 
+				} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) { 
 				// Situacion 1b (16 bits)
 					
 					assembler.append("MOV " + hashRegs.get(reg) + "," + opIzq.getValor() + "\n"); //MOV AX,valor1
@@ -195,7 +226,7 @@ public class Traductor {
 			int reg = primerRegLibre();
 			
 			if (reg != -1) { // si hay algun registro libre	
-				if ((nodoIzq.getTipoDeDato() == "ULONG") && (nodoDer.getTipoDeDato() == "ULONG")) { 
+				if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
 				// Sitacion 1a (32 bits)
 					
 					assembler.append("MOV E" + hashRegs.get(reg) + "," + opIzq.getValor() + "\n"); //MOV EAX,valor1
@@ -204,7 +235,7 @@ public class Traductor {
 					//Actualizo el arbol
 					nodo.reemplazar("E" + hashRegs.get(reg), reg);
 					
-				} else if ((nodoIzq.getTipoDeDato() == "INT") && (nodoDer.getTipoDeDato() == "INT")) { 
+				} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) { 
 				// Situacion 1b (16 bits)
 					
 					assembler.append("MOV " + hashRegs.get(reg) + "," + opIzq.getValor() + "\n"); //MOV AX,valor1
@@ -310,12 +341,13 @@ public class Traductor {
 					// HAY QUE VER QUIEN ESTA OCUPANDO EL REG 0
 					// MOV registroLibre, EAX (PASO EL CONTENIDO DE UN REG A OTRO)
 					// Buscar el nodo del arbol que estaba usando EAX/AX y cambiarle el nombre por registroLibre y el nro por proxLibre
+				
 				} else {
 					// si no hay ninguno libre: VER
 				}
 			}
 			
-			if ((nodoIzq.getTipoDeDato() == "ULONG") && (nodoDer.getTipoDeDato() == "ULONG")) { 
+			if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
 			// Sitacion 1a (32 bits)
 					
 				assembler.append("MOV EAX," + opIzq.getValor() + "\n"); //MOV EAX,valor1
@@ -324,7 +356,7 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 					
-			} else if ((nodoIzq.getTipoDeDato() == "INT") && (nodoDer.getTipoDeDato() == "INT")) { 
+			} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) { 
 			// Situacion 1b (16 bits)
 					
 				assembler.append("MOV AX," + opIzq.getValor() + "\n"); //MOV AX,valor1

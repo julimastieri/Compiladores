@@ -1,8 +1,3 @@
-Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1
-Lexema: b , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1
-Lexema: c , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1
-Lexema: d , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1
-Lexema: e , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1
-Lexema: f , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1
-Lexema: z , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1
-Lexema: 20 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: no definido , Tamanio: 1
+Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1 , Valor: 0
+Lexema: 4 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 4
+Lexema: 5 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 5

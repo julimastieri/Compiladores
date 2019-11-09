@@ -16,6 +16,7 @@ public class Token {
 	String tipoDeDato, uso;	
 	int tamanio;
 	ArrayList<String> valoresIniciales;
+	long valor;
 	
 	public Token(String l, String t, int id) {
 		this.id = id;
@@ -101,7 +102,11 @@ public class Token {
 	}
 
 	public String getValor() { //Es String para poder usarlo en assembler directamente
-		return null;
+		return String.valueOf(valor);
+	}
+	
+	public void setValor(long num) {
+		this.valor = num;
 	}
 	
 }
