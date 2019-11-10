@@ -2,6 +2,8 @@ package analizadorSintactico;
 
 import java.util.HashMap;
 import java.util.IllegalFormatCodePointException;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import analizadorLexico.AnalizadorLexico;
 import analizadorLexico.Token;
@@ -34,6 +36,68 @@ public class Traductor {
 	
 	private void cargarData() {
 		assembler.append(".data" + "\n");
+		assembler.append("TituloCadena db \"Cadena\",0" + "\n");
+		//assembler.append("CadenaPrueba db \"Hola\",0" + "\n");
+		
+	    for (Map.Entry<String, Token> entry : AnalizadorLexico.tablaSimbolos.entrySet() )
+	    {
+	        String lexema = entry.getKey();
+	        Token token = entry.getValue();
+	        String uso = token.getUso();
+	        String tipoDeDato = token.getTipoDeDato();
+	        
+	        if ( (uso.equals(Token.USO_VARIABLE)) ) { 
+	        	if (tipoDeDato.equals("int")) {
+	        		assembler.append("_" + lexema + " DW ?" + "\n");
+	        	} else if (tipoDeDato.equals("ulong")) {
+	        		assembler.append("_" + lexema + " DD ?" + "\n");
+	        	}
+	        } else if ( (uso.equals(Token.USO_COLECCION)) ) {
+	        	
+	        	if (tipoDeDato.equals("int")) {
+	        		if (token.getCantidadValoresIniciales() != 0) { //tiene valores iniciales
+	        			int cantValoresInic = token.getCantidadValoresIniciales();
+	        			
+	        			assembler.append("_" + lexema + " DW ");
+	        			for (int i=0; i<cantValoresInic; i++) {
+	        				
+	        				if (i != cantValoresInic - 1) { //no es el ultimo
+	        					assembler.append(token.getValorInicial(i) + ",");
+	        				} else { //es el ultimo (no lleva coma)
+	        					assembler.append(token.getValorInicial(i));
+	        				}	
+	        			}
+	        			assembler.append("\n");
+	        			
+	        		} else { //no tiene valores iniciales
+	        			int tam = token.getTamanio();
+	        			assembler.append("_" + lexema + " DW " + tam + " DUP ?" + "\n"); //_d DW 4 DUP ?
+	        		}
+	        	} else if (tipoDeDato.equals("ulong")) {
+	        		if (token.getCantidadValoresIniciales() != 0) { //tiene valores iniciales
+	        			int cantValoresInic = token.getCantidadValoresIniciales();
+	        			
+	        			assembler.append("_" + lexema + " DD ");
+	        			for (int i=0; i<cantValoresInic; i++) {
+	        				
+	        				if (i != cantValoresInic - 1) { //no es el ultimo
+	        					assembler.append(token.getValorInicial(i) + ",");
+	        				} else { //es el ultimo (no lleva coma)
+	        					assembler.append(token.getValorInicial(i));
+	        				}	
+	        			}
+	        			
+	        			assembler.append("\n");
+	        			
+	        		} else { //no tiene valores iniciales
+	        			int tam = token.getTamanio();
+	        			assembler.append("_" + lexema + " DD " + tam + " DUP ?" + "\n"); //_d DW 4 DUP ?
+	        		}
+	        	}
+	        } else if ( (uso.equals(Token.USO_CADENA)) ) {
+	        	assembler.append(lexema + " DB " + "\"" + lexema + "\"" +",0" + "\n" ); // mensaje db "mensaje"
+	        }
+	    }
 	}
 	
 	// -----------------------------------------------------------
@@ -142,7 +206,10 @@ public class Traductor {
 			} else if ((nodo.getNombre() == "CUERPO") || (nodo.getNombre() == "IF") ) {
 				nodo.reemplazar(nodo.getNombre());
 				imprimirArbolmod(raiz, "");
-			} 
+			} else if (nodo.getNombre() == "PRINT") {
+				generarPrint(nodo);
+				imprimirArbolmod(raiz, "");
+			}
 			
 			nodo = subIzquierdoConHojas(raiz);
 			System.out.println("NODO:" + nodo.getNombre() );
@@ -755,5 +822,18 @@ public class Traductor {
 		assembler.append("LabelSiguiente:" + "\n");
 		nodo.reemplazar(nodo.getNombre());
 	}
+	
+	// -----------------------------------------------------------
+	
+	private void generarPrint (NodoArbol nodo) {
+		//Token cadena = AnalizadorLexico.tablaSimbolos.get(nodo.getNodoDer().getNombre());
+		//invoke MessageBox, NULL, addr contenido, addr titulo, MB_OK
+
+		assembler.append("invoke MessageBox, NULL, addr " + "CadenaPrueba" + ", addr TituloCadena, MB_OK" + "\n");
+		nodo.reemplazar(nodo.getNombre());
+	}
+	
+	// -----------------------------------------------------------
+	
 	
 }

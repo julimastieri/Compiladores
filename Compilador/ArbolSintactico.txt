@@ -1,4 +1,7 @@
 PROGRAMA
-	:=
-		a
-		40000
+	Sentencia Ejecutable
+		:=
+			a
+			3
+		PRINT
+			mensaje

@@ -1210,7 +1210,7 @@ case 71:
 break;
 case 72:
 //#line 254 "gramatica.y"
-{ NodoArbol nodo_cadena = new NodoArbol("Cadena", null, null);
+{ NodoArbol nodo_cadena = new NodoArbol(val_peek(2).sval, null, null);
 											yyval = new NodoArbol("PRINT", nodo_cadena, null);
 				 						  }
 break;

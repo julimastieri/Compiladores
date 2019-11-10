@@ -251,7 +251,9 @@ sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { String tipo_variab
 ;
 
 
-sentencia_print :PRINT '(' CADENA ')' ';' { NodoArbol nodo_cadena = new NodoArbol("Cadena", null, null);
+sentencia_print :PRINT '(' CADENA ')' ';' { Token t = AnalizadorLexico.tablaSimbolos.get($3.sval);
+											agregarUsoTS($3.sval, Token.USO_CADENA);
+											NodoArbol nodo_cadena = new NodoArbol($3.sval, null, null);
 											$$ = new NodoArbol("PRINT", nodo_cadena, null);
 				 						  }
  

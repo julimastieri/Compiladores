@@ -8,6 +8,7 @@ public class Token {
 	public static final String USO_COLECCION = "Nombre de coleccion";
 	public static final String USO_VARIABLE = "Variable";
 	public static final String USO_CONSTANTE = "Constante";
+	public static final String USO_CADENA = "Cadena";
 	
 	String lexema;
 	String tipoDeToken;
