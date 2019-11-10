@@ -9,10 +9,19 @@ includelib \masm32\lib\user32.lib
 .data
 .code
 start:
-MOV AX,5
-SUB AX,2
+MOV AX,2
 MOV _a,AX
-MOV AX,8
-ADD AX,3
+MOV AX,2
+MOV _b,AX
+CMP a,b
+MOV AX,2
 MOV _a,AX
+MOV AX,12
+MOV _b,AX
+JMP LabelSiguiente
+LabelElse:
+MOV AX,10
+MOV _b,AX
+LabelSiguiente:
+invoke ExitProcess, 0
 end start

@@ -2,11 +2,26 @@ PROGRAMA
 	Sentencia Ejecutable
 		:=
 			a
-			-
-				5
+			2
+		Sentencia Ejecutable
+			:=
+				b
 				2
-		:=
-			a
-			+
-				8
-				3
+			IF
+				CONDICION
+					==
+						a
+						b
+				CUERPO
+					THEN
+						Sentencia Ejecutable
+							:=
+								a
+								2
+							:=
+								b
+								12
+					ELSE
+						:=
+							b
+							10
