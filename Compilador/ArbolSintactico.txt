@@ -1,27 +1,4 @@
 PROGRAMA
-	Sentencia Ejecutable
-		:=
-			a
-			2
-		Sentencia Ejecutable
-			:=
-				b
-				2
-			IF
-				CONDICION
-					==
-						a
-						b
-				CUERPO
-					THEN
-						Sentencia Ejecutable
-							:=
-								a
-								2
-							:=
-								b
-								12
-					ELSE
-						:=
-							b
-							10
+	:=
+		a
+		40000

@@ -124,8 +124,7 @@ public class Traductor {
 			} else if (nodo.getNombre() == ":=") {
 				generarAsignacion(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "=="){ // nodo.getNombre es == y NO ENTRA AL IF 
-				//(nodo.getNombre() == ">=") || (nodo.getNombre() == "<=") || (nodo.getNombre() == "==") || (nodo.getNombre() == "<>") || (nodo.getNombre() == "<") || (nodo.getNombre() == ">")
+			} else if ((nodo.getNombre().equals(">=")) || (nodo.getNombre().equals("<=")) || (nodo.getNombre().equals("==")) || (nodo.getNombre().equals("<>")) || (nodo.getNombre().equals("<")) || (nodo.getNombre().equals(">"))){
 				generarComparacion(nodo);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre() == "CONDICION") {
@@ -144,10 +143,6 @@ public class Traductor {
 				nodo.reemplazar(nodo.getNombre());
 				imprimirArbolmod(raiz, "");
 			} 
-			else { // provisorio porque no anda el if de arriba
-				generarComparacion(nodo);
-				imprimirArbolmod(raiz, "");
-			}
 			
 			nodo = subIzquierdoConHojas(raiz);
 			System.out.println("NODO:" + nodo.getNombre() );
@@ -701,9 +696,20 @@ public class Traductor {
 	private void generarComparacion (NodoArbol nodo) {
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
+		Token tokenDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
+		Token tokenIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 		String comparador = nodo.getNombre();
 		
-		assembler.append("CMP " + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n");
+		if ((tokenDer.getUso() == Token.USO_VARIABLE) && (tokenIzq.getUso() == Token.USO_VARIABLE)) {
+			assembler.append("CMP _" + nodoIzq.getNombre() + ",_" + nodoDer.getNombre() + "\n");
+		} else if ((tokenDer.getUso() == Token.USO_VARIABLE) && !(tokenIzq.getUso() == Token.USO_VARIABLE)) {
+			assembler.append("CMP " + nodoIzq.getNombre() + ",_" + nodoDer.getNombre() + "\n");
+		} else if (!(tokenDer.getUso() == Token.USO_VARIABLE) && (tokenIzq.getUso() == Token.USO_VARIABLE)) {
+			assembler.append("CMP _" + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n");
+		} else {
+			assembler.append("CMP " + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n");
+		}
+		
 		
 		registros[nodoIzq.getNroReg()] = "L";
 		registros[nodoDer.getNroReg()] = "L";
@@ -717,17 +723,17 @@ public class Traductor {
 		String comparador = nodo.getNodoIzq().getNombre();
 		System.out.println("Comparador: " + comparador);
 		
-		if (comparador == ">=") {
+		if (comparador.equals(">=")) {
 			assembler.append("JL LabelElse" + "\n");
-		} else if (comparador == "<=") {
+		} else if (comparador.equals("<=")) {
 			assembler.append("JG LabelElse" + "\n");
-		} else if (comparador == "==") {
+		} else if (comparador.equals("==")) {
 			assembler.append("JNE LabelElse" + "\n");
-		} else if (comparador == "<>") {
+		} else if (comparador.equals("<>")) {
 			assembler.append("JE LabelElse" + "\n");
-		} else if (comparador == "<") {
+		} else if (comparador.equals("<")) {
 			assembler.append("JGE LabelElse" + "\n");
-		} else if (comparador == ">") {
+		} else if (comparador.equals(">")) {
 			assembler.append("JLE LabelElse" + "\n");
 		}
 		

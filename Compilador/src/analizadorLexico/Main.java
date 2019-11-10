@@ -57,13 +57,16 @@ public class Main {
     	
     //Archivo con assembler
     	
-    	Traductor traductor = new Traductor();
-    	String assembler = traductor.traducir(parser.raiz);
-    	File FileAssembler = new File("Programa.txt");
-    	FileManager.write(assembler, FileAssembler);
-    	
-    	
-    System.out.println("Compilacion finalizada");
+    	if (errores.size() == 0) {
+        	Traductor traductor = new Traductor();
+        	System.out.println("Generando codigo assembler");
+        	String assembler = traductor.traducir(parser.raiz);
+        	File FileAssembler = new File("Programa.txt");
+        	FileManager.write(assembler, FileAssembler);
+        	System.out.println("Codigo assembler generado.");
+    	} else {
+    		System.out.println("Se encontraron errores durante la compilacion." + "\n" + "No se generará codigo assembler.");
+    	}
     
 	}
 	
