@@ -2,6 +2,16 @@ PROGRAMA
 	Sentencia Ejecutable
 		:=
 			a
-			3
-		PRINT
-			mensaje
+			2
+		Sentencia Ejecutable
+			:=
+				w
+				3
+			FOREACH
+				CONDICION_FOREACH
+					a
+					b
+				CUERPO_FOREACH
+					:=
+						a
+						100

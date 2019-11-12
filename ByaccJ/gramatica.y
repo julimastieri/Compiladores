@@ -233,16 +233,17 @@ sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { String tipo_variab
 																checkearUsoCorrecto(token_variable.getUso(), Token.USO_VARIABLE);
 																checkearUsoCorrecto(token_coleccion.getUso(), Token.USO_COLECCION);
 
-																if(token_variable.getTipoDeDato().equals(token_coleccion.getTipoDeDato()) ){
-																	errores.add(new Error("ERROR",$2.sval + " no es del mismo tipo que "+$4.sval, AnalizadorLexico.cantLineas));
+																if(!(token_variable.getTipoDeDato().equals(token_coleccion.getTipoDeDato()))) {
+																	errores.add(new Error("ERROR", "Tipo de dato de "+ $2.sval + " es " + token_variable.getTipoDeDato() + " no es compatible con el tipo de dato de "+ $4.sval + " que es " + token_coleccion.getTipoDeDato(), AnalizadorLexico.cantLineas));
 																}
 
 															  }
 
 															  NodoArbol nodo_variable = new NodoArbol($2.sval, null, null);
 															  NodoArbol nodo_coleccion = new NodoArbol($4.sval, null, null);
-															  NodoArbol nodo_condicion = new NodoArbol("condicion_foreach", nodo_variable, nodo_coleccion);
-															  $$ = new NodoArbol("FOREACH",nodo_condicion ,$5);
+															  NodoArbol nodo_condicion = new NodoArbol("CONDICION_FOREACH", nodo_variable, nodo_coleccion);
+															  NodoArbol nodo_cuerpo_foreach = new NodoArbol("CUERPO_FOREACH", $5, null);
+															  $$ = new NodoArbol("FOREACH",nodo_condicion ,nodo_cuerpo_foreach);
 					                                        }
 
 				  |FOREACH IN ID bloque_de_sentencias';' { errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para iterar. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);} 

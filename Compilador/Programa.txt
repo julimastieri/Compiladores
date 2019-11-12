@@ -9,14 +9,23 @@ includelib \masm32\lib\user32.lib
 .data
 TituloCadena db "Cadena",0
 _a DW ?
-_b DD ?
-_c DW 1,_,5
-_d DD 4 DUP ?
-_w DD ?
+_b DW 1,2,3
+_w DW ?
 .code
 start:
-MOV AX,3
+MOV AX,2
 MOV _a,AX
-invoke MessageBox, NULL, addr CadenaPrueba, addr TituloCadena, MB_OK
+MOV AX,3
+MOV _w,AX
+MOV AX,0
+LabelCondForech:
+CMP AX,3
+JG LabelSiguiente
+MOV _a,BX
+ADD AX,1
+MOV BX,100
+MOV _a,BX
+JMP LabelCondForech
+LabelSiguiente:
 invoke ExitProcess, 0
 end start

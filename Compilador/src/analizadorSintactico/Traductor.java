@@ -180,10 +180,10 @@ public class Traductor {
 				generarResta(nodo);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre() == "*") {
-				generarMultiplicacion(nodo);
+				generarMultiplicacion(nodo, raiz);//FALTA
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre() == "/") {
-				generarDivision(nodo);
+				generarDivision(nodo); //FALTA
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre() == ":=") {
 				generarAsignacion(nodo);
@@ -210,6 +210,18 @@ public class Traductor {
 				generarPrint(nodo);
 				imprimirArbolmod(raiz, "");
 			}
+			else if (nodo.getNombre() == "FOREACH") {
+				nodo.reemplazar(nodo.getNombre());
+				imprimirArbolmod(raiz, "");
+			} else if (nodo.getNombre() == "CONDICION_FOREACH") {
+				generarCondicionForeach(nodo);
+				imprimirArbolmod(raiz, "");
+			} else if (nodo.getNombre() == "CUERPO_FOREACH") {
+				generarCuerpoForeach(nodo);
+				imprimirArbolmod(raiz, "");
+			}
+			
+			//faltan casos -> "ELEM_COLEC", "CONVERSION" 
 			
 			nodo = subIzquierdoConHojas(raiz);
 			System.out.println("NODO:" + nodo.getNombre() );
@@ -254,7 +266,7 @@ public class Traductor {
 				registros[reg] = "O";
 				
 				if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
-				// Sitacion 1a (32 bits)
+				// Situacion 1a (32 bits)
 					
 					if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
 						assembler.append("MOV E" + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
@@ -497,7 +509,42 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
-	private void generarMultiplicacion (NodoArbol nodo) {
+	private void changeRecord(NodoArbol raiz, int nroRegBusqueda, int nroRegNuevo) {//cambia el registro del nodo dado por nro de reg nuevo segun el nr de registro dado para la busqueda
+		NodoArbol nodoChange = buscarNodoXNroReg(nroRegBusqueda, raiz);
+		if (nodoChange != null) {
+			if (nodoChange.getNombre().charAt(0) == 'E') { //me fijo si es de 32 bits
+				String nombreRegViejo = nodoChange.getNombre();
+				String nombreRegNuevo = "E" + hashRegs.get(nroRegNuevo);
+				nodoChange.reemplazar(nombreRegNuevo, nroRegNuevo);
+				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg 
+			}
+			else { //sino es de 16 bits
+				String nombreRegViejo = nodoChange.getNombre();
+				String nombreRegNuevo = hashRegs.get(nroRegNuevo);
+				nodoChange.reemplazar(nombreRegNuevo, nroRegNuevo);
+				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n");
+			}
+		}
+	}
+	
+	private NodoArbol buscarNodoXNroReg(int nroReg, NodoArbol nodo) {//busca el nodo con el nro de reg dado, si no esta en el arbol retorna null
+		if (nodo != null) {
+			if( (nodo.esRegistro) && (nodo.nroReg == nroReg) ) //es el que busco? lo retorno
+				return nodo;
+			else {//sino busco por derecha e izquierda
+				NodoArbol resultIzq= buscarNodoXNroReg(nroReg, nodo.nodoIzq);
+				NodoArbol resultDer = buscarNodoXNroReg(nroReg, nodo.nodoDer);
+				
+				if (resultIzq != null) //si encontre el que buscaba por la izquierda lo retorno
+					return resultIzq;
+				else //sino retorno lo que encontre por la derecha (si no lo encontro por el sub arbol derecho retorna null) 
+					return resultDer;
+			}
+		}
+		return null;
+	}
+	
+	private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
 		
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
@@ -508,22 +555,18 @@ public class Traductor {
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
 			
-			//Liberar registro 0 (EAX, AX)
-			if (registros[0] == "O") {
+			//Liberar registro 0
+			if (registros[0] == "O") { //si el registro esta ocupado
 				int proxLibre = primerRegLibre();
 				if (proxLibre != -1) {
-					String registroLibre = hashRegs.get(proxLibre);
-					// HAY QUE VER QUIEN ESTA OCUPANDO EL REG 0
-					// MOV registroLibre, EAX (PASO EL CONTENIDO DE UN REG A OTRO)
-					// Buscar el nodo del arbol que estaba usando EAX/AX y cambiarle el nombre por registroLibre y el nro por proxLibre
-				
+					changeRecord(raiz, 0, proxLibre);
 				} else {
 					// si no hay ninguno libre: VER
 				}
 			}
 			
 			if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
-			// Sitacion 1a (32 bits)
+			// Situacion 1a (32 bits)
 					
 				assembler.append("MOV EAX," + opIzq.getValor() + "\n"); //MOV EAX,valor1
 				assembler.append("IMUL EAX," + opDer.getValor() + "\n"); //IMUL EAX,valor2
@@ -835,5 +878,51 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
+	private void generarCondicionForeach (NodoArbol nodo) {
+		NodoArbol nodoIzq = nodo.getNodoIzq();
+		NodoArbol nodoDer = nodo.getNodoDer();
+		Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
+		Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
+		
+		//Pido reg en donde voy a guardar el nro de iteracion que se incrementa en 1, se inicializa en 0
+		//Pongo Label
+		//Comparo el tamaño de la coleccion con el nro de iteracion (aca agregar un JG si iteracion es mayor que tamaño)
+		//asignacion a variable "_a" el valor del arreglo en el nro de iteracion
+		
+		int reg = primerRegLibre();
+		String nombreReg = hashRegs.get(reg);
+		if (reg != -1) { // si hay algun registro libre
+			registros[reg] = "O"; 
+			assembler.append("MOV " + nombreReg + "," + 0 + "\n"); //MOV AX,0
+		}
+		
+		assembler.append("LabelCondForech:" + "\n");
+		
+		assembler.append("CMP " + nombreReg + "," + opDer.getTamanio() + "\n"); //CMP AX,3 (tamanio = 3)
+		assembler.append("JG LabelSiguiente" + "\n");
+		
+		//Hago asignacion
+		int otroReg = primerRegLibre();
+		String nombreOtroReg = hashRegs.get(otroReg);
+		if (reg != -1) { // si hay algun registro libre
+			registros[otroReg] = "O"; 
+			//assembler.append("MOV " + nombreOtroReg + ",_" + opDer.getValorInicial(i) + "\n"); //MOV BX,_b[i] (nose como hacer b[i])
+			assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreOtroReg + "\n"); //MOV _a,BX
+			assembler.append("ADD " + nombreReg + "," + 1 + "\n");
+			registros[otroReg] = "L";
+		}
+		
+		nodo.reemplazar(nodo.getNombre());
+	}
 	
+	// -----------------------------------------------------------
+	
+	private void generarCuerpoForeach(NodoArbol nodo) {
+		assembler.append("JMP LabelCondForech" + "\n");
+		assembler.append("LabelSiguiente:" + "\n");
+		//liberar registro en donde estaba el iterador
+		nodo.reemplazar(nodo.getNombre());
+	}
+	
+	// -----------------------------------------------------------
 }

@@ -1,0 +1,11 @@
+int a,w;
+int b[1,2,3];
+
+begin
+	a:=2;
+	w:=3;
+
+	foreach a in b
+		a:=100;
+	;
+end
