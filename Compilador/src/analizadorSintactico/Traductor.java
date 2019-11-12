@@ -513,16 +513,21 @@ public class Traductor {
 		NodoArbol nodoChange = buscarNodoXNroReg(nroRegBusqueda, raiz);
 		if (nodoChange != null) {
 			if (nodoChange.getNombre().charAt(0) == 'E') { //me fijo si es de 32 bits
-				String nombreRegViejo = nodoChange.getNombre();
-				String nombreRegNuevo = "E" + hashRegs.get(nroRegNuevo);
+				String nombreRegViejo = nodoChange.getNombre(); //EAX
+				String nombreRegNuevo = "E" + hashRegs.get(nroRegNuevo); //ECX
 				nodoChange.reemplazar(nombreRegNuevo, nroRegNuevo);
-				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg 
+
+				assembler.append("MOV @aux1," + nombreRegNuevo + "\n");
+				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
+				assembler.append("MOV " + nombreRegViejo + ",@aux1" + "\n");
 			}
 			else { //sino es de 16 bits
-				String nombreRegViejo = nodoChange.getNombre();
+				String nombreRegViejo = nodoChange.getNombre(); //AX
 				String nombreRegNuevo = hashRegs.get(nroRegNuevo);
 				nodoChange.reemplazar(nombreRegNuevo, nroRegNuevo);
-				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n");
+				assembler.append("MOV @aux1," + nombreRegNuevo + "\n");
+				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
+				assembler.append("MOV " + nombreRegViejo + ",@aux1" + "\n");
 			}
 		}
 	}
@@ -543,6 +548,8 @@ public class Traductor {
 		}
 		return null;
 	}
+	
+	// -----------------------------------------------------------
 	
 	private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
 		
@@ -597,20 +604,20 @@ public class Traductor {
 			//CHEQUEADO
 			if ((registro != "AX") || (registro != "EAX")) {
 				if (registros[0] == "O") {
-					// MOV @aux1, registro
-					// MOV registro, EAX (PASO EL CONTENIDO DE UN REG A OTRO)
-					// M0V EAX, @aux1
-					
-					// Buscar el nodo del arbol que estaba usando EAX/AX y cambiarle el nombre por registro y el nro por nroReg
-					
+					changeRecord(raiz, 0, nroReg);
 				} else if (registros[0] == "L") {
-					// MOV EAX, registro
+					
+					if (registro.charAt(0) == 'E') {
+						assembler.append("MOV EAX," + registro + "\n");
+					} else {
+						assembler.append("MOV AX," + registro + "\n");
+					}
 					registros[nroReg] = "L";
 					registros[0] = "O";
 				}				
 			}
 			
-			if (nodoDer.getTipoDeDato() == "ULONG") { 
+			if (nodoDer.getTipoDeDato() == "ulong") { 
 				// 32 bits
 				//Genero codigo sobre el registro
 				assembler.append("IMUL EAX," + opDer.getValor() + "\n"); //IMUL EAX,valor
@@ -618,7 +625,7 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 				
-			} else if (nodoDer.getTipoDeDato() == "INT") {
+			} else if (nodoDer.getTipoDeDato() == "int") {
 				// 16 bits
 				//Genero codigo sobre el registro
 				assembler.append("IMUL AX," + opDer.getValor() + "\n"); //IMUL AX,valor
@@ -637,7 +644,7 @@ public class Traductor {
 			int nroReg1 = nodoIzq.getNroReg();
 			
 			
-			if ((nodoIzq.getTipoDeDato() == "ULONG") && (nodoDer.getTipoDeDato() == "ULONG")) {
+			if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) {
 				if (registro1 == "EAX") {
 					assembler.append("MUL "+ registro1 + "," + registro2 + "\n"); //MUL EAX,EBX
 					registros[nroReg2] = "L"; //Libero el 2do registro
@@ -649,18 +656,15 @@ public class Traductor {
 				} else {
 					//CHEQUEADO
 					if (registros[0] == "O") {
-						// MOV @aux1, registro1
-						// MOV registro1, EAX (PASO EL CONTENIDO DE UN REG A OTRO)
-						// M0V EAX, @aux1
-						
-						// Buscar el nodo del arbol que estaba usando EAX/AX y cambiarle el nombre por registro1 y el nro por nroReg1
+						changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en EAX
 						registros[nroReg2] = "L"; //Libero solo el 2 porque el 1 esta ocupado con lo que habia en AX
 					
 					} else if (registros[0] == "L") {
+						assembler.append("MOV EAX," + registro1 + "\n");
+						
 						registros[nroReg1] = "L"; //Libero el 1er registro
 						registros[nroReg2] = "L"; //Libero el 2do registro
 						registros[0] = "O";
-						// MOV EAX, registro1
 					}
 					assembler.append("MUL EAX," + registro2 + "\n"); //MUL EAX,EBX
 					
@@ -669,7 +673,7 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 				
-			} else if ((nodoIzq.getTipoDeDato() == "INT") && (nodoDer.getTipoDeDato() == "INT")) {
+			} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) {
 				
 				if (registro1 == "AX") {
 					assembler.append("MUL "+ registro1 + "," + registro2 + "\n"); //MUL EAX,EBX
@@ -682,18 +686,14 @@ public class Traductor {
 				} else {
 					//
 					if (registros[0] == "O") {
-						// MOV @aux1, registro1
-						// MOV registro1, EAX (PASO EL CONTENIDO DE UN REG A OTRO)
-						// M0V EAX, @aux1
-						
-						// Buscar el nodo del arbol que estaba usando EAX/AX y cambiarle el nombre por registro1 y el nro por nroReg1
+						changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en AX
 						registros[nroReg2] = "L"; //Libero solo el 2 porque el 1 esta ocupado con lo que habia en AX
 					
 					} else if (registros[0] == "L") {
+						assembler.append("MOV AX," + registro1 + "\n");
 						registros[nroReg1] = "L"; //Libero el 1er registro
 						registros[nroReg2] = "L"; //Libero el 2do registro
 						registros[0] = "O";
-						// MOV EAX, registro1
 					}
 					assembler.append("MUL AX," + registro2 + "\n"); //MUL EAX,EBX
 				}
@@ -712,20 +712,21 @@ public class Traductor {
 			//chequeado
 			if ((registro != "AX") || (registro != "EAX")) {
 				if (registros[0] == "O") {
-					// MOV @aux1, registro
-					// MOV registro, EAX (PASO EL CONTENIDO DE UN REG A OTRO)
-					// M0V EAX, @aux1
-					
-					// Buscar el nodo del arbol que estaba usando EAX/AX y cambiarle el nombre por registro y el nro por nroReg
+					changeRecord(raiz, 0, nroReg);
 					
 				} else if (registros[0] == "L") {
-					// MOV EAX, registro
+					
+					if (registro.charAt(0) == 'E') {
+						assembler.append("MOV EAX," + registro + "\n");
+					} else {
+						assembler.append("MOV AX," + registro + "\n");
+					}
 					registros[nroReg] = "L";
 					registros[0] = "O";
 				}	
 			}
 			
-			if (nodoIzq.getTipoDeDato() == "ULONG") { 
+			if (nodoIzq.getTipoDeDato() == "ulong") { 
 				// 32 bits
 				//Genero codigo sobre el registro
 				assembler.append("IMUL EAX," + opIzq.getValor() + "\n"); //IMUL EAX,valor
@@ -733,7 +734,7 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 				
-			} else if (nodoDer.getTipoDeDato() == "INT") {
+			} else if (nodoDer.getTipoDeDato() == "int") {
 				// 16 bits
 				//Genero codigo sobre el registro
 				assembler.append("IMUL AX," + opIzq.getValor() + "\n"); //IMUL AX,valor
