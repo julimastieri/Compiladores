@@ -209,8 +209,7 @@ public class Traductor {
 			} else if (nodo.getNombre() == "PRINT") {
 				generarPrint(nodo);
 				imprimirArbolmod(raiz, "");
-			}
-			else if (nodo.getNombre() == "FOREACH") {
+			} else if (nodo.getNombre() == "FOREACH") {
 				nodo.reemplazar(nodo.getNombre());
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre() == "CONDICION_FOREACH") {
@@ -254,7 +253,7 @@ public class Traductor {
 		NodoArbol nodoDer = nodo.getNodoDer();
 		
 		if (!(nodoIzq.esRegistro()) && !(nodoDer.esRegistro())) { //Si ninguno es registro son var o const los dos
-		//Situacion 1 (VAR - VAR o CONST-CONST)
+		//Situacion 1 (VAR - VAR o CONST-CONST) o (VAR - CONST o CONST - VAR)
 			//Falta probar var - var
 			
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
@@ -265,19 +264,19 @@ public class Traductor {
 			if (reg != -1) { // si hay algun registro libre
 				registros[reg] = "O";
 				
-				if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
+				if ((nodoIzq.getTipoDeDato().equals("ulong")) && (nodoDer.getTipoDeDato().equals("ulong")) ) { 
 				// Situacion 1a (32 bits)
 					
-					if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
 						assembler.append("ADD E" + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //ADD EAX,30800
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV EAX,_a
 						assembler.append("ADD E" + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //ADD EAX,_b
-					} else if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV EAX, 30m
 						assembler.append("ADD E" + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //ADD EAX,_b
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV EAX,_b
 						assembler.append("ADD E" + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //ADD EAX,40m
 					}
@@ -285,19 +284,19 @@ public class Traductor {
 					//Actualizo el arbol
 					nodo.reemplazar("E" + hashRegs.get(reg), reg);
 					
-				} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) { 
+				} else if ((nodoIzq.getTipoDeDato().equals("int")) && (nodoDer.getTipoDeDato().equals("int"))) { 
 				// Situacion 1b (16 bits)
 
-					if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV AX,40000
 						assembler.append("ADD " + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //ADD AX,30800
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV AX,_a
 						assembler.append("ADD " + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //ADD AX,_b
-					} else if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV AX, 30m
 						assembler.append("ADD " + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //ADD AX,_b
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV AX,_b
 						assembler.append("ADD " + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //ADD AX,40m
 					}
@@ -562,11 +561,21 @@ public class Traductor {
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
 			
-			//Liberar registro 0
-			if (registros[0] == "O") { //si el registro esta ocupado
+			//Liberar registro 0 (EAX/AX)
+			if (registros[0].equals("O")) { //si el registro esta ocupado
 				int proxLibre = primerRegLibre();
 				if (proxLibre != -1) {
 					changeRecord(raiz, 0, proxLibre);
+				} else {
+					// si no hay ninguno libre: VER
+				}
+			}
+			
+			//Liberar DX/EAX
+			if (registros[3].equals("O")) {
+				int proxLibre = primerRegLibre();
+				if (proxLibre != -1) {
+					changeRecord(raiz, 3, proxLibre);
 				} else {
 					// si no hay ninguno libre: VER
 				}
@@ -583,7 +592,7 @@ public class Traductor {
 					
 			} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) { 
 			// Situacion 1b (16 bits)
-					
+				
 				assembler.append("MOV AX," + opIzq.getValor() + "\n"); //MOV AX,valor1
 				assembler.append("IMUL AX," + opDer.getValor() + "\n"); //IMUL AX,valor2
 					
@@ -617,8 +626,19 @@ public class Traductor {
 				}				
 			}
 			
+			//Liberar DX/EAX
+			if (registros[3].equals("O")) {
+				int proxLibre = primerRegLibre();
+				if (proxLibre != -1) {
+					changeRecord(raiz, 3, proxLibre);
+				} else {
+					// si no hay ninguno libre: VER
+				}
+			}
+			
 			if (nodoDer.getTipoDeDato() == "ulong") { 
 				// 32 bits
+				
 				//Genero codigo sobre el registro
 				assembler.append("IMUL EAX," + opDer.getValor() + "\n"); //IMUL EAX,valor
 				
@@ -627,6 +647,7 @@ public class Traductor {
 				
 			} else if (nodoDer.getTipoDeDato() == "int") {
 				// 16 bits
+				
 				//Genero codigo sobre el registro
 				assembler.append("IMUL AX," + opDer.getValor() + "\n"); //IMUL AX,valor
 				
@@ -643,8 +664,18 @@ public class Traductor {
 			int nroReg2 = nodoDer.getNroReg();
 			int nroReg1 = nodoIzq.getNroReg();
 			
+			//Liberar DX/EAX
+			if (registros[3].equals("O")) {
+				int proxLibre = primerRegLibre();
+				if (proxLibre != -1) {
+					changeRecord(raiz, 3, proxLibre);
+				} else {
+					// si no hay ninguno libre: VER
+				}
+			}
 			
 			if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) {
+				
 				if (registro1 == "EAX") {
 					assembler.append("MUL "+ registro1 + "," + registro2 + "\n"); //MUL EAX,EBX
 					registros[nroReg2] = "L"; //Libero el 2do registro
@@ -726,6 +757,17 @@ public class Traductor {
 				}	
 			}
 			
+			//Liberar DX/EAX
+			if (registros[3].equals("O")) {
+				int proxLibre = primerRegLibre();
+				if (proxLibre != -1) {
+					changeRecord(raiz, 3, proxLibre);
+				} else {
+					// si no hay ninguno libre: VER
+				}
+			}
+			
+			
 			if (nodoIzq.getTipoDeDato() == "ulong") { 
 				// 32 bits
 				//Genero codigo sobre el registro
@@ -748,9 +790,13 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
+	
+	// -----------------------------------------------------------
 	private void generarDivision (NodoArbol nodo) {
 		
 	}
+	
+	// -----------------------------------------------------------
 	
 	// -----------------------------------------------------------
 	
@@ -890,26 +936,34 @@ public class Traductor {
 		//Comparo el tamaño de la coleccion con el nro de iteracion (aca agregar un JG si iteracion es mayor que tamaño)
 		//asignacion a variable "_a" el valor del arreglo en el nro de iteracion
 		
+		/*
 		int reg = primerRegLibre();
 		String nombreReg = hashRegs.get(reg);
 		if (reg != -1) { // si hay algun registro libre
 			registros[reg] = "O"; 
 			assembler.append("MOV " + nombreReg + "," + 0 + "\n"); //MOV AX,0
 		}
+		*/
+		//iterador 
+		assembler.append("MOV @aux2,0" + "\n"); //MOV AX,0
+		
 		
 		assembler.append("LabelCondForech:" + "\n");
 		
-		assembler.append("CMP " + nombreReg + "," + opDer.getTamanio() + "\n"); //CMP AX,3 (tamanio = 3)
-		assembler.append("JG LabelSiguiente" + "\n");
+		//assembler.append("CMP " + nombreReg + "," + opDer.getTamanio() + "\n"); //CMP AX,3 (tamanio = 3)
+		assembler.append("CMP @aux2," + opDer.getTamanio() + "\n"); //CMP aux2,3 (tamanio = 3)
 		
-		//Hago asignacion
+		assembler.append("JG LabelSiguienteForeach" + "\n");
+		
+		//Hago asignacion a := b[aux2]
 		int otroReg = primerRegLibre();
 		String nombreOtroReg = hashRegs.get(otroReg);
-		if (reg != -1) { // si hay algun registro libre
+		if (otroReg != -1) { // si hay algun registro libre
 			registros[otroReg] = "O"; 
-			//assembler.append("MOV " + nombreOtroReg + ",_" + opDer.getValorInicial(i) + "\n"); //MOV BX,_b[i] (nose como hacer b[i])
+			//assembler.append("MOV " + nombreOtroReg + ",_" + opDer.getValorInicial(aux2) + "\n"); //MOV BX,_b[i] (nose como hacer b[i])
 			assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreOtroReg + "\n"); //MOV _a,BX
-			assembler.append("ADD " + nombreReg + "," + 1 + "\n");
+			//assembler.append("ADD " + nombreReg + "," + 1 + "\n");
+			assembler.append("ADD @aux2,1" + "\n");
 			registros[otroReg] = "L";
 		}
 		
@@ -920,7 +974,7 @@ public class Traductor {
 	
 	private void generarCuerpoForeach(NodoArbol nodo) {
 		assembler.append("JMP LabelCondForech" + "\n");
-		assembler.append("LabelSiguiente:" + "\n");
+		assembler.append("LabelSiguienteForeach:" + "\n");
 		//liberar registro en donde estaba el iterador
 		nodo.reemplazar(nodo.getNombre());
 	}

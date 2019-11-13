@@ -13,5 +13,7 @@ PROGRAMA
 					b
 				CUERPO_FOREACH
 					:=
-						a
-						100
+						w
+						+
+							100
+							a

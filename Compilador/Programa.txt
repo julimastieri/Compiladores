@@ -17,14 +17,15 @@ MOV AX,2
 MOV _a,AX
 MOV AX,3
 MOV _w,AX
-MOV AX,0
+MOV @aux2,0
 LabelCondForech:
-CMP AX,3
+CMP @aux2,3
 JG LabelSiguiente
-MOV _a,BX
-ADD AX,1
-MOV BX,100
-MOV _a,BX
+MOV _a,AX
+ADD @aux2,1
+MOV AX,100
+ADD AX,_a
+MOV _w,AX
 JMP LabelCondForech
 LabelSiguiente:
 invoke ExitProcess, 0

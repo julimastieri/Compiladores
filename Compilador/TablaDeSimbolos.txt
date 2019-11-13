@@ -4,4 +4,4 @@ Lexema: 100 , Tipo de token: constante , Tipo de dato: int , cantidad de de vece
 Lexema: b , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Nombre de coleccion , Tamanio: 3 , Valor: 0 , Valores Iniciales: 1, 2, 3 
 Lexema: 2 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Constante , Tamanio: 1 , Valor: 2
 Lexema: 3 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Constante , Tamanio: 1 , Valor: 3
-Lexema: w , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1 , Valor: 0
+Lexema: w , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 3 , Uso: Variable , Tamanio: 1 , Valor: 0
