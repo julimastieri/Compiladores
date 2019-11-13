@@ -200,16 +200,14 @@ public class Traductor {
 			} else if (nodo.getNombre().equals("THEN")) {
 				generarThen(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre().equals("ELSE")) {
-				generarElse(nodo);
-				imprimirArbolmod(raiz, "");
-			} else if ((nodo.getNombre().equals("CUERPO")) || (nodo.getNombre().equals("IF")) ) {
+			} else if ((nodo.getNombre().equals("CUERPO")) ) {
 				nodo.reemplazar(nodo.getNombre());
+				assembler.append("LabelSiguiente:" + "\n");
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("PRINT")) {
 				generarPrint(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre().equals("FOREACH")) {
+			} else if (nodo.getNombre().equals("FOREACH") || (nodo.getNombre().equals("IF")) || (nodo.getNombre().equals("ELSE")) ) {
 				nodo.reemplazar(nodo.getNombre());
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CONDICION_FOREACH")) {
@@ -916,11 +914,12 @@ public class Traductor {
 	}
 	
 	// -----------------------------------------------------------
-	
+	/*
 	private void generarElse (NodoArbol nodo) {
-		assembler.append("LabelSiguiente:" + "\n");
+		//assembler.append("LabelSiguiente:" + "\n");
 		nodo.reemplazar(nodo.getNombre());
 	}
+	*/
 	
 	// -----------------------------------------------------------
 	

@@ -2,14 +2,20 @@ int a,w;
 int b[1,2,3];
 
 begin
-	a:=2;
-	w:=3;
+	#if (w > a)
+	#	w := a;
+	#end_if;
+	a := 2;
+	w := 1;
 
-	foreach a in b
-		w:=100 + a;
-	;
-
-	if (w > a)
-		w := a;
+	if(a==w)
+		begin
+			a:=2;
+			w:=12;
+		end
+	else
+		begin
+			w:=10;
+		end
 	end_if;
 end

@@ -6,25 +6,22 @@ PROGRAMA
 		Sentencia Ejecutable
 			:=
 				w
-				3
-			Sentencia Ejecutable
-				FOREACH
-					CONDICION_FOREACH
+				1
+			IF
+				CONDICION
+					==
 						a
-						b
-					CUERPO_FOREACH
-						:=
-							w
-							+
-								100
+						w
+				CUERPO
+					THEN
+						Sentencia Ejecutable
+							:=
 								a
-				IF
-					CONDICION
-						>
-							w
-							a
-					CUERPO
-						THEN
+								2
 							:=
 								w
-								a
+								12
+					ELSE
+						:=
+							w
+							10
