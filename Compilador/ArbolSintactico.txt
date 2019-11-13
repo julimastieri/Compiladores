@@ -7,13 +7,24 @@ PROGRAMA
 			:=
 				w
 				3
-			FOREACH
-				CONDICION_FOREACH
-					a
-					b
-				CUERPO_FOREACH
-					:=
-						w
-						+
-							100
+			Sentencia Ejecutable
+				FOREACH
+					CONDICION_FOREACH
+						a
+						b
+					CUERPO_FOREACH
+						:=
+							w
+							+
+								100
+								a
+				IF
+					CONDICION
+						>
+							w
 							a
+					CUERPO
+						THEN
+							:=
+								w
+								a

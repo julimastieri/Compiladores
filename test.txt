@@ -1,10 +1,15 @@
-int a;
-ulong b;
-int c[1,_,5];
-ulong w;
-ulong d[4];
+int a,w;
+int b[1,2,3];
 
 begin
-	a := 3;
-	print ({mensaje});
+	a:=2;
+	w:=3;
+
+	foreach a in b
+		w:=100 + a;
+	;
+
+	if (w > a)
+		w := a;
+	end_if;
 end

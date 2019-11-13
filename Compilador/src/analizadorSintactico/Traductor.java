@@ -173,49 +173,49 @@ public class Traductor {
 		while ((nodo.getNombre() != "PROGRAMA")) { 
 			
 			
-			if (nodo.getNombre() == "+") {
+			if (nodo.getNombre().equals("+")) {
 				generarSuma(nodo);
 				imprimirArbolmod(raiz, "");	
-			} else if (nodo.getNombre() == "-") {
+			} else if (nodo.getNombre().equals("-")) {
 				generarResta(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "*") {
+			} else if (nodo.getNombre().equals("*")) {
 				generarMultiplicacion(nodo, raiz);//FALTA
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "/") {
+			} else if (nodo.getNombre().equals("/")) {
 				generarDivision(nodo); //FALTA
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == ":=") {
+			} else if (nodo.getNombre().equals(":=")) {
 				generarAsignacion(nodo);
 				imprimirArbolmod(raiz, "");
 			} else if ((nodo.getNombre().equals(">=")) || (nodo.getNombre().equals("<=")) || (nodo.getNombre().equals("==")) || (nodo.getNombre().equals("<>")) || (nodo.getNombre().equals("<")) || (nodo.getNombre().equals(">"))){
 				generarComparacion(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "CONDICION") {
+			} else if (nodo.getNombre().equals("CONDICION")) {
 				generarCondicion(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "Sentencia Ejecutable") {
+			} else if (nodo.getNombre().equals("Sentencia Ejecutable")) {
 				nodo.reemplazar(nodo.getNombre()); // Le elimino los hijos
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "THEN") {
+			} else if (nodo.getNombre().equals("THEN")) {
 				generarThen(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "ELSE") {
+			} else if (nodo.getNombre().equals("ELSE")) {
 				generarElse(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if ((nodo.getNombre() == "CUERPO") || (nodo.getNombre() == "IF") ) {
+			} else if ((nodo.getNombre().equals("CUERPO")) || (nodo.getNombre().equals("IF")) ) {
 				nodo.reemplazar(nodo.getNombre());
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "PRINT") {
+			} else if (nodo.getNombre().equals("PRINT")) {
 				generarPrint(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "FOREACH") {
+			} else if (nodo.getNombre().equals("FOREACH")) {
 				nodo.reemplazar(nodo.getNombre());
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "CONDICION_FOREACH") {
+			} else if (nodo.getNombre().equals("CONDICION_FOREACH")) {
 				generarCondicionForeach(nodo);
 				imprimirArbolmod(raiz, "");
-			} else if (nodo.getNombre() == "CUERPO_FOREACH") {
+			} else if (nodo.getNombre().equals("CUERPO_FOREACH")) {
 				generarCuerpoForeach(nodo);
 				imprimirArbolmod(raiz, "");
 			}
@@ -318,9 +318,9 @@ public class Traductor {
 			String registro = nodoIzq.getNombre();
 			int nroReg = nodoIzq.getNroReg();
 			
-			if (opDer.getUso() == Token.USO_CONSTANTE) {
+			if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("ADD "+ registro + "," + nodoDer.getNombre() + "\n"); //ADD AX,3
-			} else if (opDer.getUso() == Token.USO_VARIABLE) {
+			} else if (opDer.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("ADD "+ registro + ",_" + nodoDer.getNombre() + "\n"); //ADD AX,_b
 			}
 			
@@ -349,9 +349,9 @@ public class Traductor {
 			String registro = nodoDer.getNombre();
 			int nroReg = nodoDer.getNroReg();
 			
-			if (opIzq.getUso() == Token.USO_CONSTANTE) {
+			if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("ADD "+ registro + "," + nodoIzq.getNombre() + "\n"); //ADD AX,3
-			} else if (opIzq.getUso() == Token.USO_VARIABLE) {
+			} else if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("ADD "+ registro + ",_" + nodoIzq.getNombre() + "\n"); //ADD AX,_b
 			}
 			
@@ -378,19 +378,19 @@ public class Traductor {
 			if (reg != -1) { // si hay algun registro libre	
 				registros[reg] = "O";
 				
-				if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
+				if ((nodoIzq.getTipoDeDato().equals("ulong")) && (nodoDer.getTipoDeDato().equals("ulong"))) { 
 				// Situacion 1a (32 bits)
 					
-					if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
 						assembler.append("SUB E" + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //SUB EAX,30800
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV EAX,_a
 						assembler.append("SUB E" + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //SUB EAX,_b
-					} else if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV EAX, 30m
 						assembler.append("SUB E" + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //SUB EAX,_b
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV E" + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV EAX,_b
 						assembler.append("SUB E" + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //SUB EAX,40m
 					}
@@ -398,19 +398,19 @@ public class Traductor {
 					//Actualizo el arbol
 					nodo.reemplazar("E" + hashRegs.get(reg), reg);
 					
-				} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) { 
+				} else if ((nodoIzq.getTipoDeDato().equals("int")) && (nodoDer.getTipoDeDato().equals("int"))) { 
 				// Situacion 1b (16 bits)
 					
-					if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV AX,40000
 						assembler.append("SUB " + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //SUB AX,30800
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV AX,_a
 						assembler.append("SUB " + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //SUB AX,_b
-					} else if ((opIzq.getUso() == Token.USO_CONSTANTE) && (opDer.getUso() == Token.USO_VARIABLE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + "," + nodoIzq.getNombre() + "\n"); //MOV AX, 30m
 						assembler.append("SUB " + hashRegs.get(reg) + ",_" + nodoDer.getNombre() + "\n"); //SUB AX,_b
-					} else if ((opIzq.getUso() == Token.USO_VARIABLE) && (opDer.getUso() == Token.USO_CONSTANTE)) {
+					} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
 						assembler.append("MOV " + hashRegs.get(reg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV AX,_b
 						assembler.append("SUB " + hashRegs.get(reg) + "," + nodoDer.getNombre() + "\n"); //SUB AX,40m
 					}
@@ -432,9 +432,9 @@ public class Traductor {
 			String registro = nodoIzq.getNombre();
 			int nroReg = nodoIzq.getNroReg();
 			
-			if (opDer.getUso() == Token.USO_CONSTANTE) {
+			if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("SUB "+ registro + "," + nodoDer.getNombre() + "\n"); //SUB AX,3
-			} else if (opDer.getUso() == Token.USO_VARIABLE) {
+			} else if (opDer.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("SUB "+ registro + ",_" + nodoDer.getNombre() + "\n"); //SUB AX,_b
 			}
 			
@@ -468,12 +468,12 @@ public class Traductor {
 			
 			if (nuevoReg != -1) { // Si hay algun registro libre
 				
-				if ( nodoDer.getTipoDeDato() == "ulong" ) { 
+				if ( nodoDer.getTipoDeDato().equals("ulong")) { 
 				// (32 bits)
 					
-					if (opIzq.getUso() == Token.USO_VARIABLE) {
+					if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
 						assembler.append("MOV E" + hashRegs.get(nuevoReg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV EAX,_b
-					} else if (opIzq.getUso() == Token.USO_CONSTANTE) {
+					} else if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 						assembler.append("MOV E" + hashRegs.get(nuevoReg) + "," + nodoIzq.getNombre() + "\n"); //MOV EAX,40.000	
 					}
 					assembler.append("SUB E" + hashRegs.get(nuevoReg) + "," + registro + "\n"); //SUB EAX,EBX
@@ -481,12 +481,12 @@ public class Traductor {
 					//Actualizo el arbol
 					nodo.reemplazar("E" + hashRegs.get(nuevoReg), nuevoReg);
 					
-				} else if (nodoDer.getTipoDeDato() == "int" ) { 
+				} else if (nodoDer.getTipoDeDato().equals("int")) { 
 				// (16 bits)
 					
-					if (opIzq.getUso() == Token.USO_VARIABLE) {
+					if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
 						assembler.append("MOV " + hashRegs.get(nuevoReg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV AX,_b
-					} else if (opIzq.getUso() == Token.USO_CONSTANTE) {
+					} else if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 						assembler.append("MOV " + hashRegs.get(nuevoReg) + "," + nodoIzq.getNombre() + "\n"); //MOV AX,4
 					}
 					assembler.append("SUB " + hashRegs.get(nuevoReg) + "," + registro + "\n"); //SUB AX,BX
@@ -581,7 +581,7 @@ public class Traductor {
 				}
 			}
 			
-			if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) { 
+			if ((nodoIzq.getTipoDeDato().equals("ulong")) && (nodoDer.getTipoDeDato().equals("ulong"))) { 
 			// Situacion 1a (32 bits)
 					
 				assembler.append("MOV EAX," + opIzq.getValor() + "\n"); //MOV EAX,valor1
@@ -590,7 +590,7 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 					
-			} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) { 
+			} else if ((nodoIzq.getTipoDeDato().equals("int")) && (nodoDer.getTipoDeDato().equals("int"))) { 
 			// Situacion 1b (16 bits)
 				
 				assembler.append("MOV AX," + opIzq.getValor() + "\n"); //MOV AX,valor1
@@ -612,9 +612,9 @@ public class Traductor {
 			
 			//CHEQUEADO
 			if ((registro != "AX") || (registro != "EAX")) {
-				if (registros[0] == "O") {
+				if (registros[0].equals("O")) {
 					changeRecord(raiz, 0, nroReg);
-				} else if (registros[0] == "L") {
+				} else if (registros[0].equals("L")) {
 					
 					if (registro.charAt(0) == 'E') {
 						assembler.append("MOV EAX," + registro + "\n");
@@ -636,7 +636,7 @@ public class Traductor {
 				}
 			}
 			
-			if (nodoDer.getTipoDeDato() == "ulong") { 
+			if (nodoDer.getTipoDeDato().equals("ulong")) { 
 				// 32 bits
 				
 				//Genero codigo sobre el registro
@@ -645,7 +645,7 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 				
-			} else if (nodoDer.getTipoDeDato() == "int") {
+			} else if (nodoDer.getTipoDeDato().equals("int")) {
 				// 16 bits
 				
 				//Genero codigo sobre el registro
@@ -674,23 +674,23 @@ public class Traductor {
 				}
 			}
 			
-			if ((nodoIzq.getTipoDeDato() == "ulong") && (nodoDer.getTipoDeDato() == "ulong")) {
+			if ((nodoIzq.getTipoDeDato().equals("ulong")) && (nodoDer.getTipoDeDato().equals("ulong"))) {
 				
-				if (registro1 == "EAX") {
+				if (registro1.equals("EAX")) {
 					assembler.append("MUL "+ registro1 + "," + registro2 + "\n"); //MUL EAX,EBX
 					registros[nroReg2] = "L"; //Libero el 2do registro
 					
-				} else if (registro2 == "EAX") {
+				} else if (registro2.equals("EAX")) {
 					assembler.append("MUL "+ registro2 + "," + registro1 + "\n"); //MUL EAX,EBX
 					registros[nroReg1] = "L"; //Libero el 1er registro
 					
 				} else {
 					//CHEQUEADO
-					if (registros[0] == "O") {
+					if (registros[0].equals("O")) {
 						changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en EAX
 						registros[nroReg2] = "L"; //Libero solo el 2 porque el 1 esta ocupado con lo que habia en AX
 					
-					} else if (registros[0] == "L") {
+					} else if (registros[0].equals("L")) {
 						assembler.append("MOV EAX," + registro1 + "\n");
 						
 						registros[nroReg1] = "L"; //Libero el 1er registro
@@ -704,23 +704,23 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 				
-			} else if ((nodoIzq.getTipoDeDato() == "int") && (nodoDer.getTipoDeDato() == "int")) {
+			} else if ((nodoIzq.getTipoDeDato().equals("int")) && (nodoDer.getTipoDeDato().equals("int"))) {
 				
-				if (registro1 == "AX") {
+				if (registro1.equals("AX")) {
 					assembler.append("MUL "+ registro1 + "," + registro2 + "\n"); //MUL EAX,EBX
 					registros[nroReg2] = "L"; //Libero el 2do registro
 					
-				} else if (registro2 == "AX") {
+				} else if (registro2.equals("AX")) {
 					assembler.append("MUL "+ registro2 + "," + registro1 + "\n"); //MUL EAX,EBX
 					registros[nroReg1] = "L"; //Libero el 1er registro
 					
 				} else {
 					//
-					if (registros[0] == "O") {
+					if (registros[0].equals("O")) {
 						changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en AX
 						registros[nroReg2] = "L"; //Libero solo el 2 porque el 1 esta ocupado con lo que habia en AX
 					
-					} else if (registros[0] == "L") {
+					} else if (registros[0].equals("L")) {
 						assembler.append("MOV AX," + registro1 + "\n");
 						registros[nroReg1] = "L"; //Libero el 1er registro
 						registros[nroReg2] = "L"; //Libero el 2do registro
@@ -742,10 +742,10 @@ public class Traductor {
 			
 			//chequeado
 			if ((registro != "AX") || (registro != "EAX")) {
-				if (registros[0] == "O") {
+				if (registros[0].equals("O")) {
 					changeRecord(raiz, 0, nroReg);
 					
-				} else if (registros[0] == "L") {
+				} else if (registros[0].equals("L")) {
 					
 					if (registro.charAt(0) == 'E') {
 						assembler.append("MOV EAX," + registro + "\n");
@@ -768,7 +768,7 @@ public class Traductor {
 			}
 			
 			
-			if (nodoIzq.getTipoDeDato() == "ulong") { 
+			if (nodoIzq.getTipoDeDato().equals("ulong")) { 
 				// 32 bits
 				//Genero codigo sobre el registro
 				assembler.append("IMUL EAX," + opIzq.getValor() + "\n"); //IMUL EAX,valor
@@ -776,7 +776,7 @@ public class Traductor {
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
 				
-			} else if (nodoDer.getTipoDeDato() == "int") {
+			} else if (nodoDer.getTipoDeDato().equals("int")) {
 				// 16 bits
 				//Genero codigo sobre el registro
 				assembler.append("IMUL AX," + opIzq.getValor() + "\n"); //IMUL AX,valor
@@ -820,21 +820,21 @@ public class Traductor {
 				
 				String nombreReg = hashRegs.get(nroReg);
 				
-				if (tokenDerecha.getUso() == Token.USO_CONSTANTE) {
-					if (nodoDer.getTipoDeDato() == "ulong") {
+				if (tokenDerecha.getUso().equals(Token.USO_CONSTANTE)) {
+					if (nodoDer.getTipoDeDato().equals("ulong")) {
 						assembler.append("MOV E" + nombreReg + "," + nodoDer.getNombre()+ "\n"); //MOV ECX,40.000
 						assembler.append("MOV _" + nodoIzq.getNombre() + ",E" + nombreReg + "\n"); //MOV _a,ECX
 						
-					} else if (nodoDer.getTipoDeDato() == "int") {
+					} else if (nodoDer.getTipoDeDato().equals("int")) {
 						assembler.append("MOV " + nombreReg + "," + nodoDer.getNombre() + "\n"); //MOV CX,2
 						assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreReg + "\n"); //MOV _a,CX
 					}
-				} else if (tokenDerecha.getUso() == Token.USO_VARIABLE) {
-					if (nodoDer.getTipoDeDato() == "ulong") {
+				} else if (tokenDerecha.getUso().equals(Token.USO_VARIABLE)) {
+					if (nodoDer.getTipoDeDato().equals("ulong")) {
 						assembler.append("MOV E" + nombreReg + ",_" + nodoDer.getNombre() + "\n"); //MOV ECX,_b
 						assembler.append("MOV _" + nodoIzq.getNombre() + ",E" + nombreReg + "\n"); //MOV _a,ECX
 						
-					} else if (nodoDer.getTipoDeDato() == "int") {
+					} else if (nodoDer.getTipoDeDato().equals("int")) {
 						assembler.append("MOV " + nombreReg + ",_" + nodoDer.getNombre() + "\n"); //MOV CX,_b
 						assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreReg + "\n"); //MOV _a,CX
 					}
@@ -850,6 +850,9 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
+	
+	// -----------------------------------------------------------
+	
 	private void generarComparacion (NodoArbol nodo) {
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
@@ -857,11 +860,11 @@ public class Traductor {
 		Token tokenIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 		String comparador = nodo.getNombre();
 		
-		if ((tokenDer.getUso() == Token.USO_VARIABLE) && (tokenIzq.getUso() == Token.USO_VARIABLE)) {
+		if ((tokenDer.getUso().equals(Token.USO_VARIABLE)) && (tokenIzq.getUso().equals(Token.USO_VARIABLE)) ) {
 			assembler.append("CMP _" + nodoIzq.getNombre() + ",_" + nodoDer.getNombre() + "\n");
-		} else if ((tokenDer.getUso() == Token.USO_VARIABLE) && !(tokenIzq.getUso() == Token.USO_VARIABLE)) {
+		} else if ((tokenDer.getUso().equals(Token.USO_VARIABLE)) && !(tokenIzq.getUso().equals(Token.USO_VARIABLE))) {
 			assembler.append("CMP " + nodoIzq.getNombre() + ",_" + nodoDer.getNombre() + "\n");
-		} else if (!(tokenDer.getUso() == Token.USO_VARIABLE) && (tokenIzq.getUso() == Token.USO_VARIABLE)) {
+		} else if (!(tokenDer.getUso().equals(Token.USO_VARIABLE)) && (tokenIzq.getUso().equals(Token.USO_VARIABLE))) {
 			assembler.append("CMP _" + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n");
 		} else {
 			assembler.append("CMP " + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n");
@@ -873,6 +876,9 @@ public class Traductor {
 		
 		nodo.reemplazar(comparador);
 	}
+	
+	// -----------------------------------------------------------
+	
 	
 	// -----------------------------------------------------------
 	
@@ -899,7 +905,10 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
-	private void generarThen (NodoArbol nodo) {
+	
+	// -----------------------------------------------------------
+	
+    private void generarThen (NodoArbol nodo) {
 		assembler.append("JMP LabelSiguiente" + "\n");
 		assembler.append("LabelElse:" + "\n");
 		
@@ -961,6 +970,7 @@ public class Traductor {
 		if (otroReg != -1) { // si hay algun registro libre
 			registros[otroReg] = "O"; 
 			//assembler.append("MOV " + nombreOtroReg + ",_" + opDer.getValorInicial(aux2) + "\n"); //MOV BX,_b[i] (nose como hacer b[i])
+			assembler.append("MOV b[i]" + "\n");
 			assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreOtroReg + "\n"); //MOV _a,BX
 			//assembler.append("ADD " + nombreReg + "," + 1 + "\n");
 			assembler.append("ADD @aux2,1" + "\n");
