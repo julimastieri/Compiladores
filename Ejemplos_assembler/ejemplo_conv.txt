@@ -1,0 +1,12 @@
+ulong a,w;
+int b[1,2,3];
+int c;
+int z[4];
+
+begin
+	a := to_ulong(-3);
+	#a := to_ulong(2+10);
+	#w := to_ulong(40000);
+	#w := to_ulong(20);
+	
+end

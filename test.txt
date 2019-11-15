@@ -1,21 +1,9 @@
-int a,w;
+ulong a,w;
 int b[1,2,3];
+int c;
+int z[4];
 
 begin
-	#if (w > a)
-	#	w := a;
-	#end_if;
-	a := 2;
-	w := 1;
 
-	if(a==w)
-		begin
-			a:=2;
-			w:=12;
-		end
-	else
-		begin
-			w:=10;
-		end
-	end_if;
+	
 end

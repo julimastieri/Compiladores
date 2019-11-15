@@ -1,8 +1,9 @@
-Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 4 , Uso: Variable , Tamanio: 1 , Valor: 0
-Lexema: 1 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Constante , Tamanio: 1 , Valor: 1
-Lexema: 12 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 12
+Lexema: a , Tipo de token: identificador , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1 , Valor: 0
+Lexema: 1 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 1
 Lexema: b , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Nombre de coleccion , Tamanio: 3 , Valor: 0 , Valores Iniciales: 1, 2, 3 
-Lexema: 2 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 3 , Uso: Constante , Tamanio: 1 , Valor: 2
-Lexema: 3 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 3
-Lexema: w , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 5 , Uso: Variable , Tamanio: 1 , Valor: 0
-Lexema: 10 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 10
+Lexema: 2 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Constante , Tamanio: 1 , Valor: 2
+Lexema: 3 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Constante , Tamanio: 1 , Valor: 3
+Lexema: c , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1 , Valor: 0
+Lexema: 4 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 4
+Lexema: w , Tipo de token: identificador , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1 , Valor: 0
+Lexema: z , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Nombre de coleccion , Tamanio: 4 , Valor: 0

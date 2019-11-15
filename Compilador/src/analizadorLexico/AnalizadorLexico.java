@@ -33,6 +33,7 @@ public class AnalizadorLexico {
     static final String TIPO_OPERADOR = "";
     static final String TIPO_COMPARADOR = "comparador";
     static final String TIPO_PALABRA_RESERVADA = "palabra reservada";
+    //public static final String TIPO_REFERENCIA_MEMORIA = "referencia a memoria";
     
     public static final String TIPO_DATO_ENTERO = "int";
     public static final String TIPO_DATO_ULONG = "ulong";

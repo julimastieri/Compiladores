@@ -56,7 +56,7 @@ public class Main {
     	FileManager.write(parser.arbolString.toString(), archArbol);
     	
     //Archivo con assembler
-    	
+    
     	if (errores.size() == 0) {
         	Traductor traductor = new Traductor();
         	System.out.println("Generando codigo assembler");
@@ -67,6 +67,7 @@ public class Main {
     	} else {
     		System.out.println("Se encontraron errores durante la compilacion." + "\n" + "No se generará codigo assembler.");
     	}
+    	
     	
     
 	}

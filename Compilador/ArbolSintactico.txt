@@ -1,27 +1,6 @@
 PROGRAMA
-	Sentencia Ejecutable
-		:=
-			a
+	:=
+		c
+		*
 			2
-		Sentencia Ejecutable
-			:=
-				w
-				1
-			IF
-				CONDICION
-					==
-						a
-						w
-				CUERPO
-					THEN
-						Sentencia Ejecutable
-							:=
-								a
-								2
-							:=
-								w
-								12
-					ELSE
-						:=
-							w
-							10
+			3

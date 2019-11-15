@@ -9,6 +9,7 @@ public class Token {
 	public static final String USO_VARIABLE = "Variable";
 	public static final String USO_CONSTANTE = "Constante";
 	public static final String USO_CADENA = "Cadena";
+	public static final String USO_REF_MEM = "Referencia a memoria";
 	
 	String lexema;
 	String tipoDeToken;
