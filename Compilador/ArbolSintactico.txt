@@ -1,6 +1,19 @@
 PROGRAMA
-	:=
-		c
-		*
+	Sentencia Ejecutable
+		:=
+			a
 			2
-			3
+		Sentencia Ejecutable
+			:=
+				w
+				3
+			FOREACH
+				CONDICION_FOREACH
+					a
+					b
+				CUERPO_FOREACH
+					:=
+						w
+						+
+							100
+							a

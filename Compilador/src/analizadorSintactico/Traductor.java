@@ -1,19 +1,17 @@
 package analizadorSintactico;
 
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import analizadorLexico.AnalizadorLexico;
 import analizadorLexico.Token;
-import analizadorLexico.Error;
 
 public class Traductor {
 	
 	StringBuilder assembler;
 	String [] registros  = {"L","L","L","L"};
 	HashMap <Integer, String> hashRegs;
+	private int nroUltVarAux = 0;
 	
 	public Traductor() {
 		hashRegs = new HashMap<Integer, String>();
@@ -1171,47 +1169,49 @@ public class Traductor {
 	private void generarCondicionForeach (NodoArbol nodo) {
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
-		Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 		Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
+		int tamanioDeDato = 8;
+
+		if (opDer.getTipoDeDato() == AnalizadorLexico.TIPO_DATO_ENTERO)
+			tamanioDeDato = 4;
+
+		String iterador = generarNombreVarAux();
+		assembler.append("MOV " + iterador + ",0" + "\n"); // MOV iterador, 0 //pongo iterador en 0
+		assembler.append("LabelCondForech:" + "\n"); //pongo Label
 		
-		//Pido reg en donde voy a guardar el nro de iteracion que se incrementa en 1, se inicializa en 0
-		//Pongo Label
-		//Comparo el tamaño de la coleccion con el nro de iteracion (aca agregar un JG si iteracion es mayor que tamaño)
-		//asignacion a variable "_a" el valor del arreglo en el nro de iteracion
-		
-		/*
-		int reg = primerRegLibre();
-		String nombreReg = hashRegs.get(reg);
-		if (reg != -1) { // si hay algun registro libre
-			registros[reg] = "O"; 
-			assembler.append("MOV " + nombreReg + "," + 0 + "\n"); //MOV AX,0
-		}
-		*/
-		//iterador 
-		assembler.append("MOV @aux2,0" + "\n"); //MOV AX,0
-		
-		
-		assembler.append("LabelCondForech:" + "\n");
-		
-		//assembler.append("CMP " + nombreReg + "," + opDer.getTamanio() + "\n"); //CMP AX,3 (tamanio = 3)
-		assembler.append("CMP @aux2," + opDer.getTamanio() + "\n"); //CMP aux2,3 (tamanio = 3)
-		
-		assembler.append("JG LabelSiguienteForeach" + "\n");
-		
-		//Hago asignacion a := b[aux2]
-		int otroReg = primerRegLibre();
-		String nombreOtroReg = hashRegs.get(otroReg);
-		if (otroReg != -1) { // si hay algun registro libre
-			registros[otroReg] = "O"; 
-			//assembler.append("MOV " + nombreOtroReg + ",_" + opDer.getValorInicial(aux2) + "\n"); //MOV BX,_b[i] (nose como hacer b[i])
-			assembler.append("MOV b[i]" + "\n");
-			assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreOtroReg + "\n"); //MOV _a,BX
-			//assembler.append("ADD " + nombreReg + "," + 1 + "\n");
-			assembler.append("ADD @aux2,1" + "\n");
-			registros[otroReg] = "L";
+		assembler.append("CMP " + iterador + "," + opDer.getTamanio() + "\n"); //CMP iterador,3 (tamanio = 3)
+		assembler.append("JGE LabelSiguienteForeach" + "\n"); //si es mayor igual a tamanio de 'b' corto
+
+		//Hago asignacion a := b[iterador]; para la asignacion necesito un registro
+		int regLibre = primerRegLibre(); 
+		if (regLibre != -1) { // si hay algun registro libre
+			registros[regLibre] = "O";
+
+			//En aux3 guardo temporalmente el offset de b
+			assembler.append("MOV @aux3,"+ iterador + "\n"); //MOV @aux3, iterador
+			assembler.append("MUL @aux3,"+ tamanioDeDato + "\n"); //MUL @aux3, tamanioDeDato
+
+			//Guardo la pos de mem en donde esta el elemento actual
+			assembler.append("ADD @aux3, offset _"+ nodoDer.getNombre() + "\n");
+
+			//Guardo el valor del elem actual en regLibre
+			assembler.append("MOV " + hashRegs.get(regLibre) + ",[@aux3]" + "\n"); //MOV AX, [@aux3]
+
+			//Paso el valor a "_a"
+			assembler.append("MOV _" + nodoIzq.getNombre() + "," + hashRegs.get(regLibre) + "\n"); //MOV _a, AX
+
+			//Incremento en uno el iterador y libero el registro
+			assembler.append("ADD " + iterador + ",1" + "\n");
+			registros[regLibre] = "L";
 		}
 		
 		nodo.reemplazar(nodo.getNombre());
+	}
+	
+	private String generarNombreVarAux() {
+		String result = "@itForeach" + nroUltVarAux;
+		nroUltVarAux++;
+		return result;
 	}
 	
 	// -----------------------------------------------------------

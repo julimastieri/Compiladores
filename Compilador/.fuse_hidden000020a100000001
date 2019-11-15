@@ -13,27 +13,20 @@ _b DW 1,2,3
 _w DW ?
 .code
 start:
-MOV AX,@data
-MOV ds,AX
 MOV AX,2
 MOV _a,AX
-MOV AX,3
+MOV AX,1
 MOV _w,AX
-MOV @itForeach0,0
-LabelCondForech:
-CMP @itForeach0,3
-JGE LabelSiguienteForeach
-MOV @aux3,@itForeach0
-MUL @aux3,8
-ADD @aux3, offset _b
-MOV AX,[@aux3]
+CMP _a,_w
+JNE LabelElse
+MOV AX,2
 MOV _a,AX
-ADD @itForeach0,1
-MOV AX,100
-ADD AX,_a
+MOV AX,12
 MOV _w,AX
-JMP LabelCondForech
-LabelSiguienteForeach:
-LabelError:
+JMP LabelSiguiente
+LabelElse:
+MOV AX,10
+MOV _w,AX
+LabelSiguiente:
 invoke ExitProcess, 0
 end start
