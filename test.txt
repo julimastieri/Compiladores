@@ -4,6 +4,6 @@ int c;
 int z[4];
 
 begin
-
+	c := 10 /2;
 	
 end

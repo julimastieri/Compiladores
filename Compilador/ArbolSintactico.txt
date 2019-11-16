@@ -1,3 +1,6 @@
 PROGRAMA
-	PRINT
-		mensaje_mas_largo
+	:=
+		c
+		/
+			10
+			2

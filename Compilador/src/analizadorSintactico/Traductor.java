@@ -94,7 +94,7 @@ public class Traductor {
 	        		}
 	        	}
 	        } else if ( (uso.equals(Token.USO_CADENA)) ) {
-	        	assembler.append(lexema + " DB " + "\"" + lexema + "\"" +",0" + "\n" ); // mensaje db "mensaje"
+	        	assembler.append(lexema + " DB " + "\"" + token.getLexema() + "\"" +",0" + "\n" ); // mensaje db "mensaje"
 	        }
 	    }
 	}
@@ -1090,12 +1090,17 @@ public class Traductor {
 					changeRecord(raiz, 3, proxLibre);
 			}
 			
+			int nroRegLibre = primerRegLibre();
+			
 			if ( (nodo.getTipoDeDato().equals("ulong")) ){ 
 			// Situacion 1a (32 bits)
-
+				
 				assembler.append("MOV EAX," + nombreIzq + "\n");
-				assembler.append("MOV EDX," + nombreDer + "\n");
-				assembler.append("DIV EAX,EDX" + "\n"); 
+				assembler.append("CDQ" + "\n"); //QUEDA EN EDX:EAX
+				if (nroRegLibre != -1) {
+					assembler.append("MOV E" + hashRegs.get(nroRegLibre) + "," + nombreDer + "\n"); //MOV ECX, 20
+				}
+				assembler.append("DIV " + hashRegs.get(nroRegLibre) + "\n"); 
 				
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
@@ -1107,8 +1112,11 @@ public class Traductor {
 				assembler.append("JE LabelError" + "\n"); //si es igual a 0 ir al label error
 				
 				assembler.append("MOV AX," + nombreIzq + "\n");
-				assembler.append("MOV DX," + nombreDer + "\n");
-				assembler.append("IDIV AX,DX" + "\n"); 
+				assembler.append("CWD" + "\n"); //QUEDA EN DX:AX
+				if (nroRegLibre != -1) {
+					assembler.append("MOV " + hashRegs.get(nroRegLibre) + "," + nombreDer + "\n"); //MOV ECX, 20
+				}
+				assembler.append("IDIV " + hashRegs.get(nroRegLibre) + "\n"); 
 				
 				//Actualizo el arbol
 				nodo.reemplazar("AX", 0);
@@ -1129,21 +1137,6 @@ public class Traductor {
 				String registro = nodoIzq.getNombre();
 				int nroReg = nodoIzq.getNroReg();
 				
-				//Mudo a AX lo que hay en el registro del nodo izquierdo 
-				if ((registro != "AX") || (registro != "EAX")) {
-					if (registros[0].equals("O")) {
-						changeRecord(raiz, 0, nroReg);
-					} else if (registros[0].equals("L")) {
-						if (registro.charAt(0) == 'E') {
-							assembler.append("MOV EAX," + registro + "\n");
-						} else {
-							assembler.append("MOV AX," + registro + "\n");
-						}
-						registros[nroReg] = "L";
-						registros[0] = "O";
-					}				
-				}
-				
 				//Liberar DX/EDX
 				if (registros[3].equals("O")) {
 					int proxLibre = primerRegLibre();
@@ -1152,12 +1145,36 @@ public class Traductor {
 					}
 				}
 				
+				//Mudo a AX lo que hay en el registro del nodo izquierdo 
+				if ((registro != "AX") || (registro != "EAX")) {
+					
+					if (registros[0].equals("O")) {
+						changeRecord(raiz, 0, nroReg);
+					} else if (registros[0].equals("L")) {
+						if (registro.charAt(0) == 'E') {
+							assembler.append("MOV EAX," + registro + "\n");
+							assembler.append("CDQ" + "\n");
+						} else {
+							assembler.append("MOV AX," + registro + "\n");
+							assembler.append("CWD" + "\n");
+						}
+						registros[nroReg] = "L";
+						registros[0] = "O";
+					}				
+				}
+				
+
+				
+				int nroRegLibre = primerRegLibre();
+				
 				if (nodo.getTipoDeDato().equals("ulong")) { 
 					// 32 bits
 					
 					//Genero codigo sobre el registro
-					assembler.append("MOV EDX," + nombreDer +  "\n");
-					assembler.append("DIV EAX,EDX" + "\n"); 
+					if (nroRegLibre != -1) {
+						assembler.append("MOV E" + hashRegs.get(nroRegLibre) + "," + nombreDer + "\n");
+					}
+					assembler.append("DIV E" + hashRegs.get(nroRegLibre) + "\n"); 
 					
 					//Actualizo el arbol
 					nodo.reemplazar("EAX", 0);
@@ -1169,8 +1186,10 @@ public class Traductor {
 					assembler.append("JE LabelError" + "\n"); //si es igual a 0 ir al label error
 					
 					//Genero codigo sobre el registro
-					assembler.append("MOV DX," + nombreDer + "\n");
-					assembler.append("IDIV AX,DX" + "\n");
+					if (nroRegLibre != -1) {
+						assembler.append("MOV " + hashRegs.get(nroRegLibre) + "," + nombreDer + "\n");
+					}
+					assembler.append("IDIV " + hashRegs.get(nroRegLibre) + "\n"); 
 				
 					//Actualizo el arbol
 					nodo.reemplazar("AX", 0);
@@ -1188,21 +1207,6 @@ public class Traductor {
 			String registro = nodoDer.getNombre();
 			int nroReg = nodoDer.getNroReg();
 			
-			//Mudo a AX lo que hay en el registro del nodo izquierdo 
-			if ((registro != "AX") || (registro != "EAX")) {
-				if (registros[0].equals("O")) {
-					changeRecord(raiz, 0, nroReg);
-				} else if (registros[0].equals("L")) {
-					if (registro.charAt(0) == 'E') {
-						assembler.append("MOV EAX," + registro + "\n");
-					} else {
-						assembler.append("MOV AX," + registro + "\n");
-					}
-					registros[nroReg] = "L";
-					registros[0] = "O";
-				}				
-			}
-			
 			//Liberar DX/EDX
 			if (registros[3].equals("O")) {
 				int proxLibre = primerRegLibre();
@@ -1211,12 +1215,33 @@ public class Traductor {
 				}
 			}
 			
+			//Mudo a AX lo que hay en el registro del nodo izquierdo 
+			if ((registro != "AX") || (registro != "EAX")) {
+				if (registros[0].equals("O")) {
+					changeRecord(raiz, 0, nroReg);
+				} else if (registros[0].equals("L")) {
+					if (registro.charAt(0) == 'E') {
+						assembler.append("MOV EAX," + registro + "\n");
+						assembler.append("CDQ" + "\n");
+					} else {
+						assembler.append("MOV AX," + registro + "\n");
+						assembler.append("CWD" + "\n");
+					}
+					registros[nroReg] = "L";
+					registros[0] = "O";
+				}				
+			}
+			
+			int nroRegLibre = primerRegLibre();
+			
 			if (nodo.getTipoDeDato().equals("ulong")) { 
 				// 32 bits
 				
 				//Genero codigo sobre el registro
-				assembler.append("MOV EDX," + nombreIzq +  "\n");
-				assembler.append("DIV EAX,EDX" + "\n"); 
+				if (nroRegLibre != -1) {
+					assembler.append("MOV E" + hashRegs.get(nroRegLibre) + "," + nombreIzq + "\n");
+				}
+				assembler.append("DIV E" + hashRegs.get(nroRegLibre) + "\n"); 
 				
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
@@ -1228,8 +1253,10 @@ public class Traductor {
 				assembler.append("JE LabelError" + "\n"); //si es igual a 0 ir al label error
 				
 				//Genero codigo sobre el registro
-				assembler.append("MOV DX," + nombreIzq + "\n");
-				assembler.append("IDIV AX,DX" + "\n");
+				if (nroRegLibre != -1) {
+					assembler.append("MOV " + hashRegs.get(nroRegLibre) + "," + nombreIzq + "\n");
+				}
+				assembler.append("IDIV " + hashRegs.get(nroRegLibre) + "\n"); 
 			
 				//Actualizo el arbol
 				nodo.reemplazar("AX", 0);
@@ -1247,39 +1274,50 @@ public class Traductor {
 			int nroReg1 = nodoIzq.getNroReg();
 			
 			//Liberar DX
-			if (!(registro1.equals("EDX")) || !(registro1.equals("DX")) || !(registro2.equals("EDX")) || !(registro2.equals("DX"))  ) {
+			//if (!(registro1.equals("EDX")) || !(registro1.equals("DX")) || !(registro2.equals("EDX")) || !(registro2.equals("DX"))  ) {
 				if (registros[3].equals("O")) {
 					int proxLibre = primerRegLibre();
 					if (proxLibre != -1) {
 						changeRecord(raiz, 3, proxLibre);
 					}
 				}
-			}
+			//}
+			
 			
 			if (nodo.getTipoDeDato().equals("ulong")) {
 				if (registro1.equals("EAX")) {
-					assembler.append("DIV "+ registro1 + "," + registro2 + "\n"); //MUL EAX,EBX
+					assembler.append("CDQ" + "\n"); //queda en EDX:EAX
+					assembler.append("DIV " + registro2 + "\n"); //MUL EAX,EBX
 					registros[nroReg2] = "L"; //Libero el 2do registro
 					
-				} else if (registro2.equals("EAX")) {
-					assembler.append("DIV "+ registro2 + "," + registro1 + "\n"); //MUL EAX,EBX
-					registros[nroReg1] = "L"; //Libero el 1er registro
+				} //else if (registro2.equals("EAX")) {
 					
-				} else {
+					//assembler.append("DIV "+ registro2 + "," + registro1 + "\n"); //MUL EAX,EBX
+					//registros[nroReg1] = "L"; //Libero el 1er registro
+				//}
+		          else {
 						if (registros[0].equals("O")) {
+							changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en EAX
+							assembler.append("CDQ" + "\n");
+							assembler.append("DIV " + registro2 + "\n");
+							registros[nroReg2] = "L";
+							
+							/*
 							if (nroReg1 == 3) {
 								changeRecord(raiz, 0, nroReg2); //lo que hay en reg2 ahora esta en EAX
 								assembler.append("DIV EAX," + registro1 + "\n"); //MUL EAX,EBX
 								registros[nroReg1] = "L"; //Libero el 1er registro
 							} else {
-								changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en EAX
+								changeRecord(raiz, 0, nroReg1); 
 								assembler.append("DIV EAX," + registro2 + "\n"); //MUL EAX,EBX
-								registros[nroReg2] = "L"; //Libero el 1er registro
+								 //Libero el 1er registro
 							}
+							*/
 							
 						} else if (registros[0].equals("L")) {
 							assembler.append("MOV EAX," + registro1 + "\n");
-							assembler.append("DIV EAX," + registro2 + "\n"); //MUL EAX,EBX
+							assembler.append("CDQ" + "\n");
+							assembler.append("DIV " + registro2 + "\n"); //MUL EAX,EBX
 							
 							registros[nroReg1] = "L"; //Libero el 1er registro
 							registros[nroReg2] = "L"; //Libero el 2do registro
@@ -1297,28 +1335,25 @@ public class Traductor {
 				assembler.append("JE LabelError" + "\n"); //si es igual a 0 ir al label error
 				
 				if (registro1.equals("AX")) {
-					assembler.append("IDIV "+ registro1 + "," + registro2 + "\n"); //MUL EAX,EBX
+					
+					assembler.append("CWD" + "\n"); //queda en DX:AX
+					assembler.append("IDIV " + registro2 + "\n"); //MUL EAX,EBX
 					registros[nroReg2] = "L"; //Libero el 2do registro
 					
-				} else if (registro2.equals("AX")) {
-					assembler.append("IDIV "+ registro2 + "," + registro1 + "\n"); //MUL EAX,EBX
-					registros[nroReg1] = "L"; //Libero el 1er registro
-					
-				} else {
+				}else {
 						if (registros[0].equals("O")) {
-							if (nroReg1 == 3) {
-								changeRecord(raiz, 0, nroReg2); //lo que hay en reg2 ahora esta en EAX
-								assembler.append("IDIV AX," + registro1 + "\n"); //MUL EAX,EBX
-								registros[nroReg1] = "L"; //Libero el 1er registro
-							} else {
-								changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en EAX
-								assembler.append("IDIV AX," + registro2 + "\n"); //MUL EAX,EBX
-								registros[nroReg2] = "L"; //Libero el 1er registro
-							}
+							changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en EAX
+							assembler.append("CWD" + "\n");
+							assembler.append("IDIV " + registro2 + "\n");
+							registros[nroReg2] = "L";
+							
+							
+						
 							
 						} else if (registros[0].equals("L")) {
 							assembler.append("MOV AX," + registro1 + "\n");
-							assembler.append("IDIV AX," + registro2 + "\n"); //MUL EAX,EBX
+							assembler.append("CWD" + "\n");
+							assembler.append("IDIV " + registro2 + "\n"); //MUL EAX,EBX
 							
 							registros[nroReg1] = "L"; //Libero el 1er registro
 							registros[nroReg2] = "L"; //Libero el 2do registro
