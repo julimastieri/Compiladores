@@ -1,3 +1,6 @@
 PROGRAMA
-	PRINT
-		mensaje_mas_largo
+	Sentencia Ejecutable
+		PRINT
+			mensaje_mas_largo
+		PRINT
+			mensaje_mas_largo
