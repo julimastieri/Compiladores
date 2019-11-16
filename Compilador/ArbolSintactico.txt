@@ -8,33 +8,42 @@ PROGRAMA
 				a
 				2
 			Sentencia Ejecutable
-				FOREACH
-					CONDICION_FOREACH
-						a
-						d
-					CUERPO_FOREACH
-						FOREACH
-							CONDICION_FOREACH
-								a
-								d
-							CUERPO_FOREACH
-								FOREACH
-									CONDICION_FOREACH
-										a
-										d
-									CUERPO_FOREACH
-										:=
-											b
-											+
-												100
-												a
-				FOREACH
-					CONDICION_FOREACH
-						a
-						d
-					CUERPO_FOREACH
-						:=
+				IF
+					CONDICION
+						>=
+							a
 							b
-							+
-								100
-								a
+					CUERPO
+						THEN
+							IF
+								CONDICION
+									==
+										a
+										b
+								CUERPO
+									THEN
+										Sentencia Ejecutable
+											:=
+												a
+												2
+											:=
+												b
+												12
+									ELSE
+										Sentencia Ejecutable
+				IF
+					CONDICION
+						==
+							a
+							b
+					CUERPO
+						THEN
+							Sentencia Ejecutable
+								:=
+									a
+									2
+								:=
+									b
+									12
+						ELSE
+							Sentencia Ejecutable

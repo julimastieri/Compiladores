@@ -164,6 +164,17 @@ sentencia_ejecutable :seleccion { estructuras.add("Linea: " + AnalizadorLexico.c
 ;	
 
 seleccion : IF condicion cuerpo_if { $$ = new NodoArbol("IF", $2, $3);
+									NodoArbol aux = (NodoArbol) $2;
+									aux.setNroIdentificador(contadorDeIf);
+
+									aux = (NodoArbol) $3;
+									aux.setNroIdentificador(contadorDeIf);
+
+									aux = (NodoArbol) $3.getNodoIzq();
+									aux = aux.getNodoIzq();
+									aux.setNroIdentificador(contadorDeIf);
+
+									contadorDeIf++;
 			                       }
 
 		  |condicion cuerpo_if { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'if'. ", AnalizadorLexico.cantLineas)); $$=new NodoArbol("ERROR SINTACTICO", null, null);}
@@ -171,7 +182,10 @@ seleccion : IF condicion cuerpo_if { $$ = new NodoArbol("IF", $2, $3);
 ;
 
 cuerpo_if : bloque_de_sentencias_if END_IF ';' {  
-												  $$ = new NodoArbol("CUERPO", $1, null);
+												  NodoArbol aux = new NodoArbol("CUERPO", $1, null);
+												  aux.setNroIdentificador(contadorDeIf);
+												  $$ = aux;
+
 			                                   }	
 
 		  | bloque_de_sentencias_if ELSE bloque_de_sentencias_else END_IF';' { 
@@ -182,7 +196,10 @@ cuerpo_if : bloque_de_sentencias_if END_IF ';' {
 		  | bloque_de_sentencias_if ELSE bloque_de_sentencias_else ';' { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); $$=null;}
 
 //THEN
-bloque_de_sentencias_if : bloque_de_sentencias {  $$ = new NodoArbol("THEN", $1, null);
+bloque_de_sentencias_if : bloque_de_sentencias {  
+												NodoArbol aux = new NodoArbol("THEN", $1, null);
+												aux.setNroIdentificador(contadorDeIf);
+												$$ = aux;
 							                   }
 ;
 
@@ -206,6 +223,7 @@ bloque_de_sentencias :sentencia_ejecutable { $$ = $1;						                   }
 
 condicion :'(' expresion comparador expresion ')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); 
 													NodoArbol nodo_cond = new NodoArbol($3.sval, $2, $4);
+													nodo_cond.setNroIdentificador(contadorDeIf);
 													$$ = new NodoArbol("CONDICION", nodo_cond, null);
 												  }
 
@@ -440,8 +458,7 @@ public NodoArbol raiz;
 public StringBuilder arbolString = new StringBuilder();
 private int contadorDeCadenas=0;
 private int contadorDeForeach=0;
-
-
+private int contadorDeIf=0;
 
 public int yylex() throws IOException{
 	

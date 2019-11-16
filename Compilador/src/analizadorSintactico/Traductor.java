@@ -204,7 +204,7 @@ public class Traductor {
 				imprimirArbolmod(raiz, "");
 			} else if ((nodo.getNombre().equals("CUERPO")) ) {
 				nodo.reemplazar(nodo.getNombre());
-				assembler.append("LabelSiguiente:" + "\n");
+				assembler.append("LabelSiguiente"+ nodo.getNroIdentificador() +":" + "\n");
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("PRINT")) {
 				generarPrint(nodo);
@@ -1387,27 +1387,28 @@ public class Traductor {
 		System.out.println("Comparador: " + comparador);
 		
 		if (comparador.equals(">=")) {
-			assembler.append("JL LabelElse" + "\n");
+			assembler.append("JL LabelElse");
 		} else if (comparador.equals("<=")) {
-			assembler.append("JG LabelElse" + "\n");
+			assembler.append("JG LabelElse");
 		} else if (comparador.equals("==")) {
-			assembler.append("JNE LabelElse" + "\n");
+			assembler.append("JNE LabelElse");
 		} else if (comparador.equals("<>")) {
-			assembler.append("JE LabelElse" + "\n");
+			assembler.append("JE LabelElse");
 		} else if (comparador.equals("<")) {
-			assembler.append("JGE LabelElse" + "\n");
+			assembler.append("JGE LabelElse");
 		} else if (comparador.equals(">")) {
-			assembler.append("JLE LabelElse" + "\n");
+			assembler.append("JLE LabelElse");
 		}
 		
+		assembler.append(nodo.getNroIdentificador() + "\n");
 		nodo.reemplazar(nodo.getNombre());
 	}
 	
 	// -----------------------------------------------------------
 	
     private void generarThen (NodoArbol nodo) {
-		assembler.append("JMP LabelSiguiente" + "\n");
-		assembler.append("LabelElse:" + "\n");
+		assembler.append("JMP LabelSiguiente"+ nodo.getNroIdentificador() + "\n");
+		assembler.append("LabelElse"+ nodo.getNroIdentificador() +":" + "\n");
 		
 		nodo.reemplazar(nodo.getNombre());
 	}

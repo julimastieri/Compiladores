@@ -6,15 +6,28 @@ begin
 	b:=6;
 	a:=2;
 
-	foreach a in d
-		foreach a in d
-			foreach a in d
-				b:=100 + a;
-			;
-		;
-	;
+	if(a>=b)
+		if(a==b)
+		begin
+			a:=2;
+			b:=12;
+		end
+		else
+			begin
+			end
+		end_if;
+	end_if;
+
+	if(a==b)
+		begin
+			a:=2;
+			b:=12;
+		end
+		else
+			begin
+			end
+		end_if;
 
 	
 
-	foreach a in d b:=100 + a; ;
 end
