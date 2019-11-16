@@ -222,8 +222,6 @@ public class AnalizadorLexico {
 			out.append(entrada.getUso());
 			out.append(" , Tamanio: ");
 			out.append(entrada.getTamanio());
-			out.append(" , Valor: ");
-			out.append(entrada.getValor());
 			
 			int tamanio = entrada.getCantidadValoresIniciales();
 			if (tamanio > 0) {

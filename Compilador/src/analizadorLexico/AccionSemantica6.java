@@ -7,12 +7,21 @@ public class AccionSemantica6 implements AccionSemantica{
 
 	public Token ejecutar(StringBuilder buffer, Character c) {
 		
-		String lexema = buffer.toString();
-		lexema = lexema.replace(" ", "_");
-		System.out.println(lexema);
-		Integer id= AnalizadorLexico.palabras_reservadas.get("cadena");
-		Token token = new Token(lexema, AnalizadorLexico.TIPO_CADENA, id);
-		AnalizadorLexico.tablaSimbolos.put(lexema, token);
+		String cadena = buffer.toString();
+		String lexema = cadena.replace(" ", "");
+		
+		Token token = AnalizadorLexico.tablaSimbolos.get(lexema);
+		if (token == null) { //si no esta en la TS
+			Integer id= AnalizadorLexico.palabras_reservadas.get("cadena");
+			token = new Token(cadena, AnalizadorLexico.TIPO_CADENA, id);
+			System.out.println(cadena+"  "+lexema);
+			
+			AnalizadorLexico.tablaSimbolos.put(lexema, token);
+			token.setTipoDeDato(AnalizadorLexico.TIPO_CADENA);
+		} else {
+			token.incrementarContadorDeReferencias();
+		}
+		
 		return token;
 		
 	}

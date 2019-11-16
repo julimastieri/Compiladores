@@ -1,2 +1,0 @@
-Linea: 2. Factor CTE. 
-Linea: 2. Asignacion. 
