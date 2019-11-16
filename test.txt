@@ -1,9 +1,23 @@
-ulong a,w;
-int b[1,2,3];
-int c;
-int z[4];
+int a,c;
+ulong b,d;
+int e[3,2,5];
+ulong f[40600,50842];
+int g[4];
+ulong h[3];
 
 begin
-	c := 10 /2;
+	a := 2;
+
+	if (a==2)
+		print({correcto 1});
+	end_if;
+	
+	#b := 40000;
+
+	#c := a;	
+
+	#d := b;
+
+	
 	
 end

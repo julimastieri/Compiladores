@@ -70,7 +70,7 @@ public class Traductor {
 	        			
 	        		} else { //no tiene valores iniciales
 	        			int tam = token.getTamanio();
-	        			assembler.append("_" + lexema + " DW " + tam + " DUP ?" + "\n"); //_d DW 4 DUP ?
+	        			assembler.append("_" + lexema + " DW " + tam + " DUP (?)" + "\n"); //_d DW 4 DUP ?
 	        		}
 	        	} else if (tipoDeDato.equals("ulong")) {
 	        		if (token.getCantidadValoresIniciales() != 0) { //tiene valores iniciales
@@ -90,7 +90,7 @@ public class Traductor {
 	        			
 	        		} else { //no tiene valores iniciales
 	        			int tam = token.getTamanio();
-	        			assembler.append("_" + lexema + " DD " + tam + " DUP ?" + "\n"); //_d DW 4 DUP ?
+	        			assembler.append("_" + lexema + " DD " + tam + " DUP (?)" + "\n"); //_d DW 4 DUP ?
 	        		}
 	        	}
 	        } else if ( (uso.equals(Token.USO_CADENA)) ) {

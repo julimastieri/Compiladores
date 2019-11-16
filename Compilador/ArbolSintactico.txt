@@ -1,0 +1,14 @@
+PROGRAMA
+	Sentencia Ejecutable
+		:=
+			a
+			2
+		IF
+			CONDICION
+				==
+					a
+					2
+			CUERPO
+				THEN
+					PRINT
+						correcto1
