@@ -679,7 +679,7 @@ public class Traductor {
 		}
 		
 		if (!(nodoIzq.esRegistro()) && !(nodoDer.esRegistro())) { //Si ninguno es registro son var o const los dos
-		//Situacion 1 (VAR - VAR o CONST-CONST)
+		//Situacion 1 (VAR/CONST - VAR/CONST)
 			
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
@@ -689,145 +689,58 @@ public class Traductor {
 				int proxLibre = primerRegLibre();
 				if (proxLibre != -1) {
 					changeRecord(raiz, 0, proxLibre);
-				} else {
-					// si no hay ninguno libre: VER
 				}
 			}
+			
+			registros[0] = "O"; //lo ocupo asi no se me vuelve a ocupar cdo trate de liberar DX	
 			
 			//Liberar DX/EDX
 			if (registros[3].equals("O")) {
 				int proxLibre = primerRegLibre();
 				if (proxLibre != -1) {
 					changeRecord(raiz, 3, proxLibre);
-				} else {
-					// si no hay ninguno libre: VER
 				}
 			}
 			
-			if ((nodoIzq.getTipoDeDato().equals("ulong")) && (nodoDer.getTipoDeDato().equals("ulong"))) { 
+			registros[3] = "O";	
+			
+			
+			if (nodo.getTipoDeDato().equals("ulong")) { 
 			// Situacion 1a (32 bits)
 				
-				
-				//CASOS DE ELEM COLECCIONES
-			    if ( (nodoIzq.esRefMem()) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
-					assembler.append("MOV EAX,[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV EDX," + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL EAX,EDX" + "\n"); 
-				    registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				} else if ((nodoIzq.esRefMem()) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
-					assembler.append("MOV EAX,[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV EDX,_" + nodoDer.getNombre() + "\n"); //MOV EDX,_b
-					assembler.append("MUL EAX,EDX" + "\n"); 
-					registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (nodoDer.esRefMem()) ) {
-					assembler.append("MOV EAX,[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV EDX,_" + nodoIzq.getNombre() + "\n"); //MOV EDX,_b
-					assembler.append("MUL EAX,EDX" + "\n"); 
-					registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (nodoDer.esRefMem()) ) {
-					assembler.append("MOV EAX,[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV EDX," + nodoIzq.getNombre() + "\n"); //MOV EDX,_b
-					assembler.append("MUL EAX,EDX" + "\n"); 
-					registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				}
-				else if ( (nodoDer.esRefMem()) && (nodoDer.esRefMem()) ) {
-					assembler.append("MOV EAX,[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV EDX,[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[CX]
-					assembler.append("MUL EAX,EDX" + "\n"); 
-					registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-					registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				}
-				// OTROS CASOS
-				else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
-					assembler.append("MOV EAX," + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV EDX," + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL EAX,EDX" + "\n"); 
-				} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
-					assembler.append("MOV EAX,_" + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV EDX,_" + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL EAX,EDX" + "\n");
-
-				} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
-					assembler.append("MOV EAX," + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV EDX,_" + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL EAX,EDX" + "\n");
-					
-				} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
-					assembler.append("MOV EAX,_" + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV EDX," + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL EAX,EDX" + "\n");
-					
-				}
-				
-				registros[3] = "L";	
+			    assembler.append("MOV EAX," + nombreIzq + "\n");
+				assembler.append("MOV EDX," + nombreDer + "\n");
+				assembler.append("IMUL EAX,EDX" + "\n");
+			    
 				//Actualizo el arbol
 				nodo.reemplazar("EAX", 0);
+				registros[3] = "L";
 					
-			} else if ((nodoIzq.getTipoDeDato().equals("int")) && (nodoDer.getTipoDeDato().equals("int"))) { 
+			} else if (nodo.getTipoDeDato().equals("int")) { 
 			// Situacion 1b (16 bits)
 				
+				assembler.append("MOV AX," + nombreIzq + "\n");
+				assembler.append("MOV DX," + nombreDer + "\n");
+				assembler.append("IMUL AX,DX" + "\n");
 				
-				//CASOS DE ELEM COLECCIONES
-			    if ( (nodoIzq.esRefMem()) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
-					assembler.append("MOV AX,[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV DX," + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("IMUL AX,DX" + "\n"); 
-				    registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				} else if ((nodoIzq.esRefMem()) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
-					assembler.append("MOV AX,[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV DX,_" + nodoDer.getNombre() + "\n"); //MOV EDX,_b
-					assembler.append("IMUL AX,DX" + "\n"); 
-					registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (nodoDer.esRefMem()) ) {
-					assembler.append("MOV AX,[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV DX,_" + nodoIzq.getNombre() + "\n"); //MOV EDX,_b
-					assembler.append("IMUL AX,DX" + "\n"); 
-					registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (nodoDer.esRefMem()) ) {
-					assembler.append("MOV AX,[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[BX]
-					assembler.append("MOV DX," + nodoIzq.getNombre() + "\n"); //MOV EDX,_b
-					assembler.append("IMUL AX,DX" + "\n"); 
-					registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-				}
-				// OTROS CASOS
-				else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
-					assembler.append("MOV AX," + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV DX," + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("IMUL AX,DX" + "\n"); 
-				} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
-					assembler.append("MOV AX,_" + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV DX,_" + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL AX,DX" + "\n");
-
-				} else if ((opIzq.getUso().equals(Token.USO_CONSTANTE)) && (opDer.getUso().equals(Token.USO_VARIABLE))) {
-					assembler.append("MOV AX," + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV DX,_" + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL AX,DX" + "\n");
-					
-				} else if ((opIzq.getUso().equals(Token.USO_VARIABLE)) && (opDer.getUso().equals(Token.USO_CONSTANTE))) {
-					assembler.append("MOV AX,_" + nodoIzq.getNombre() + "\n"); //MOV EAX,40000
-					assembler.append("MOV DX," + nodoDer.getNombre() + "\n"); //MOV EDX,40000
-					assembler.append("MUL AX,DX" + "\n");
-					
-				}
-				assembler.append("shl EDX,16" + "\n");
-				assembler.append("MOV DX,AX" + "\n");
-				
-				registros[0] = "L";
 				//Actualizo el arbol
-				nodo.reemplazar("EDX", 0);
+				nodo.reemplazar("AX", 0);
+				registros[3] = "L";
+
 			}
-				
-			registros[0] = "O"; 
-						
 			
+			if (nodoIzq.esRefMem())	
+				registros[getNroReg(nodoIzq.getNombre())] = "L";
+		
+			if (nodoDer.esRefMem())	
+				registros[getNroReg(nodoDer.getNombre())] = "L";
+
 		} else if ( (nodoIzq.esRegistro()) && !(nodoDer.esRegistro()) ) { 
 		// Situacion 2 (REG - VAR/CONST)	
 		
 			String registro = nodoIzq.getNombre();
 			int nroReg = nodoIzq.getNroReg();
 			
-			//CHEQUEADO
 			if ((registro != "AX") || (registro != "EAX")) {
 				if (registros[0].equals("O")) {
 					changeRecord(raiz, 0, nroReg);
@@ -850,6 +763,8 @@ public class Traductor {
 					changeRecord(raiz, 3, proxLibre);
 				}
 			}
+			
+			registros[3] = "O";
 			
 		
 			
@@ -889,7 +804,7 @@ public class Traductor {
 			int nroReg2 = nodoDer.getNroReg();
 			int nroReg1 = nodoIzq.getNroReg();
 			
-			//Liberar DX/EAX
+			//Liberar DX/EDX
 			if (!(registro1.equals("EDX")) || !(registro1.equals("DX")) || !(registro2.equals("EDX")) || !(registro2.equals("DX"))  ) {
 				if (registros[3].equals("O")) {
 					int proxLibre = primerRegLibre();
@@ -898,6 +813,8 @@ public class Traductor {
 					} 
 				}
 			}
+			
+			registros[3] = "O";
 			
 			
 			if ((nodoIzq.getTipoDeDato().equals("ulong")) && (nodoDer.getTipoDeDato().equals("ulong"))) {
@@ -911,7 +828,6 @@ public class Traductor {
 					registros[nroReg1] = "L"; //Libero el 1er registro
 					
 				} else {
-					//CHEQUEADO
 					if (registros[0].equals("O")) {
 						if (nroReg1 == 3) {
 							changeRecord(raiz, 0, nroReg2); //lo que hay en reg2 ahora esta en EAX
@@ -921,6 +837,7 @@ public class Traductor {
 							changeRecord(raiz, 0, nroReg1); //lo que hay en reg1 ahora esta en EAX
 							assembler.append("MUL EAX," + registro2 + "\n"); //MUL EAX,EBX
 							registros[nroReg2] = "L";
+							registros[3] = "L";
 						}
 						
 					} else if (registros[0].equals("L")) {
@@ -929,6 +846,7 @@ public class Traductor {
 						
 						registros[nroReg1] = "L"; //Libero el 1er registro
 						registros[nroReg2] = "L"; //Libero el 2do registro
+						registros[3] = "L";
 						registros[0] = "O";
 					}
 					
@@ -1081,6 +999,7 @@ public class Traductor {
 				int proxLibre = primerRegLibre();
 				if (proxLibre != -1)
 					changeRecord(raiz, 0, proxLibre);
+				registros[3] = "L";
 			}
 			
 			//Liberar DX/EDX
@@ -1088,6 +1007,7 @@ public class Traductor {
 				int proxLibre = primerRegLibre();
 				if (proxLibre != -1)
 					changeRecord(raiz, 3, proxLibre);
+				registros[3] = "L";
 			}
 			
 			int nroRegLibre = primerRegLibre();
@@ -1437,9 +1357,7 @@ public class Traductor {
 				}
 				registros[nroReg] = "L";
 				
-			} else {
-				System.out.println("No hay registros libres");
-			}	
+			}
 		}
 		nodo.reemplazar(nodoIzq.getNombre());
 	}

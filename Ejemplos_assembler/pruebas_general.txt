@@ -1,0 +1,17 @@
+int a, b;
+ulong c;
+int d[1,2,3];
+begin
+	#que psa si no tiene un valor b???
+	b:=6;
+	a:=2;
+
+	a:=a*b*b;
+
+	if (a == 38)
+		print({Anda Bien});
+	else
+		print({Anda Mal});
+	end_if;
+
+end

@@ -1,0 +1,36 @@
+int a, b;
+ulong c;
+int d[1,2,3];
+
+begin
+
+	#ANDAN
+		#CONST-CONST(16 bits)
+		a:=5*2;
+		if (a == 3)
+			print({});
+		end_if;
+
+		b:=6;
+		a:=2;
+		a:=a*a;
+		a:=b*b;
+		a:=b*6;
+		a:=6*b;
+
+
+	#NO ANDAN
+		c:=32768*to_ulong(2); #no anda conver y si anduviera me tira sintax error en MUL
+		if (c == 65536)
+			print({Anda Bien});
+		end_if;
+
+		a:=d[0]*6; #REF A MEM
+
+		if (a == 6)
+			print({Anda Bien});
+		else
+			print({Anda Mal});
+		end_if;
+
+end

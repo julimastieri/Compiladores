@@ -1,9 +1,29 @@
 PROGRAMA
 	Sentencia Ejecutable
-		PRINT
-			cadena0
+		:=
+			b
+			6
 		Sentencia Ejecutable
-			PRINT
-				cadena1
-			PRINT
-				cadena2
+			:=
+				a
+				2
+			Sentencia Ejecutable
+				:=
+					a
+					*
+						a
+						*
+							b
+							b
+				IF
+					CONDICION
+						==
+							a
+							38
+					CUERPO
+						THEN
+							PRINT
+								cadena0
+						ELSE
+							PRINT
+								cadena1
