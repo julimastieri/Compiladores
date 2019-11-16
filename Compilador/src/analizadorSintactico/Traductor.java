@@ -180,10 +180,10 @@ public class Traductor {
 				generarResta(nodo);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("*")) {
-				generarMultiplicacion(nodo, raiz);//FALTA
+				generarMultiplicacion(nodo, raiz);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("/")) {
-				generarDivision(nodo, raiz); //FALTA
+				generarDivision(nodo, raiz);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals(":=")) {
 				generarAsignacion(nodo);
@@ -728,6 +728,13 @@ public class Traductor {
 					assembler.append("MOV EAX,[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[BX]
 					assembler.append("MOV EDX," + nodoIzq.getNombre() + "\n"); //MOV EDX,_b
 					assembler.append("MUL EAX,EDX" + "\n"); 
+					registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+				}
+				else if ( (nodoDer.esRefMem()) && (nodoDer.esRefMem()) ) {
+					assembler.append("MOV EAX,[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[BX]
+					assembler.append("MOV EDX,[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[CX]
+					assembler.append("MUL EAX,EDX" + "\n"); 
+					registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
 					registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
 				}
 				// OTROS CASOS
