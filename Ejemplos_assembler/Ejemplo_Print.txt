@@ -3,4 +3,5 @@ int a;
 begin
 	print({mensaje mas largo});
 	print({mensaje mas largo});
+	print({cadena ........ _ bien definida < > , ; ? &@!});
 end

@@ -1507,7 +1507,7 @@ public class Traductor {
 	
 	private void generarPrint (NodoArbol nodo) {		
 		NodoArbol nodoMensaje = nodo.getNodoIzq();
-		assembler.append("invoke MessageBox, NULL, addr " + nodoMensaje.getNombre() + ", addr " + nodoMensaje.getNombre() + ", MB_OK" + "\n");
+		assembler.append("invoke MessageBox, NULL, addr " + nodoMensaje.getNombre() + ", addr TituloCadena" + ", MB_OK" + "\n");
 		nodo.reemplazar(nodo.getNombre());
 	}
 	

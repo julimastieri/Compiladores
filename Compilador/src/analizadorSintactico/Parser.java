@@ -550,6 +550,7 @@ public static List<Error> errores;
 public static List<String> estructuras;
 public NodoArbol raiz;
 public StringBuilder arbolString = new StringBuilder();
+private int contadorDeCadenas  =0;
 
 
 public int yylex() throws IOException{
@@ -719,7 +720,7 @@ public void checkearUsoCorrecto(String lexema, String uso){
 			errores.add(new Error("ERROR", lexema + " es usada como " + uso , AnalizadorLexico.cantLineas));
 		}
 }
-//#line 651 "Parser.java"
+//#line 652 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1212,8 +1213,8 @@ break;
 case 72:
 //#line 255 ".\gramatica.y"
 { 
-											String lexema= val_peek(2).sval;
-											lexema = lexema.replace(" ", "");
+											String lexema = "cadena"+contadorDeCadenas;
+											contadorDeCadenas++;
 											Token t = AnalizadorLexico.tablaSimbolos.get(lexema);
 
 											agregarUsoTS(lexema, Token.USO_CADENA);
@@ -1422,7 +1423,7 @@ case 94:
 //#line 421 ".\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
-//#line 1349 "Parser.java"
+//#line 1350 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

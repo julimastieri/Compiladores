@@ -1,14 +1,9 @@
 PROGRAMA
 	Sentencia Ejecutable
-		:=
-			a
-			2
-		IF
-			CONDICION
-				==
-					a
-					2
-			CUERPO
-				THEN
-					PRINT
-						correcto1
+		PRINT
+			cadena0
+		Sentencia Ejecutable
+			PRINT
+				cadena1
+			PRINT
+				cadena2

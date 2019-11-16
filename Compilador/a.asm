@@ -8,25 +8,15 @@ includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
 TituloCadena db "Cadena",0
+cadena1 DB "mensaje mas largo",0
 _a DW ?
-_b DD ?
-_c DW ?
-_d DD ?
-_e DW 3,2,5
-_f DD 40600,50842
-_g DW 4 DUP (?)
-_h DD 3 DUP (?)
-correcto1 DB "correcto 1",0
+cadena0 DB "mensaje mas largo",0
+cadena2 DB "cadena ........ _ bien definida < > , ; ? &@!",0
 .code
 start:
-MOV AX,2
-MOV _a,AX
-CMP _a,2
-JNE LabelElse
-invoke MessageBox, NULL, addr correcto1, addr correcto1, MB_OK
-JMP LabelSiguiente
-LabelElse:
-LabelSiguiente:
+invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
+invoke MessageBox, NULL, addr cadena1, addr TituloCadena, MB_OK
+invoke MessageBox, NULL, addr cadena2, addr TituloCadena, MB_OK
 LabelError:
 invoke ExitProcess, 0
 end start

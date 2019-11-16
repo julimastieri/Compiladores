@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.*;
 
 import javax.swing.text.TabableView;
 
@@ -209,7 +211,37 @@ public class AnalizadorLexico {
 		
 		StringBuilder out = new StringBuilder();
 		
+		for (Map.Entry entrada : tablaSimbolos.entrySet()) { 
+            String lexema = (String) entrada.getKey();
+            Token token = (Token) entrada.getValue();
+  
+            out.append("Lexema: ");
+			out.append(lexema);
+			out.append(" , Tipo de token: ");
+			out.append(token.getTipoDeToken());
+			out.append(" , Tipo de dato: ");
+			out.append(token.getTipoDeDato());
+			out.append(" , cantidad de de veces que es referenciado: ");
+			out.append(token.getContadorDeReferencias());
+			out.append(" , Uso: ");
+			out.append(token.getUso());
+			out.append(" , Tamanio: ");
+			out.append(token.getTamanio());
+			
+			int tamanio = token.getCantidadValoresIniciales();
+			if (tamanio > 0) {
+				out.append(" , Valores Iniciales: ");
+				for (int i=0; i < tamanio-1;i++) { 
+					out.append(token.getValorInicial(i) + ", ");				
+				}
+				out.append(token.getValorInicial(tamanio-1) + " ");	
+			}
+			
+			out.append("\n");
+        } 
+		/*
 		for (Token entrada : tablaSimbolos.values()) { 
+			
 			out.append("Lexema: ");
 			out.append(entrada.getLexema());
 			out.append(" , Tipo de token: ");
@@ -235,7 +267,7 @@ public class AnalizadorLexico {
 			
 			out.append("\n");
 		}
-
+		*/
 		return out.toString();
 	}
 	

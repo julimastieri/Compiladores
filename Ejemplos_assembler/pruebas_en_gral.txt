@@ -1,0 +1,12 @@
+int a, b;
+
+begin
+	a := 5 - 2;
+
+	if (a == 3)
+		print({});
+	end_if;
+
+	#a := 8 + 3;	
+	#b := 3 + 2 - 8;	
+end

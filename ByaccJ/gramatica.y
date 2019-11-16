@@ -253,8 +253,8 @@ sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { String tipo_variab
 
 
 sentencia_print :PRINT '(' CADENA ')' ';' { 
-											String lexema= $3.sval;
-											lexema = lexema.replace(" ", "");
+											String lexema = "cadena"+contadorDeCadenas;
+											contadorDeCadenas++;
 											Token t = AnalizadorLexico.tablaSimbolos.get(lexema);
 
 											agregarUsoTS(lexema, Token.USO_CADENA);
@@ -428,6 +428,7 @@ public static List<Error> errores;
 public static List<String> estructuras;
 public NodoArbol raiz;
 public StringBuilder arbolString = new StringBuilder();
+private int contadorDeCadenas  =0;
 
 
 public int yylex() throws IOException{
