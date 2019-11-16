@@ -6,18 +6,7 @@ int g[4];
 ulong h[3];
 
 begin
-	a := 2;
-
-	if (a==2)
-		print({correcto 1});
-	end_if;
-	
-	#b := 40000;
-
-	#c := a;	
-
-	#d := b;
-
-	
+	c:=2;
+	g[2] := c;
 	
 end

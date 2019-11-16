@@ -1305,7 +1305,32 @@ public class Traductor {
 				
 				String nombreReg = hashRegs.get(nroReg);
 				
-				if (tokenDerecha.getUso().equals(Token.USO_CONSTANTE)) {
+				if (nodoDer.esRefMem()) {
+					if (nodoDer.getTipoDeDato().equals("ulong")) {
+						//assembler.append("MOV E" + nombreReg + "," + nodoDer.getNombre()+ "\n"); //MOV ECX,40.000
+						if (nodoIzq.esRefMem()) {
+							assembler.append("MOV [" + nodoIzq.getNombre() + "],[" + nodoDer.getNombre() + "]\n"); //MOV [],[]
+							//registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+							registros[getNroReg(nodoDer.getNombre())] = "L";
+						}else {
+							assembler.append("MOV _" + nodoIzq.getNombre() + ",[" + nodoDer.getNombre() + "]\n"); //MOV [BX],ECX
+							registros[getNroReg(nodoDer.getNombre())] = "L";
+						}
+									
+					} else if (nodoDer.getTipoDeDato().equals("int")) {
+						//assembler.append("MOV " + nombreReg + "," + nodoDer.getNombre() + "\n"); //MOV CX,2
+						if (nodoIzq.esRefMem()) {
+							assembler.append("MOV [" + nodoIzq.getNombre() + "],[" + nodoDer.getNombre() + "]\n"); //MOV [BX],CX
+							registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+						} else {
+							assembler.append("MOV _" + nodoIzq.getNombre() + ",[" + nodoDer.getNombre() + "]\n"); //MOV _a,CX
+							registros[getNroReg(nodoDer.getNombre())] = "L";
+						}
+						
+					}
+				}
+				
+				else if (tokenDerecha.getUso().equals(Token.USO_CONSTANTE)) {
 					if (nodoDer.getTipoDeDato().equals("ulong")) {
 						assembler.append("MOV E" + nombreReg + "," + nodoDer.getNombre()+ "\n"); //MOV ECX,40.000
 						if (nodoIzq.esRefMem()) {

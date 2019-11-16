@@ -1,49 +1,10 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			b
-			6
-		Sentencia Ejecutable
-			:=
-				a
+			c
+			2
+		:=
+			ELEM_COLEC
+				g
 				2
-			Sentencia Ejecutable
-				IF
-					CONDICION
-						>=
-							a
-							b
-					CUERPO
-						THEN
-							IF
-								CONDICION
-									==
-										a
-										b
-								CUERPO
-									THEN
-										Sentencia Ejecutable
-											:=
-												a
-												2
-											:=
-												b
-												12
-									ELSE
-										Sentencia Ejecutable
-				IF
-					CONDICION
-						==
-							a
-							b
-					CUERPO
-						THEN
-							Sentencia Ejecutable
-								:=
-									a
-									2
-								:=
-									b
-									12
-						ELSE
-							Sentencia Ejecutable
+			c
