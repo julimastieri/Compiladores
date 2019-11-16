@@ -61,11 +61,11 @@ public class Main {
         	Traductor traductor = new Traductor();
         	System.out.println("Generando codigo assembler");
         	String assembler = traductor.traducir(parser.raiz);
-        	File FileAssembler = new File("Programa.txt");
+        	File FileAssembler = new File("a.asm");
         	FileManager.write(assembler, FileAssembler);
         	System.out.println("Codigo assembler generado.");
     	} else {
-    		System.out.println("Se encontraron errores durante la compilacion." + "\n" + "No se generará codigo assembler.");
+    		System.out.println("Se encontraron errores durante la compilacion." + "\n" + "No se generara codigo assembler.");
     	}
     	
     	

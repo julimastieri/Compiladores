@@ -1,2 +1,2 @@
 Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1 , Valor: 0
-Lexema: mensaje mas largo , Tipo de token: cadena , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1 , Uso: Cadena , Tamanio: 1 , Valor: 0
+Lexema: mensaje_mas_largo , Tipo de token: cadena , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1 , Uso: Cadena , Tamanio: 1 , Valor: 0
