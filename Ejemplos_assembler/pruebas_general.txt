@@ -6,12 +6,15 @@ begin
 	b:=6;
 	a:=2;
 
-	a:=a*b*b;
+	foreach a in d
+		foreach a in d
+			foreach a in d
+				b:=100 + a;
+			;
+		;
+	;
 
-	if (a == 38)
-		print({Anda Bien});
-	else
-		print({Anda Mal});
-	end_if;
+	
 
+	foreach a in d b:=100 + a; ;
 end

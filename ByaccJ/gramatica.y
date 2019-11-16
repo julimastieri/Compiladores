@@ -223,7 +223,7 @@ comparador : MAYORIGUAL
 		   | '>'
 ;		   
 
-sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { String tipo_variable, tipo_coleccion;
+sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { 
 															  Boolean variable_declarada = estaDeclarada($2.sval);
 															  Boolean coleccion_declarada = estaDeclarada($4.sval);
 															  if ( variable_declarada && coleccion_declarada ){
@@ -239,10 +239,20 @@ sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { String tipo_variab
 
 															  }
 
+															  String lexema = "@itForeach" + contadorDeForeach;
+										 			          Integer id = AnalizadorLexico.palabras_reservadas.get("id");
+															  Token token = new Token(lexema, AnalizadorLexico.TIPO_ID, id);
+															  token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ENTERO);
+															  token.setUso(Token.USO_VARIABLE_AUX);
+															  AnalizadorLexico.tablaSimbolos.put(lexema, token);
+
 															  NodoArbol nodo_variable = new NodoArbol($2.sval, null, null);
 															  NodoArbol nodo_coleccion = new NodoArbol($4.sval, null, null);
 															  NodoArbol nodo_condicion = new NodoArbol("CONDICION_FOREACH", nodo_variable, nodo_coleccion);
+															  nodo_condicion.setNroIdentificador(contadorDeForeach);
 															  NodoArbol nodo_cuerpo_foreach = new NodoArbol("CUERPO_FOREACH", $5, null);
+															  nodo_cuerpo_foreach.setNroIdentificador(contadorDeForeach);
+															  contadorDeForeach++;
 															  $$ = new NodoArbol("FOREACH",nodo_condicion ,nodo_cuerpo_foreach);
 					                                        }
 
@@ -428,7 +438,9 @@ public static List<Error> errores;
 public static List<String> estructuras;
 public NodoArbol raiz;
 public StringBuilder arbolString = new StringBuilder();
-private int contadorDeCadenas  =0;
+private int contadorDeCadenas=0;
+private int contadorDeForeach=0;
+
 
 
 public int yylex() throws IOException{

@@ -29,7 +29,7 @@ public class AnalizadorLexico {
     public static int cantLineas;
     static boolean unreadNl; //Para saber si deslei un nl o no
     
-    static final String TIPO_ID = "identificador";
+    public static final String TIPO_ID = "identificador";
     public static final String TIPO_CTE = "constante";
     static final String TIPO_CADENA = "cadena";
     static final String TIPO_OPERADOR = "";

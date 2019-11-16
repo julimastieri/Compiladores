@@ -8,22 +8,33 @@ PROGRAMA
 				a
 				2
 			Sentencia Ejecutable
-				:=
-					a
-					*
+				FOREACH
+					CONDICION_FOREACH
 						a
-						*
+						d
+					CUERPO_FOREACH
+						FOREACH
+							CONDICION_FOREACH
+								a
+								d
+							CUERPO_FOREACH
+								FOREACH
+									CONDICION_FOREACH
+										a
+										d
+									CUERPO_FOREACH
+										:=
+											b
+											+
+												100
+												a
+				FOREACH
+					CONDICION_FOREACH
+						a
+						d
+					CUERPO_FOREACH
+						:=
 							b
-							b
-				IF
-					CONDICION
-						==
-							a
-							38
-					CUERPO
-						THEN
-							PRINT
-								cadena0
-						ELSE
-							PRINT
-								cadena1
+							+
+								100
+								a

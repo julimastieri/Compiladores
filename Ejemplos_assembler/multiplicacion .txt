@@ -18,6 +18,14 @@ begin
 		a:=b*6;
 		a:=6*b;
 
+		a:=a*b*b;
+
+		if (a == 72)
+			print({Anda Bien});
+		else
+			print({Anda Mal});
+		end_if;
+
 
 	#NO ANDAN
 		c:=32768*to_ulong(2); #no anda conver y si anduviera me tira sintax error en MUL

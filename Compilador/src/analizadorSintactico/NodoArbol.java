@@ -13,6 +13,7 @@ public class NodoArbol extends ParserVal{
 	Boolean esRegistro;
 	int nroReg;
 	Boolean esRefMem;
+	int nroIdentificador;
 	
 	
 	public NodoArbol(String nombre, ParserVal nodoIzq, ParserVal nodoDer) {
@@ -22,6 +23,7 @@ public class NodoArbol extends ParserVal{
 		this.nodoDer = nodoDer != null ? (NodoArbol) nodoDer : null;
 		esRegistro = false;
 		esRefMem = false;
+		nroIdentificador = 0;
 	}
 	
 	
@@ -108,5 +110,12 @@ public class NodoArbol extends ParserVal{
 		esRefMem = true;
 	}
 	
+	public void setNroIdentificador(int nro) {
+		nroIdentificador = nro;
+	}
+	
+	public int getNroIdentificador() {
+		return nroIdentificador;
+	}
 	
 }
