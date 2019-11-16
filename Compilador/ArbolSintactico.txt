@@ -1,6 +1,3 @@
 PROGRAMA
-	:=
-		a
-		/
-			5
-			2
+	PRINT
+		mensaje mas largo

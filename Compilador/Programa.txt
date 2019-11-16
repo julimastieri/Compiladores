@@ -9,17 +9,10 @@ includelib \masm32\lib\user32.lib
 .data
 TituloCadena db "Cadena",0
 _a DW ?
-_b DW ?
+mensaje mas largo DB "mensaje mas largo",0
 .code
 start:
-MOV AX,@data
-MOV ds,AX
-CMP 2,0
-JE LabelError
-MOV AX,5
-MOV DX,2
-IDIV AX,DX
-MOV _a,AX
+invoke MessageBox, NULL, addr mensaje mas largo, addr mensaje mas largo, MB_OK
 LabelError:
 invoke ExitProcess, 0
 end start

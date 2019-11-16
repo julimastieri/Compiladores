@@ -1,4 +1,2 @@
-Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Variable , Tamanio: 1 , Valor: 0
-Lexema: b , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1 , Valor: 0
-Lexema: 2 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 2
-Lexema: 5 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1 , Valor: 5
+Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1 , Valor: 0
+Lexema: mensaje mas largo , Tipo de token: cadena , Tipo de dato: no definido , cantidad de de veces que es referenciado: 1 , Uso: Cadena , Tamanio: 1 , Valor: 0

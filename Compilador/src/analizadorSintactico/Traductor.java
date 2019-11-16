@@ -165,7 +165,7 @@ public class Traductor {
 	
 	public String traducir (NodoArbol raiz) {
 		assembler.append(".code" + "\n" + "start:" + "\n");
-		assembler.append("MOV AX,@data" + "\n" + "MOV ds,AX" + "\n");
+		//assembler.append("MOV AX,@data" + "\n" + "MOV ds,AX" + "\n");
 		
 		NodoArbol nodo = subIzquierdoConHojas(raiz);
 		System.out.println("NODO: " + nodo.getNombre());
@@ -1463,12 +1463,9 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
-	private void generarPrint (NodoArbol nodo) {
-		//Token cadena = AnalizadorLexico.tablaSimbolos.get(nodo.getNodoDer().getNombre());
-		//invoke MessageBox, NULL, addr contenido, addr titulo, MB_OK
-		
+	private void generarPrint (NodoArbol nodo) {		
 		NodoArbol nodoMensaje = nodo.getNodoIzq();
-		assembler.append("invoke MessageBox, NULL, addr " + nodoMensaje.getNombre() + ", addr TituloCadena, MB_OK" + "\n");
+		assembler.append("invoke MessageBox, NULL, addr " + nodoMensaje.getNombre() + ", addr " + nodoMensaje.getNombre() + ", MB_OK" + "\n");
 		nodo.reemplazar(nodo.getNombre());
 	}
 	

@@ -9,24 +9,12 @@ includelib \masm32\lib\user32.lib
 .data
 TituloCadena db "Cadena",0
 _a DW ?
-_b DW 1,2,3
-_w DW ?
+mensaje DB "mensaje",0
 .code
 start:
-MOV AX,2
-MOV _a,AX
-MOV AX,1
-MOV _w,AX
-CMP _a,_w
-JNE LabelElse
-MOV AX,2
-MOV _a,AX
-MOV AX,12
-MOV _w,AX
-JMP LabelSiguiente
-LabelElse:
-MOV AX,10
-MOV _w,AX
-LabelSiguiente:
+MOV AX,@data
+MOV ds,AX
+invoke MessageBox, NULL, addr mensaje, addr TituloCadena, MB_OK
+LabelError:
 invoke ExitProcess, 0
 end start

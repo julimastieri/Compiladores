@@ -1,5 +1,5 @@
 int a;
 
 begin
-	print({mensaje para imprimir por pantalla});
+	print({mensaje mas largo});
 end
