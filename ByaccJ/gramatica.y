@@ -254,10 +254,8 @@ sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { String tipo_variab
 
 sentencia_print :PRINT '(' CADENA ')' ';' { 
 											String lexema= $3.sval;
-											lexema = lexema.replace(" ", "_");
+											lexema = lexema.replace(" ", "");
 											Token t = AnalizadorLexico.tablaSimbolos.get(lexema);
-											if (t.getTipoDeDato() == Token.UNDEFINED)
-												t.setTipoDeDato(AnalizadorLexico.TIPO_CADENA);
 
 											agregarUsoTS(lexema, Token.USO_CADENA);
 											NodoArbol nodo_cadena = new NodoArbol(lexema, null, null);
