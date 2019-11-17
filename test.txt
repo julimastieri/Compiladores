@@ -6,7 +6,9 @@ int g[4];
 ulong h[3];
 
 begin
-	c:=2;
-	g[2] := c;
+	a := e[0];
 	
+	if (a==3)
+		print({correcto});
+	end_if;	
 end

@@ -1,6 +1,8 @@
 package analizadorSintactico;
 
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 import analizadorLexico.AnalizadorLexico;
@@ -222,7 +224,7 @@ public class Traductor {
 				generarConversion(nodo);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("ELEM_COLEC")) {
-				generarElemColec(nodo);
+				generarElemColec(nodo, raiz);
 				imprimirArbolmod(raiz, "");
 			}
 			
@@ -1305,27 +1307,29 @@ public class Traductor {
 				
 				String nombreReg = hashRegs.get(nroReg);
 				
+				//Der = e[0] (CX)
+				// Izq = a (nombreReg)
 				if (nodoDer.esRefMem()) {
+					String nombreIzq = "";
+					if (nodoIzq.esRefMem()) {
+						nombreIzq = "[" + nodoIzq.getNombre() + "]";
+					} else {
+						nombreIzq = "_" + nodoIzq.getNombre();
+					}
+					
+					
 					if (nodoDer.getTipoDeDato().equals("ulong")) {
-						//assembler.append("MOV E" + nombreReg + "," + nodoDer.getNombre()+ "\n"); //MOV ECX,40.000
-						if (nodoIzq.esRefMem()) {
-							assembler.append("MOV [" + nodoIzq.getNombre() + "],[" + nodoDer.getNombre() + "]\n"); //MOV [],[]
-							//registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-							registros[getNroReg(nodoDer.getNombre())] = "L";
-						}else {
-							assembler.append("MOV _" + nodoIzq.getNombre() + ",[" + nodoDer.getNombre() + "]\n"); //MOV [BX],ECX
-							registros[getNroReg(nodoDer.getNombre())] = "L";
-						}
+						//assembler.append("MOV E" + nombreReg + "," + nombreIzq + "\n" ); //mov EBX _a  o MOV EBX [AX]
+						assembler.append("MOV E" + nombreReg + ",[" + nodoDer.getNombre() + "]\n"); //MOV EBX [CX]
+						assembler.append("MOV "+ nombreIzq + "," + nombreReg + "\n"); //MOV _a EBX
+						registros[getNroReg(nodoDer.getNombre())] = "L";
+						
 									
 					} else if (nodoDer.getTipoDeDato().equals("int")) {
-						//assembler.append("MOV " + nombreReg + "," + nodoDer.getNombre() + "\n"); //MOV CX,2
-						if (nodoIzq.esRefMem()) {
-							assembler.append("MOV [" + nodoIzq.getNombre() + "],[" + nodoDer.getNombre() + "]\n"); //MOV [BX],CX
-							registros[getNroReg(nodoDer.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
-						} else {
-							assembler.append("MOV _" + nodoIzq.getNombre() + ",[" + nodoDer.getNombre() + "]\n"); //MOV _a,CX
-							registros[getNroReg(nodoDer.getNombre())] = "L";
-						}
+						//assembler.append("MOV " + nombreReg + "," + nombreIzq + "\n" ); //mov BX _a  o MOV BX [AX]
+						assembler.append("MOV " + nombreReg + ",[" + nodoDer.getNombre() + "]\n"); //MOV BX [CX]
+						assembler.append("MOV "+ nombreIzq + "," + nombreReg + "\n"); //MOV _a BX
+						registros[getNroReg(nodoDer.getNombre())] = "L";
 						
 					}
 				}
@@ -1545,33 +1549,35 @@ public class Traductor {
 
 	// -----------------------------------------------------------
 	
-	private void generarElemColec(NodoArbol nodo) {
+	private void generarElemColec(NodoArbol nodo, NodoArbol raiz) {
 		NodoArbol nodoIzq = nodo.getNodoIzq(); //b
 		NodoArbol nodoDer = nodo.getNodoDer(); //2
 		
-		int nroReg = primerRegLibre();
-		
-		if (nroReg != -1) {
-			registros[nroReg] = "O";
-			
-			if (nodoIzq.getTipoDeDato().equals("ulong")) {
-				assembler.append("MOV E" + hashRegs.get(nroReg) + ", offset _" + nodoIzq.getNombre() + "\n"); //MOV EAX, offset _b
-				assembler.append("MOV @aux1,8" + "\n");
-				assembler.append("MUL @aux1," + nodoDer.getNombre() + "\n"); //MUL @aux1,2
-				assembler.append("ADD E" +  hashRegs.get(nroReg) + ",@aux1" + "\n"); //ADD EAX, @aux1 (me desplazo hasta la pos)
-				nodo.reemplazar("E" + hashRegs.get(nroReg));
-				nodo.setTipoDeDato("ulong");
-				nodo.setEsRefMem(nroReg);
-			} else {
-				assembler.append("MOV " + hashRegs.get(nroReg) + ", offset _" + nodoIzq.getNombre() + "\n"); //MOV AX, offset _b
-				assembler.append("MOV @aux1,4" + "\n");
-				assembler.append("MUL @aux1," + nodoDer.getNombre() + "\n"); //MUL @aux1,2
-				assembler.append("ADD " +  hashRegs.get(nroReg) + ",@aux1" + "\n"); //ADD EAX, @aux1 (me desplazo hasta la pos)
-				nodo.reemplazar(hashRegs.get(nroReg));
-				nodo.setTipoDeDato("int");
-				nodo.setEsRefMem(nroReg);				
+		//Liberar AX
+		if (registros[0].equals("O")) {
+			int proxLibre = primerRegLibre();
+			if (proxLibre != -1) {
+				changeRecord(raiz, 0, proxLibre);
 			}
-		}	
+		}
+		
+	
+		if (nodoIzq.getTipoDeDato().equals("ulong")) {
+			assembler.append("MOV EAX,8" + "\n"); //MOV EAX,8
+			nodo.setTipoDeDato("ulong");
+		}else {
+			assembler.append("MOV EAX,4" + "\n"); //MOV EAX,4
+			nodo.setTipoDeDato("int");
+		}
+		
+		assembler.append("IMUL EAX," + nodoDer.getNombre() + "\n"); //IMUL EAX,1
+		assembler.append("ADD EAX, offset _" + nodoIzq.getNombre() + "\n"); //MUL EAX,1	
+		assembler.append("MOV @aux1, EAX" + "\n");
+		assembler.append("MOV EAX, @aux1" + "\n");
+		
+		nodo.reemplazar("EAX");
+		nodo.setEsRefMem(0);	
+			
 	}
 	
 	// -----------------------------------------------------------

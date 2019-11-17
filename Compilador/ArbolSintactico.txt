@@ -1,10 +1,16 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			c
-			2
-		:=
+			a
 			ELEM_COLEC
-				g
-				2
-			c
+				e
+				0
+		IF
+			CONDICION
+				==
+					a
+					3
+			CUERPO
+				THEN
+					PRINT
+						cadena0

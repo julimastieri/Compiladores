@@ -10,6 +10,7 @@ includelib \masm32\lib\user32.lib
 TituloCadena db "Cadena",0
 @aux1 DD ?
 _a DW ?
+cadena0 DB "correcto",0
 _b DD ?
 _c DW ?
 _d DD ?
@@ -19,14 +20,19 @@ _g DW 4 DUP (?)
 _h DD 3 DUP (?)
 .code
 start:
-MOV AX,2
-MOV _c,AX
-MOV AX, offset _g
-MOV @aux1,4
-MUL @aux1,2
-ADD AX,@aux1
-MOV BX,_c
-MOV [AX],BX
+MOV EAX,4
+IMUL EAX,0
+ADD EAX, offset _e
+MOV @aux1, EAX
+MOV EAX, @aux1
+MOV AX,[EAX]
+MOV _a,AX
+CMP _a,3
+JNE LabelElse0
+invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
+JMP LabelSiguiente0
+LabelElse0:
+LabelSiguiente0:
 LabelError:
 invoke ExitProcess, 0
 end start
