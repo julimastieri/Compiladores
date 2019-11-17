@@ -1332,17 +1332,19 @@ public class Traductor {
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
 		String comparador = nodo.getNombre();
-
-		String nombreRegIzq = "";
-		String nombreRegDer = "";
+		
+		String nombreIzq = "";
+		String nombreDer = "";
+		int regLibreIzq = primerRegLibre();
+		registros[regLibreIzq] = "O";
+		int regLibreDer = primerRegLibre();
+		registros[regLibreDer] = "O";
+		String nombreRegIzq = hashRegs.get(regLibreIzq);
+		String nombreRegDer = hashRegs.get(regLibreDer);
 		
 		if ( !(nodoIzq.esRegistro()) ) {
-			int regLibreIzq = primerRegLibre();
-			nombreRegIzq = hashRegs.get(regLibreIzq);
-			
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 
-			String nombreIzq = "";
 			if (nodoIzq.esRefMem())
 				nombreIzq = "[" + nodoIzq.getNombre() + "]";
 			else if (opIzq.getUso().equals(Token.USO_CONSTANTE))
@@ -1350,24 +1352,15 @@ public class Traductor {
 			else if (opIzq.getUso().equals(Token.USO_VARIABLE))
 				nombreIzq = "_" + nodoIzq.getNombre();
 			
-			if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
-				assembler.append("MOV E" + nombreRegIzq + "," + nombreIzq + "\n");
-			} else {
-				assembler.append("MOV " + nombreRegIzq + "," + nombreIzq + "\n");
-			}
+			assembler.append("MOV " + nombreRegIzq + "," + nombreIzq + "\n");
 		} else {
 			nombreRegIzq = nodoIzq.getNombre();
 		}
 			
 		
 		if ( !(nodoDer.esRegistro()) ) {
-			
-			int regLibreDer = primerRegLibre();
-			nombreRegDer = hashRegs.get(regLibreDer);
-			
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
 			
-			String nombreDer = "";
 			if (nodoDer.esRefMem())
 				nombreDer = "[" + nodoDer.getNombre() + "]";
 			else if (opDer.getUso().equals(Token.USO_CONSTANTE))
@@ -1375,16 +1368,12 @@ public class Traductor {
 			else if (opDer.getUso().equals(Token.USO_VARIABLE))
 				nombreDer = "_" + nodoDer.getNombre();
 			
-			if (nodoDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
-				assembler.append("MOV E" + nombreRegDer + "," + nombreDer + "\n");
-			} else {
-				assembler.append("MOV " + nombreRegDer + "," + nombreDer + "\n");
-			}
-			
+			assembler.append("MOV " + nombreRegDer + "," + nombreDer + "\n");
 		} else {
 			nombreRegDer = nodoDer.getNombre();
 		}
 			
+		
 		assembler.append("CMP " + nombreRegIzq + "," + nombreRegDer + "\n");
 		
 		if ( (nodoIzq.esRefMem()) || (nodoIzq.esRegistro()) )
