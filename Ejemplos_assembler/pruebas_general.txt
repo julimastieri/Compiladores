@@ -6,9 +6,9 @@ begin
 	b:=6;
 	a:=2;
 
-	c:=to_ulong(3)*to_ulong(2); #caso (REG-REG) 32 bits
+	c:=32768*to_ulong(2);
 
-	if (c == 6)
+	if (c == 65536)
 			print({Anda Bien});
 		else
 			print({Anda Mal});

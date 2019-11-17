@@ -1,18 +1,28 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			ELEM_COLEC
-				h
-				0
-			40200
-		IF
-			CONDICION
-				==
-					ELEM_COLEC
-						h
-						0
-					40200
-			CUERPO
-				THEN
-					PRINT
-						cadena0
+			b
+			6
+		Sentencia Ejecutable
+			:=
+				a
+				2
+			Sentencia Ejecutable
+				:=
+					c
+					*
+						32768
+						CONVERSION
+							2
+				IF
+					CONDICION
+						==
+							c
+							65536
+					CUERPO
+						THEN
+							PRINT
+								cadena0
+						ELSE
+							PRINT
+								cadena1
