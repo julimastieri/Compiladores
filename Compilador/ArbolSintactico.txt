@@ -1,19 +1,18 @@
 PROGRAMA
-	Sentencia Ejecutable
-		:=
+	FOREACH
+		CONDICION_FOREACH
 			a
-			ELEM_COLEC
-				d
-				0
-		IF
-			CONDICION
-				==
-					a
-					1
-			CUERPO
-				THEN
-					PRINT
-						cadena0
-				ELSE
-					PRINT
-						cadena1
+			d
+		CUERPO_FOREACH
+			IF
+				CONDICION
+					==
+						a
+						1
+				CUERPO
+					THEN
+						PRINT
+							cadena0
+					ELSE
+						PRINT
+							cadena1

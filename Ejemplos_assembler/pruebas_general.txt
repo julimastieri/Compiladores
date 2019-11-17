@@ -3,14 +3,20 @@ ulong c;
 int d[1,2,3];
 begin
 
-	a:=d[0];
-	#c:= to_ulong(d[0]);
+	foreach a in d 
+	begin 
 
-	if (a == 1)
-		print({Anda Bien});
-	else
-		print({Anda Mal});
-	end_if;
+		if (a == 1)
+			print({Es 1});
+		else
+			print({No Es 1});
+		end_if;
+
+		#if (a == 2) print({Es 2}); else	print({No Es 2}); end_if;
+
+		#if (a == 3) print({Es 3}); else print({No Es 3}); end_if;
+	end
+	;
 	
 
 end

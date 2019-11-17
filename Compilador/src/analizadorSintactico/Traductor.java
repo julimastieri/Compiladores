@@ -1389,23 +1389,41 @@ public class Traductor {
 	private void generarComparacion (NodoArbol nodo) {
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
-		Token tokenDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
-		Token tokenIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 		String comparador = nodo.getNombre();
 		
-		if ((tokenDer.getUso().equals(Token.USO_VARIABLE)) && (tokenIzq.getUso().equals(Token.USO_VARIABLE)) ) {
-			assembler.append("CMP _" + nodoIzq.getNombre() + ",_" + nodoDer.getNombre() + "\n");
-		} else if ((tokenDer.getUso().equals(Token.USO_VARIABLE)) && !(tokenIzq.getUso().equals(Token.USO_VARIABLE))) {
-			assembler.append("CMP " + nodoIzq.getNombre() + ",_" + nodoDer.getNombre() + "\n");
-		} else if (!(tokenDer.getUso().equals(Token.USO_VARIABLE)) && (tokenIzq.getUso().equals(Token.USO_VARIABLE))) {
-			assembler.append("CMP _" + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n");
-		} else {
-			assembler.append("CMP " + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n");
-		}
+		String nombreIzq = "";
+		String nombreDer = "";
 		
+		if ( !(nodoIzq.esRegistro()) ) {
+			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
+			
+			if (nodoIzq.esRefMem())
+				nombreIzq = "[" + nodoIzq.getNombre() + "]";
+			else if (opIzq.getUso().equals(Token.USO_CONSTANTE))
+				nombreIzq = nodoIzq.getNombre();
+			else if (opIzq.getUso().equals(Token.USO_VARIABLE))
+				nombreIzq = "_" + nodoIzq.getNombre();
+		} else
+			nombreIzq = nodoIzq.getNombre();
 		
-		registros[nodoIzq.getNroReg()] = "L";
-		registros[nodoDer.getNroReg()] = "L";
+		if ( !(nodoDer.esRegistro()) ) {
+			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
+			
+			if (nodoDer.esRefMem())
+				nombreDer = "[" + nodoDer.getNombre() + "]";
+			else if (opDer.getUso().equals(Token.USO_CONSTANTE))
+				nombreDer = nodoDer.getNombre();
+			else if (opDer.getUso().equals(Token.USO_VARIABLE))
+				nombreDer = "_" + nodoDer.getNombre();
+		} else
+			nombreDer = nodoDer.getNombre();
+		
+		assembler.append("CMP " + nombreIzq + "," + nombreDer + "\n");
+		
+		if ( (nodoIzq.esRefMem()) || (nodoIzq.esRegistro()) )
+			registros[nodoIzq.getNroReg()] = "L";
+		if ( (nodoDer.esRefMem()) || (nodoDer.esRegistro()) )
+			registros[nodoDer.getNroReg()] = "L";
 		
 		nodo.reemplazar(comparador);
 	}
@@ -1574,6 +1592,7 @@ public class Traductor {
 		assembler.append("MOV @aux1, EAX" + "\n");
 		assembler.append("MOV EAX, @aux1" + "\n");
 		
+		registros[0]="O";
 		nodo.reemplazar("EAX");
 		nodo.setEsRefMem(0);	
 			

@@ -17,7 +17,7 @@ begin
 
 	c:= to_ulong(a+a); #caso registro
 
-	####
+	####Probarrrr
 	c:= to_ulong(d[0]); #caso ref a mem
 	
 	
