@@ -24,13 +24,15 @@ begin
 
 
 		#32 bits
+
 		c:=32768*to_ulong(2); #caso (VAR/CONST-REG) 32 bits
 		c:=to_ulong(3)*to_ulong(2); #caso (REG-REG) 32 bits
+		c:=c*c; #VAR-VAR
 
 
 
 	#NO ANDAN
-	
+
 		a:=d[0]*6; #REF A MEM
 
 		if (a == 6)

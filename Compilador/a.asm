@@ -29,8 +29,8 @@ JL LabelError
 MOV EDX,32768
 MUL EDX
 MOV _c,EAX
-MOV AX,_c
-MOV BX,65536
+MOV EAX,_c
+MOV EBX,65536
 CMP AX,BX
 JNE LabelElse0
 invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK

@@ -1342,6 +1342,8 @@ public class Traductor {
 		String nombreRegIzq = hashRegs.get(regLibreIzq);
 		String nombreRegDer = hashRegs.get(regLibreDer);
 		
+		
+		
 		if ( !(nodoIzq.esRegistro()) ) {
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 
@@ -1352,9 +1354,15 @@ public class Traductor {
 			else if (opIzq.getUso().equals(Token.USO_VARIABLE))
 				nombreIzq = "_" + nodoIzq.getNombre();
 			
-			assembler.append("MOV " + nombreRegIzq + "," + nombreIzq + "\n");
+			if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
+				assembler.append("MOV E" + nombreRegIzq + "," + nombreIzq + "\n");
+			} else {
+				assembler.append("MOV " + nombreRegIzq + "," + nombreIzq + "\n");
+			}
+			
 		} else {
 			nombreRegIzq = nodoIzq.getNombre();
+			registros[nodoIzq.getNroReg()] = "L";
 		}
 			
 		
@@ -1368,9 +1376,15 @@ public class Traductor {
 			else if (opDer.getUso().equals(Token.USO_VARIABLE))
 				nombreDer = "_" + nodoDer.getNombre();
 			
-			assembler.append("MOV " + nombreRegDer + "," + nombreDer + "\n");
+			if (nodoDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
+				assembler.append("MOV E" + nombreRegDer + "," + nombreDer + "\n");
+			} else {
+				assembler.append("MOV " + nombreRegDer + "," + nombreDer + "\n");
+			}
+			
 		} else {
 			nombreRegDer = nodoDer.getNombre();
+			registros[nodoDer.getNroReg()] = "L";
 		}
 			
 		
@@ -1551,6 +1565,4 @@ public class Traductor {
 		nodo.setEsRefMem(0);	
 			
 	}
-	
-	// -----------------------------------------------------------
 }

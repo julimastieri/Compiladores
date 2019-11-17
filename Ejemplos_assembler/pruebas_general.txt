@@ -6,7 +6,7 @@ begin
 	b:=6;
 	a:=2;
 
-	c:=32768*to_ulong(2); #caso (VAR/CONST-REG) 32 bits
+	c:=32768*to_ulong(2); #caso (VAR/CONST-REG) 32 bits #ANDAAAAAAAAAAAA
 
 	if (c == 65536)
 			print({Anda Bien});
