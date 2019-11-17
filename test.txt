@@ -6,10 +6,9 @@ int g[4];
 ulong h[3];
 
 begin
-	a := 3;
-	g[0] := a;
+	h[0] := 40200;
 
-	if (g[0]==a)
+	if (h[0]==40200)
 		print({correcto});
 	end_if;	
 end

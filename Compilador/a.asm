@@ -21,19 +21,20 @@ _g DW 4 DUP (?)
 _h DD 3 DUP (?)
 .code
 start:
-MOV AX,3
-MOV _a,AX
-MOV EAX,4
+MOV EAX,8
 IMUL EAX,0
-ADD EAX, offset _g
-MOV BX,_a
-MOV [EAX],BX
-MOV EAX,4
+ADD EAX, offset _h
+MOV EBX,40200
+MOV [EAX],EBX
+
+MOV EAX,8
 IMUL EAX,0
-ADD EAX, offset _g
+ADD EAX, offset _h
+
 MOV BX,[EAX]
-MOV CX,_a
+MOV CX,40200
 CMP BX,CX
+
 JNE LabelElse0
 invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
 JMP LabelSiguiente0

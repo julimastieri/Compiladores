@@ -1,22 +1,18 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			a
-			3
-		Sentencia Ejecutable
-			:=
-				ELEM_COLEC
-					g
-					0
-				a
-			IF
-				CONDICION
-					==
-						ELEM_COLEC
-							g
-							0
-						a
-				CUERPO
-					THEN
-						PRINT
-							cadena0
+			ELEM_COLEC
+				h
+				0
+			40200
+		IF
+			CONDICION
+				==
+					ELEM_COLEC
+						h
+						0
+					40200
+			CUERPO
+				THEN
+					PRINT
+						cadena0
