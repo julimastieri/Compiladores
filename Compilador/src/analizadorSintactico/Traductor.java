@@ -646,16 +646,17 @@ public class Traductor {
 					nombreRegNuevo = hashRegs.get(nroRegNuevo);
 				}
 				
-				nodoChange.reemplazar(nombreRegNuevo, nroRegNuevo);
+				if (nodoChange.esRefMem()) {
+					nodoChange.reemplazar(nombreRegNuevo);
+					nodoChange.setNroReg(nroRegNuevo);
+				} else {
+					nodoChange.reemplazar(nombreRegNuevo, nroRegNuevo);
+				}
+				
 				
 				assembler.append("MOV @aux1," + nombreRegNuevo + "\n");
-				if (nodoChange.esRefMem()) {
-					assembler.append("MOV " + nombreRegNuevo + ",[" + nombreRegViejo + "]\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
-					assembler.append("MOV " + nombreRegViejo + ",[@aux1]" + "\n");
-				} else {
-					assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
-					assembler.append("MOV " + nombreRegViejo + ",@aux1" + "\n");
-				}	
+				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
+				assembler.append("MOV " + nombreRegViejo + ",@aux1" + "\n");
 			}
 		}
 	}

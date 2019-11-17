@@ -99,7 +99,9 @@ public class NodoArbol extends ParserVal{
 		return nroReg;
 	}
 	
-	
+	public void setNroReg(int n) {
+		nroReg = n;
+	}
 	
 	public boolean esRefMem() {	
 		return esRefMem;

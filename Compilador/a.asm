@@ -24,41 +24,41 @@ _i DW ?
 _j DD ?
 .code
 start:
-MOV AX,3
-MOV DX,2
-IMUL AX,DX
-MOV @aux1,BX
-MOV BX,AX
-MOV AX,@aux1
 MOV EAX,4
 IMUL EAX,0
 ADD EAX, offset _e
-MOV BX,[EAX]
-ADD BX,BX
-MOV _a,BX
-MOV BX,_a
-MOV CX,9
-CMP BX,CX
+MOV @aux1,EBX
+MOV EBX,EAX
+MOV EAX,@aux1
+MOV AX,3
+MOV DX,2
+IMUL AX,DX
+MOV BX,[EBX]
+ADD BX,AX
+MOV _a,AX
+MOV AX,_a
+MOV BX,9
+CMP AX,BX
 JNE LabelElse0
 invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
 JMP LabelSiguiente0
 LabelElse0:
 LabelSiguiente0:
-MOV EAX,40000
-MOV EDX,34000
-MUL EDX
-MOV @aux1,EBX
-MOV EBX,EAX
-MOV EAX,@aux1
 MOV EAX,8
 IMUL EAX,0
 ADD EAX, offset _f
-MOV EBX,[EAX]
-ADD EBX,EBX
-MOV _b,EBX
-MOV EBX,_b
-MOV ECX,1360040000
-CMP BX,CX
+MOV @aux1,EBX
+MOV EBX,EAX
+MOV EAX,@aux1
+MOV EAX,40000
+MOV EDX,34000
+MUL EDX
+MOV EBX,[EBX]
+ADD EBX,EAX
+MOV _b,EAX
+MOV EAX,_b
+MOV EBX,1360040000
+CMP AX,BX
 JNE LabelElse1
 invoke MessageBox, NULL, addr cadena1, addr TituloCadena, MB_OK
 JMP LabelSiguiente1

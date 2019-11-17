@@ -3,12 +3,12 @@ PROGRAMA
 		:=
 			a
 			+
-				*
-					3
-					2
 				ELEM_COLEC
 					e
 					0
+				*
+					3
+					2
 		Sentencia Ejecutable
 			IF
 				CONDICION
@@ -23,12 +23,12 @@ PROGRAMA
 				:=
 					b
 					+
-						*
-							40000
-							34000
 						ELEM_COLEC
 							f
 							0
+						*
+							40000
+							34000
 				IF
 					CONDICION
 						==
