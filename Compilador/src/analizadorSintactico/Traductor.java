@@ -1,8 +1,6 @@
 package analizadorSintactico;
 
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 import analizadorLexico.AnalizadorLexico;
@@ -37,6 +35,7 @@ public class Traductor {
 	private void cargarData() {
 		assembler.append(".data" + "\n");
 		assembler.append("TituloCadena db \"Cadena\",0" + "\n");
+		assembler.append("MsgError db \"Error en ejecucion\",0" + "\n");
 		
 		assembler.append("@aux1 DD ?" + "\n");
 		
@@ -157,10 +156,10 @@ public class Traductor {
    	 
 		System.out.println((tabs + nodo.getNombre() + "\n"));  //raiz
 		
-		if(nodo.nodoIzq!=null)
+		if(nodo.getNodoIzq()!=null)
 			imprimirArbolmod(nodo.getNodoIzq(), tabs + "\t");
 	        
-	    if(nodo.nodoDer!=null)
+	    if(nodo.getNodoDer()!=null)
 	        imprimirArbolmod(nodo.getNodoDer(), tabs + "\t");
 	 
 	}
@@ -221,7 +220,7 @@ public class Traductor {
 				generarCuerpoForeach(nodo);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CONVERSION")) {
-				generarConversion(nodo);
+				generarConversion(nodo); //SOLO FALTA PROBAR EL CASO DE REF A MEM to_ulong(d[0]), PERO NO SE PUEDE HASTA 	QUE NO ANDE
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("ELEM_COLEC")) {
 				generarElemColec(nodo, raiz);
@@ -233,7 +232,9 @@ public class Traductor {
 			System.out.println("NODO:" + nodo.getNombre() );
 			
 		}
+		
 		assembler.append("LabelError:" + "\n");
+
 		assembler.append("invoke ExitProcess, 0" + "\n");
 		assembler.append("end start" + "\n" );
 		
@@ -636,11 +637,11 @@ public class Traductor {
 	
 	private NodoArbol buscarNodoXNroReg(int nroReg, NodoArbol nodo) {//busca el nodo con el nro de reg dado, si no esta en el arbol retorna null
 		if (nodo != null) {
-			if( ((nodo.esRegistro) && (nodo.nroReg == nroReg)) || ((nodo.esRefMem()) && (nodo.nroReg == nroReg)) ) //es el que busco? lo retorno
+			if( ((nodo.esRegistro()) && (nodo.getNroReg() == nroReg)) || ((nodo.esRefMem()) && (nodo.getNroReg() == nroReg)) ) //es el que busco? lo retorno
 				return nodo;
 			else {//sino busco por derecha e izquierda
-				NodoArbol resultIzq= buscarNodoXNroReg(nroReg, nodo.nodoIzq);
-				NodoArbol resultDer = buscarNodoXNroReg(nroReg, nodo.nodoDer);
+				NodoArbol resultIzq= buscarNodoXNroReg(nroReg, nodo.getNodoIzq());
+				NodoArbol resultDer = buscarNodoXNroReg(nroReg, nodo.getNodoDer());
 				
 				if (resultIzq != null) //si encontre el que buscaba por la izquierda lo retorno
 					return resultIzq;
@@ -1516,32 +1517,30 @@ public class Traductor {
 			if (nroRegResult != -1) {
 				registros[nroRegResult] = "O";
 				assembler.append("MOV E" + regResult + ",0" + "\n"); // MOV ECX,0 
-			}
-			
-			if ( (nodoIzq.esRefMem()) || (nodoIzq.esRegistro()) || (token.getUso().equals(Token.USO_CONSTANTE))) {
-				assembler.append("CMP " + nodoIzq.getNombre() + ",0" + "\n"); //CMP 20,0  CMP AX,0
-			} else {
-				assembler.append("CMP _" + nodoIzq.getNombre() + ",0" + "\n"); //CMP 20,0
-			}
-			
-			assembler.append("JL LabelError" + "\n");
-			
-			if (nodoIzq.esRefMem()) {
-				assembler.append("MOV " + regResult + ",[" + nodoIzq.getNombre() + "]\n"); // MOV CX,[BX]
-			} else if ((nodoIzq.esRegistro()) || (token.getUso().equals(Token.USO_CONSTANTE))){ 
-				assembler.append("MOV " + regResult + "," + nodoIzq.getNombre() + "\n"); // MOV CX,BX  MOV CX,20
-			} else if (token.getUso().equals(Token.USO_VARIABLE)) {
-				assembler.append("MOV " + regResult + ",_" + nodoIzq.getNombre() + "\n"); //MOV CX,_c
-			}
-			
-			if ( (nodoIzq.esRefMem()) || (nodoIzq.esRegistro()) ) {
-				assembler.append("MOV E" + nodoIzq.getNombre() + ",E" + regResult + "\n"); // MOV EBX, ECX
-				nodo.reemplazar("E"+ nodoIzq.getNombre(), nodoIzq.getNroReg());
-				registros[nroRegResult] = "L";
-			} else { // CTE -> dejo el dato en ECX (el resultado)
+				String nombreIzq = "";
+				
+				if (nodoIzq.esRegistro())
+					nombreIzq = nodoIzq.getNombre();
+				if (nodoIzq.esRefMem())
+					nombreIzq = "[" + nodoIzq.getNombre() + "]";
+				else if (token != null)
+						if (token.getUso().equals(Token.USO_VARIABLE))
+							nombreIzq = "_" + nodoIzq.getNombre();
+						else //si es const
+							nombreIzq = nodoIzq.getNombre();
+				
+				//Mudo el valor actual a un nuevo reg para desp poder hacer la comparacion
+				assembler.append("MOV " + regResult + ","+ nombreIzq + "\n");
+				assembler.append("CMP " + regResult + ",0" + "\n");
+				//si es negativo termino la ejecucion
+				assembler.append("JL LabelError" + "\n");
+				
 				nodo.reemplazar("E"+ regResult, nroRegResult);
-			}		
-		
+				//libero el registro que ya no uso
+				if ( (nodoIzq.esRefMem()) || (nodoIzq.esRegistro()) )
+					registros[nodoIzq.getNroReg()] = "L";
+				
+			}
 		} else { // ya es ulong
 			nodo.reemplazar(nodoIzq.getNombre());
 		}	

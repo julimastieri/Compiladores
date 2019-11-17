@@ -1,12 +1,24 @@
-ulong a,w;
+int a,w;
 int b[1,2,3];
-int c;
+ulong c;
 int z[4];
+int d[1,2,3];
 
 begin
-	a := to_ulong(-3);
-	#a := to_ulong(2+10);
-	#w := to_ulong(40000);
-	#w := to_ulong(20);
+	
+	#Andan
+	c:= to_ulong(2);
+	c:= to_ulong(-2); #error en ejecucion
+	c:= to_ulong(0);
+	c:= to_ulong(40000); #caso en donde no convierte ya que ya es ulong
+
+	a:=2;
+	c:= to_ulong(a); 
+
+	c:= to_ulong(a+a); #caso registro
+
+	####
+	c:= to_ulong(d[0]); #caso ref a mem
+	
 	
 end

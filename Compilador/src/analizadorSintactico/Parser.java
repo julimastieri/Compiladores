@@ -706,10 +706,10 @@ public void imprimirArbol(NodoArbol nodo, String tabs) {
     	 
 	arbolString.append(tabs + nodo.getNombre() + "\n");  //raiz
 	
-	if(nodo.nodoIzq!=null)
+	if(nodo.getNodoIzq()!=null)
 		imprimirArbol(nodo.getNodoIzq(), tabs + "\t");
         
-    if(nodo.nodoDer!=null)
+    if(nodo.getNodoDer()!=null)
         imprimirArbol(nodo.getNodoDer(), tabs + "\t");
  
 }

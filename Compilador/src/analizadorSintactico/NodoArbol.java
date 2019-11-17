@@ -6,14 +6,14 @@ import analizadorLexico.Token;
 
 public class NodoArbol extends ParserVal{
 
-	String nombre;
-	String tipoDeDato;
-	NodoArbol nodoIzq;
-	NodoArbol nodoDer;
-	Boolean esRegistro;
-	int nroReg;
-	Boolean esRefMem;
-	int nroIdentificador;
+	private String nombre;
+	private String tipoDeDato;
+	private NodoArbol nodoIzq;
+	private NodoArbol nodoDer;
+	private Boolean esRegistro;
+	private int nroReg;
+	private Boolean esRefMem;
+	private int nroIdentificador;
 	
 	
 	public NodoArbol(String nombre, ParserVal nodoIzq, ParserVal nodoDer) {
