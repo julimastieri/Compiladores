@@ -386,20 +386,27 @@ public class Traductor {
 				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
 					assembler.append("MOV E" + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[EBX]
 					assembler.append("ADD E" + nombreRegCol + "," + registro + "\n");
+					//Actualizo el arbol
+					nodo.reemplazar("E" + nombreRegCol, nroRegLibre);
 				} else {
 					assembler.append("MOV " + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV AX,[EBX]
 					assembler.append("ADD " + nombreRegCol + "," + registro + "\n");
+					//Actualizo el arbol
+					nodo.reemplazar(nombreRegCol, nroRegLibre);
 				}		
 				
 			}
 			else if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("ADD "+ registro + "," + nodoDer.getNombre() + "\n"); //ADD AX,3
+				//Actualizo el arbol
+				nodo.reemplazar(registro, nroReg);
 			} else if (opDer.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("ADD "+ registro + ",_" + nodoDer.getNombre() + "\n"); //ADD AX,_b
+				//Actualizo el arbol
+				nodo.reemplazar(registro, nroReg);
 			}
 			
-			//Actualizo el arbol
-			nodo.reemplazar(registro, nroReg);
+			
 			
 		} else if ( (nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
 		//Situacion 3 (REG - REG)
@@ -430,20 +437,27 @@ public class Traductor {
 				if (nodoDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
 					assembler.append("MOV E" + nombreRegCol + ",[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[EBX]
 					assembler.append("ADD E" + nombreRegCol + "," + registro + "\n");
+					//Actualizo el arbol
+					nodo.reemplazar("E" + nombreRegCol, nroRegLibre);
 				} else {
 					assembler.append("MOV " + nombreRegCol + ",[" + nodoIzq.getNombre() + "]\n"); //MOV AX,[EBX]
 					assembler.append("ADD " + nombreRegCol + "," + registro + "\n");
+					//Actualizo el arbol
+					nodo.reemplazar(nombreRegCol, nroRegLibre);
 				}		
 				
 			}
 			else if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("ADD "+ registro + "," + nodoIzq.getNombre() + "\n"); //ADD AX,3
+				//Actualizo el arbol
+				nodo.reemplazar(registro, nroReg);
 			} else if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("ADD "+ registro + ",_" + nodoIzq.getNombre() + "\n"); //ADD AX,_b
+				//Actualizo el arbol
+				nodo.reemplazar(registro, nroReg);
 			}
 			
-			//Actualizo el arbol
-			nodo.reemplazar(registro, nroReg);	
+				
 		}		
 	}
 	
