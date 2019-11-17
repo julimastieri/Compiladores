@@ -374,13 +374,25 @@ public class Traductor {
 			}	
 			
 		} else if ( (nodoIzq.esRegistro()) && !(nodoDer.esRegistro()) ) { 
-		// Situacion 2 (REG - VAR/CONST)	
+		// Situacion 2 (REG - VAR/CONST/COL)	
 			
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
 			String registro = nodoIzq.getNombre();
 			int nroReg = nodoIzq.getNroReg();
 			
-			if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
+			if (nodoDer.esRefMem()) {
+				int nroRegLibre = primerRegLibre();
+				String nombreRegCol = hashRegs.get(nroRegLibre);
+				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
+					assembler.append("MOV E" + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[EBX]
+					assembler.append("ADD E" + nombreRegCol + "," + registro + "\n");
+				} else {
+					assembler.append("MOV " + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV AX,[EBX]
+					assembler.append("ADD " + nombreRegCol + "," + registro + "\n");
+				}		
+				
+			}
+			else if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("ADD "+ registro + "," + nodoDer.getNombre() + "\n"); //ADD AX,3
 			} else if (opDer.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("ADD "+ registro + ",_" + nodoDer.getNombre() + "\n"); //ADD AX,_b
@@ -405,13 +417,26 @@ public class Traductor {
 			nodo.reemplazar(registro1, nroReg1);
 			
 		} else if ( !(nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
-		// Situacion 4 (VAR/CONST - REG) (Operacion conmutativa)
+		// Situacion 4 (VAR/CONST/COL - REG) (Operacion conmutativa)
 			
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 			String registro = nodoDer.getNombre();
 			int nroReg = nodoDer.getNroReg();
 			
-			if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
+			
+			if (nodoIzq.esRefMem()) {
+				int nroRegLibre = primerRegLibre();
+				String nombreRegCol = hashRegs.get(nroRegLibre);
+				if (nodoDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
+					assembler.append("MOV E" + nombreRegCol + ",[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[EBX]
+					assembler.append("ADD E" + nombreRegCol + "," + registro + "\n");
+				} else {
+					assembler.append("MOV " + nombreRegCol + ",[" + nodoIzq.getNombre() + "]\n"); //MOV AX,[EBX]
+					assembler.append("ADD " + nombreRegCol + "," + registro + "\n");
+				}		
+				
+			}
+			else if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("ADD "+ registro + "," + nodoIzq.getNombre() + "\n"); //ADD AX,3
 			} else if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("ADD "+ registro + ",_" + nodoIzq.getNombre() + "\n"); //ADD AX,_b
