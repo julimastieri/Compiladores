@@ -5,20 +5,16 @@ int d[1,2,3];
 begin
 
 	#ANDAN
-		#CONST-CONST(16 bits)
-		a:=5*2;
-		if (a == 3)
-			print({});
-		end_if;
-
+		
+		#16 bits
+		a:=5*2;#CONST-CONST(16 bits)
 		b:=6;
 		a:=2;
-		a:=a*a;
-		a:=b*b;
-		a:=b*6;
-		a:=6*b;
-
-		a:=a*b*b;
+		a:=a*a; #VAR-VAR (16 bits)
+		a:=b*b; #VAR-VAR (16 bits)
+		a:=b*6; #VAR-CONST (16 bits)
+		a:=6*b; #CONST-VAR (16 bits)
+		a:=a*b*b; # multiplica "a" con REG (VAR-REG) (16 bits)
 
 		if (a == 72)
 			print({Anda Bien});
@@ -27,12 +23,14 @@ begin
 		end_if;
 
 
-	#NO ANDAN
-		c:=32768*to_ulong(2); #no anda conver y si anduviera me tira sintax error en MUL
-		if (c == 65536)
-			print({Anda Bien});
-		end_if;
+		#32 bits
+		c:=32768*to_ulong(2); #caso (VAR/CONST-REG) 32 bits
+		c:=to_ulong(3)*to_ulong(2); #caso (REG-REG) 32 bits
 
+
+
+	#NO ANDAN
+	
 		a:=d[0]*6; #REF A MEM
 
 		if (a == 6)
