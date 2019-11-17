@@ -10,34 +10,60 @@ includelib \masm32\lib\user32.lib
 TituloCadena db "Cadena",0
 MsgError db "Error en ejecucion",0
 @aux1 DD ?
-cadena1 DB "Anda Mal",0
+cadena1 DB "correcto2",0
 _a DW ?
-cadena0 DB "Anda Bien",0
-_b DW ?
-_c DD ?
-_d DW 1,2,3
+cadena0 DB "correcto1",0
+_b DD ?
+_c DW ?
+_d DD ?
+_e DW 3,2,5
+_f DD 40000,50842
+_g DW 4 DUP (?)
+_h DD 3 DUP (?)
+_i DW ?
+_j DD ?
 .code
 start:
-MOV AX,6
-MOV _b,AX
-MOV AX,2
-MOV _a,AX
-MOV EAX,0
-MOV AX,2
-CMP AX,0
-JL LabelError
-MOV EDX,32768
-MUL EDX
-MOV _c,EAX
-MOV EAX,_c
-MOV EBX,65536
-CMP AX,BX
+MOV AX,3
+MOV DX,2
+IMUL AX,DX
+MOV @aux1,BX
+MOV BX,AX
+MOV AX,@aux1
+MOV EAX,4
+IMUL EAX,0
+ADD EAX, offset _e
+MOV BX,[EAX]
+ADD BX,BX
+MOV _a,BX
+MOV BX,_a
+MOV CX,9
+CMP BX,CX
 JNE LabelElse0
 invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
 JMP LabelSiguiente0
 LabelElse0:
-invoke MessageBox, NULL, addr cadena1, addr TituloCadena, MB_OK
 LabelSiguiente0:
+MOV EAX,40000
+MOV EDX,34000
+MUL EDX
+MOV @aux1,EBX
+MOV EBX,EAX
+MOV EAX,@aux1
+MOV EAX,8
+IMUL EAX,0
+ADD EAX, offset _f
+MOV EBX,[EAX]
+ADD EBX,EBX
+MOV _b,EBX
+MOV EBX,_b
+MOV ECX,1360040000
+CMP BX,CX
+JNE LabelElse1
+invoke MessageBox, NULL, addr cadena1, addr TituloCadena, MB_OK
+JMP LabelSiguiente1
+LabelElse1:
+LabelSiguiente1:
 LabelError:
 invoke ExitProcess, 0
 end start

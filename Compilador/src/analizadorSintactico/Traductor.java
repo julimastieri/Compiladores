@@ -1387,7 +1387,7 @@ public class Traductor {
 			
 		} else {
 			nombreRegIzq = nodoIzq.getNombre();
-			registros[nodoIzq.getNroReg()] = "L";
+			//registros[nodoIzq.getNroReg()] = "L";
 		}
 			
 		
@@ -1409,11 +1409,13 @@ public class Traductor {
 			
 		} else {
 			nombreRegDer = nodoDer.getNombre();
-			registros[nodoDer.getNroReg()] = "L";
+			//registros[nodoDer.getNroReg()] = "L";
 		}
 			
 		
 		assembler.append("CMP " + nombreRegIzq + "," + nombreRegDer + "\n");
+		registros[regLibreDer] = "L";
+		registros[regLibreIzq] = "L";
 		
 		if ( (nodoIzq.esRefMem()) || (nodoIzq.esRegistro()) )
 			registros[nodoIzq.getNroReg()] = "L";

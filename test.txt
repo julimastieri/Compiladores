@@ -1,14 +1,22 @@
-int a,c;
-ulong b,d;
+int a,c,i;
+ulong b,d,j;
 int e[3,2,5];
-ulong f[40600,50842];
+ulong f[40000,50842];
 int g[4];
 ulong h[3];
 
 begin
-	h[0] := 40200;
 
-	if (h[0]==40200)
-		print({correcto});
-	end_if;	
+	a := 3 * 2 + e[0];
+
+	if (a == 9)
+		print ({correcto1});
+	end_if;
+
+	b := 40000 * 34000 + f[0];
+
+	if (b == 1360040000)
+		print ({correcto2});
+	end_if;
+
 end
