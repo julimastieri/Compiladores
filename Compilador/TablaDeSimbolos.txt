@@ -1,10 +1,16 @@
-Lexema: cadena1 , Tipo de token: cadena , Tipo de dato: cadena , cantidad de de veces que es referenciado: 1 , Uso: Cadena , Tamanio: 1
-Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 3 , Uso: Variable , Tamanio: 1
-Lexema: 1 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Constante , Tamanio: 1
+Lexema: a , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 4 , Uso: Variable , Tamanio: 1
 Lexema: cadena0 , Tipo de token: cadena , Tipo de dato: cadena , cantidad de de veces que es referenciado: 1 , Uso: Cadena , Tamanio: 1
-Lexema: b , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1
+Lexema: b , Tipo de token: identificador , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1
+Lexema: c , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1
+Lexema: d , Tipo de token: identificador , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1
+Lexema: e , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Nombre de coleccion , Tamanio: 3 , Valores Iniciales: 3, 2, 5 
+Lexema: f , Tipo de token: identificador , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Nombre de coleccion , Tamanio: 2 , Valores Iniciales: 40600, 50842 
+Lexema: g , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 3 , Uso: Nombre de coleccion , Tamanio: 4
+Lexema: h , Tipo de token: identificador , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Nombre de coleccion , Tamanio: 3
+Lexema: 40600 , Tipo de token: constante , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1
+Lexema: 0 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Constante , Tamanio: 1
 Lexema: 2 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1
-Lexema: c , Tipo de token: identificador , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Variable , Tamanio: 1
-Lexema: 3 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1
-Lexema: d , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 2 , Uso: Nombre de coleccion , Tamanio: 3 , Valores Iniciales: 1, 2, 3 
-Lexema: @itForeach0 , Tipo de token: identificador , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Variable Auxiliar , Tamanio: 1
+Lexema: 3 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 3 , Uso: Constante , Tamanio: 1
+Lexema: 4 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1
+Lexema: 5 , Tipo de token: constante , Tipo de dato: int , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1
+Lexema: 50842 , Tipo de token: constante , Tipo de dato: ulong , cantidad de de veces que es referenciado: 1 , Uso: Constante , Tamanio: 1

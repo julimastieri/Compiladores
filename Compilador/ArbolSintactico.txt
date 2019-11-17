@@ -1,18 +1,22 @@
 PROGRAMA
-	FOREACH
-		CONDICION_FOREACH
+	Sentencia Ejecutable
+		:=
 			a
-			d
-		CUERPO_FOREACH
+			3
+		Sentencia Ejecutable
+			:=
+				ELEM_COLEC
+					g
+					0
+				a
 			IF
 				CONDICION
 					==
+						ELEM_COLEC
+							g
+							0
 						a
-						1
 				CUERPO
 					THEN
 						PRINT
 							cadena0
-					ELSE
-						PRINT
-							cadena1
