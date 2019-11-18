@@ -170,7 +170,7 @@ seleccion : IF condicion cuerpo_if { $$ = new NodoArbol("IF", $2, $3);
 									aux = (NodoArbol) $3;
 									aux.setNroIdentificador(contadorDeIf);
 
-									aux = (NodoArbol) $3.getNodoIzq();
+									aux = (NodoArbol) $3;
 									aux = aux.getNodoIzq();
 									aux.setNroIdentificador(contadorDeIf);
 
@@ -347,8 +347,8 @@ factor :ID { estaDeclarada($1.sval);
 	   |'-'CTE {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\n");
 	   			  String lexema = modificarContadorDeReferencias($2.sval);
 
-	   			  Token t = AnalizadorLexico.tablaSimbolos.get(lexema)
-	   			  t.setUso(Token.USO_VARIABLE_AUX);
+	   			  Token t = AnalizadorLexico.tablaSimbolos.get(lexema);
+	   			  t.setUso(Token.USO_CONSTANTE);
 	   			  NodoArbol aux = new NodoArbol(lexema, null, null);
 			      aux.setTipoDeDato(AnalizadorLexico.tablaSimbolos.get(lexema).getTipoDeDato());
 			      $$ = aux;
