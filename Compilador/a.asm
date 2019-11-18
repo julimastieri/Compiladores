@@ -18,7 +18,7 @@ _b DW ?
 _c DD ?
 _d DW 1,2,3
 _w DD ?
-_z DD 2,2,3
+_z DD -2,-2,-3
 .code
 start:
 MOV AX,1

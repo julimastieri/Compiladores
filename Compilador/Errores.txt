@@ -1,0 +1,2 @@
+ERROR: Linea 4: Valor de inicializacion no compatible con el tipo de dato
+ERROR: Linea 4: Valor de inicializacion no compatible con el tipo de dato

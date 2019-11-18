@@ -1,7 +1,7 @@
 int a, b;
 int d[1,2,3];
 ulong c,w;
-ulong z[2,2,3];
+ulong z[-2,_,-3];
 
 begin
 

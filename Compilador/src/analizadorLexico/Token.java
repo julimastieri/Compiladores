@@ -2,6 +2,8 @@ package analizadorLexico;
 
 import java.util.ArrayList;
 
+import analizadorSintactico.Parser;
+
 public class Token {
 	
 	public static final String UNDEFINED = "no definido";
@@ -57,6 +59,15 @@ public class Token {
 	
 	public void setTipoDeDato(String tdd) {
 		tipoDeDato = tdd;
+		
+		for (int i=0; i< getCantidadValoresIniciales(); i++) {
+			if (!(getValorInicial(i).equals("_"))) {
+				Token t = AnalizadorLexico.tablaSimbolos.get(getValorInicial(i));
+					if ( !(t.getTipoDeDato().equals(tdd)) ) {
+						Parser.errores.add(new Error("ERROR", "Valor de inicializacion no compatible con el tipo de dato", AnalizadorLexico.cantLineas));
+					}		
+			}
+		}
 	}
 	
 	public String getTipoDeDato() {
