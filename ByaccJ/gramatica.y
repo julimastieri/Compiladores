@@ -224,6 +224,8 @@ bloque_de_sentencias :sentencia_ejecutable { $$ = $1;						                   }
 condicion :'(' expresion comparador expresion ')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); 
 													NodoArbol nodo_cond = new NodoArbol($3.sval, $2, $4);
 													nodo_cond.setNroIdentificador(contadorDeIf);
+													nodo_cond.setTipoDeDato((NodoArbol)$2, (NodoArbol) $4);
+
 													$$ = new NodoArbol("CONDICION", nodo_cond, null);
 												  }
 

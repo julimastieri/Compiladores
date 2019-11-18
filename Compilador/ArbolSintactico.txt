@@ -1,52 +1,26 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			c
-			4
+			w
+			CONVERSION
+				2
 		Sentencia Ejecutable
 			:=
-				i
-				2
-			Sentencia Ejecutable
-				:=
-					a
-					-
+				c
+				/
+					CONVERSION
+						2
+					CONVERSION
+						2
+			IF
+				CONDICION
+					==
 						c
-						ELEM_COLEC
-							e
-							0
-				Sentencia Ejecutable
-					IF
-						CONDICION
-							==
-								a
-								1
-						CUERPO
-							THEN
-								PRINT
-									cadena0
-					Sentencia Ejecutable
-						:=
-							d
-							90000
-						Sentencia Ejecutable
-							:=
-								j
-								33000
-							Sentencia Ejecutable
-								:=
-									b
-									-
-										d
-										ELEM_COLEC
-											f
-											0
-								IF
-									CONDICION
-										==
-											b
-											50000
-									CUERPO
-										THEN
-											PRINT
-												cadena1
+						1
+				CUERPO
+					THEN
+						PRINT
+							cadena0
+					ELSE
+						PRINT
+							cadena1

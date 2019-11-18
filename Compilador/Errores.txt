@@ -1,0 +1,1 @@
+ERROR: Linea 14: Tipo de dato ulong no es compatible con int
