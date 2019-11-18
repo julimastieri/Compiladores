@@ -1,6 +1,7 @@
 package analizadorSintactico;
 
 import java.util.HashMap;
+import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 import analizadorLexico.AnalizadorLexico;
@@ -580,13 +581,36 @@ public class Traductor {
 			}	
 			
 		} else if ( (nodoIzq.esRegistro()) && !(nodoDer.esRegistro()) ) { 
-		// Situacion 2 (REG - VAR/CONST)	
+		// Situacion 2 (REG - VAR/CONST/COL)	
 			
 			Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
 			String registro = nodoIzq.getNombre();
 			int nroReg = nodoIzq.getNroReg();
 			
-			if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
+			
+			if (nodoDer.esRefMem()) {
+				int nroRegLibre = primerRegLibre();
+				String nombreRegCol = hashRegs.get(nroRegLibre);
+				registros[nroRegLibre] = "O";
+				
+				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
+					assembler.append("MOV E" + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[EBX]
+					assembler.append("SUB " + registro  + ",E" + nombreRegCol + "\n");
+					//Actualizo el arbol
+					//nodo.reemplazar("E" + nombreRegCol, nroRegLibre);
+					registros[nroRegLibre] = "L";
+				} else {
+					assembler.append("MOV " + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV AX,[EBX]
+					assembler.append("SUB " + registro + "," + nombreRegCol + "\n");
+					//Actualizo el arbol
+					//nodo.reemplazar(nombreRegCol, nroRegLibre);
+					registros[nroRegLibre] = "L";
+				}	
+				
+				registros[nodoDer.getNroReg()] = "L";
+				
+			}
+			else if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("SUB "+ registro + "," + nodoDer.getNombre() + "\n"); //SUB AX,3
 			} else if (opDer.getUso().equals(Token.USO_VARIABLE)) {
 				assembler.append("SUB "+ registro + ",_" + nodoDer.getNombre() + "\n"); //SUB AX,_b
@@ -611,7 +635,7 @@ public class Traductor {
 			nodo.reemplazar(registro1, nroReg1);
 			
 		} else if ( !(nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
-		// Situacion 4 (VAR/CONST - REG) (Operacion NO conmutativa)
+		// Situacion 4 (VAR/CONST/COL - REG) (Operacion NO conmutativa)
 			
 			Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 			//Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
@@ -624,8 +648,10 @@ public class Traductor {
 				
 				if ( nodoDer.getTipoDeDato().equals("ulong")) { 
 				// (32 bits)
-					
-					if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
+					if (nodoIzq.esRefMem()) {
+						assembler.append("MOV E" + hashRegs.get(nuevoReg) + ",[" + nodoIzq.getNombre() + "]\n"); //MOV EAX,[EBX]
+					}
+					else if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
 						assembler.append("MOV E" + hashRegs.get(nuevoReg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV EAX,_b
 					} else if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 						assembler.append("MOV E" + hashRegs.get(nuevoReg) + "," + nodoIzq.getNombre() + "\n"); //MOV EAX,40.000	
@@ -637,8 +663,10 @@ public class Traductor {
 					
 				} else if (nodoDer.getTipoDeDato().equals("int")) { 
 				// (16 bits)
-					
-					if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
+					if (nodoIzq.esRefMem()) {
+						assembler.append("MOV " + hashRegs.get(nuevoReg) + ",[" + nodoIzq.getNombre() + "]\n"); //MOV AX,[EBX]
+					}
+					else if (opIzq.getUso().equals(Token.USO_VARIABLE)) {
 						assembler.append("MOV " + hashRegs.get(nuevoReg) + ",_" + nodoIzq.getNombre() + "\n"); //MOV AX,_b
 					} else if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 						assembler.append("MOV " + hashRegs.get(nuevoReg) + "," + nodoIzq.getNombre() + "\n"); //MOV AX,4
