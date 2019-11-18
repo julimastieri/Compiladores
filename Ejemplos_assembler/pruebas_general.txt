@@ -1,23 +1,13 @@
 int a, b;
-ulong c;
-int d[1,2,3];
+ulong c,w;
+ulong d[2,2,3];
 begin
-	
-	b:=6;
-	a:=2;
 
-	c:=32768*to_ulong(2); #caso (VAR/CONST-REG) 32 bits #ANDAAAAAAAAAAAA
-
-	if (c == 65536)
-			print({Anda Bien});
-		else
-			print({Anda Mal});
-		end_if;
-
-	#if (a == 2) print({Es 2}); else	print({No Es 2}); end_if;
-
-	#if (a == 3) print({Es 3}); else print({No Es 3}); end_if;
-
-	
+	c:=to_ulong(6)*d[0]; #RM-REG
+	if (c == 12)
+		print({Anda Bien1});
+	else
+		print({Anda Mal});
+	end_if;
 
 end

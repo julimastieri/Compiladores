@@ -228,6 +228,10 @@ public class Traductor {
 				imprimirArbolmod(raiz, "");
 			}
 			
+			System.out.println("Estado de Registros:");
+			for (int i=0; i<registros.length;i++)
+				System.out.print(registros[i]+" " );
+			System.out.println("\n");
 			
 			nodo = subIzquierdoConHojas(raiz);
 			System.out.println("NODO:" + nodo.getNombre() );
@@ -711,7 +715,7 @@ public class Traductor {
 	
 	// -----------------------------------------------------------
 	
-	private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
+private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
 		
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
@@ -766,6 +770,12 @@ public class Traductor {
 			registros[3] = "O";	
 			
 			
+			if (nodoIzq.esRefMem())	
+				nombreIzq = "["+nodoIzq.getNombre()+"]";
+		
+			if (nodoDer.esRefMem())	
+				nombreDer = "["+nodoDer.getNombre()+"]";
+			
 			if (nodo.getTipoDeDato().equals("ulong")) { 
 			// Situacion 1a (32 bits)
 				
@@ -779,7 +789,6 @@ public class Traductor {
 					
 			} else if (nodo.getTipoDeDato().equals("int")) { 
 			// Situacion 1b (16 bits)
-				
 				assembler.append("MOV AX," + nombreIzq + "\n");
 				assembler.append("MOV DX," + nombreDer + "\n");
 				assembler.append("IMUL AX,DX" + "\n");
@@ -790,10 +799,10 @@ public class Traductor {
 			}
 			
 			if (nodoIzq.esRefMem())	
-				registros[getNroReg(nodoIzq.getNombre())] = "L";
+				registros[nodoIzq.getNroReg()] = "L";
 		
 			if (nodoDer.esRefMem())	
-				registros[getNroReg(nodoDer.getNombre())] = "L";
+				registros[nodoDer.getNroReg()] = "L";
 			
 			registros[0] = "O";
 
@@ -831,6 +840,11 @@ public class Traductor {
 					changeRecord(raiz, 3, proxLibre);
 				}
 			}
+			
+			if (nodoIzq.esRefMem())	
+				nombreValue = "["+nodoIzq.getNombre()+"]";
+			else
+				nombreValue = "["+nodoDer.getNombre()+"]";
 			
 			registros[3] = "O";
 			
@@ -888,7 +902,7 @@ public class Traductor {
 					registros[nroReg1] = "L"; //Libero el 1er registro
 				} else {
 					if (registros[0].equals("O")) {
-						if (nroReg1 == 3) {
+						if (registro1.equals("EDX")) {
 							changeRecord(raiz, 0, nroReg2); //lo que hay en reg2 ahora esta en EAX
 							assembler.append("MUL "+ registro1 + "\n"); //MUL lo que esta en eax por reg1
 							registros[nroReg1] = "L";
@@ -1037,10 +1051,10 @@ public class Traductor {
 			
 			registros[3] = "L";
 			if (nodoIzq.esRefMem())	
-				registros[getNroReg(nodoIzq.getNombre())] = "L";
+				registros[nodoIzq.getNroReg()] = "L";
 		
 			if (nodoDer.esRefMem())	
-				registros[getNroReg(nodoDer.getNombre())] = "L";
+				registros[nodoDer.getNroReg()] = "L";
 			registros[0] = "O"; 
 			
 			
@@ -1110,7 +1124,7 @@ public class Traductor {
 				
 			registros[3] = "L";	
 			if (nodoDer.esRefMem())	
-				registros[getNroReg(nodoDer.getNombre())] = "L";	
+				registros[nodoDer.getNroReg()] = "L";	
 
 		
 		} else if ( !(nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
@@ -1177,7 +1191,7 @@ public class Traductor {
 			
 		registros[3] = "L";	
 		if (nodoIzq.esRefMem())	
-			registros[getNroReg(nodoIzq.getNombre())] = "L";	
+			registros[nodoIzq.getNroReg()] = "L";	
 			
 		} else if ( (nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
 			// Situacion 4 (REG - REG)
@@ -1291,7 +1305,7 @@ public class Traductor {
 			//Situacion I : REG a la derecha
 			if (nodoIzq.esRefMem()) {
 				assembler.append("MOV [" + nodoIzq.getNombre() + "]," + nodoDer.getNombre() + "\n"); //MOV [BX],AX
-				registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+				registros[nodoIzq.getNroReg()] = "L"; //Libero el registro que tenia la pos de memoria
 			} else {
 				assembler.append("MOV _" + nodoIzq.getNombre() + "," + nodoDer.getNombre() + "\n"); //MOV _a,AX
 			}		
@@ -1322,14 +1336,14 @@ public class Traductor {
 						//assembler.append("MOV E" + nombreReg + "," + nombreIzq + "\n" ); //mov EBX _a  o MOV EBX [AX]
 						assembler.append("MOV E" + nombreReg + ",[" + nodoDer.getNombre() + "]\n"); //MOV EBX [CX]
 						assembler.append("MOV "+ nombreIzq + "," + nombreReg + "\n"); //MOV _a EBX
-						registros[getNroReg(nodoDer.getNombre())] = "L";
+						registros[nodoDer.getNroReg()] = "L";
 						
 									
 					} else if (nodoDer.getTipoDeDato().equals("int")) {
 						//assembler.append("MOV " + nombreReg + "," + nombreIzq + "\n" ); //mov BX _a  o MOV BX [AX]
 						assembler.append("MOV " + nombreReg + ",[" + nodoDer.getNombre() + "]\n"); //MOV BX [CX]
 						assembler.append("MOV "+ nombreIzq + "," + nombreReg + "\n"); //MOV _a BX
-						registros[getNroReg(nodoDer.getNombre())] = "L";
+						registros[nodoDer.getNroReg()] = "L";
 						
 					}
 				}
@@ -1339,7 +1353,7 @@ public class Traductor {
 						assembler.append("MOV E" + nombreReg + "," + nodoDer.getNombre()+ "\n"); //MOV ECX,40.000
 						if (nodoIzq.esRefMem()) {
 							assembler.append("MOV [" + nodoIzq.getNombre() + "],E" + nombreReg + "\n"); //MOV _a,ECX
-							registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+							registros[nodoIzq.getNroReg()] = "L"; //Libero el registro que tenia la pos de memoria
 						}else {
 							assembler.append("MOV _" + nodoIzq.getNombre() + ",E" + nombreReg + "\n"); //MOV [BX],ECX
 						}
@@ -1348,7 +1362,7 @@ public class Traductor {
 						assembler.append("MOV " + nombreReg + "," + nodoDer.getNombre() + "\n"); //MOV CX,2
 						if (nodoIzq.esRefMem()) {
 							assembler.append("MOV [" + nodoIzq.getNombre() + "]," + nombreReg + "\n"); //MOV [BX],CX
-							registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+							registros[nodoIzq.getNroReg()] = "L"; //Libero el registro que tenia la pos de memoria
 						} else {
 							assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreReg + "\n"); //MOV _a,CX
 						}
@@ -1359,7 +1373,7 @@ public class Traductor {
 						assembler.append("MOV E" + nombreReg + ",_" + nodoDer.getNombre() + "\n"); //MOV ECX,_b
 						if (nodoIzq.esRefMem()) {
 							assembler.append("MOV [" + nodoIzq.getNombre() + "],E" + nombreReg + "\n"); //MOV [BX],ECX
-							registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+							registros[nodoIzq.getNroReg()] = "L"; //Libero el registro que tenia la pos de memoria
 						} else {
 							assembler.append("MOV _" + nodoIzq.getNombre() + ",E" + nombreReg + "\n"); //MOV _a,ECX
 						}					
@@ -1368,7 +1382,7 @@ public class Traductor {
 						assembler.append("MOV " + nombreReg + ",_" + nodoDer.getNombre() + "\n"); //MOV CX,_b
 						if (nodoIzq.esRefMem()) {
 							assembler.append("MOV [" + nodoIzq.getNombre() + "]," + nombreReg + "\n"); //MOV [BX],CX
-							registros[getNroReg(nodoIzq.getNombre())] = "L"; //Libero el registro que tenia la pos de memoria
+							registros[nodoIzq.getNroReg()] = "L"; //Libero el registro que tenia la pos de memoria
 						} else {
 							assembler.append("MOV _" + nodoIzq.getNombre() + "," + nombreReg + "\n"); //MOV _a,CX
 						}
@@ -1419,7 +1433,6 @@ public class Traductor {
 			
 		} else {
 			nombreRegIzq = nodoIzq.getNombre();
-			//registros[nodoIzq.getNroReg()] = "L";
 		}
 			
 		
