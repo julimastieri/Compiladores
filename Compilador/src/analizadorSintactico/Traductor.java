@@ -38,6 +38,7 @@ public class Traductor {
 		assembler.append("MsgError db \"Error en ejecucion\",0" + "\n");
 		
 		assembler.append("@aux1 DD ?" + "\n");
+		assembler.append("@aux2 DW ?" + "\n");
 		
 	    for (Map.Entry<String, Token> entry : AnalizadorLexico.tablaSimbolos.entrySet() )
 	    {
@@ -383,17 +384,22 @@ public class Traductor {
 			if (nodoDer.esRefMem()) {
 				int nroRegLibre = primerRegLibre();
 				String nombreRegCol = hashRegs.get(nroRegLibre);
+				registros[nroRegLibre] = "O";
 				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) {
 					assembler.append("MOV E" + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV EAX,[EBX]
 					assembler.append("ADD E" + nombreRegCol + "," + registro + "\n");
 					//Actualizo el arbol
 					nodo.reemplazar("E" + nombreRegCol, nroRegLibre);
+					registros[nroReg] = "L";
 				} else {
 					assembler.append("MOV " + nombreRegCol + ",[" + nodoDer.getNombre() + "]\n"); //MOV AX,[EBX]
 					assembler.append("ADD " + nombreRegCol + "," + registro + "\n");
 					//Actualizo el arbol
 					nodo.reemplazar(nombreRegCol, nroRegLibre);
-				}		
+					registros[nroReg] = "L";
+				}	
+				
+				registros[nodoDer.getNroReg()] = "L";
 				
 			}
 			else if (opDer.getUso().equals(Token.USO_CONSTANTE)) {
@@ -439,13 +445,15 @@ public class Traductor {
 					assembler.append("ADD E" + nombreRegCol + "," + registro + "\n");
 					//Actualizo el arbol
 					nodo.reemplazar("E" + nombreRegCol, nroRegLibre);
+					registros[nroReg] = "L";
 				} else {
 					assembler.append("MOV " + nombreRegCol + ",[" + nodoIzq.getNombre() + "]\n"); //MOV AX,[EBX]
 					assembler.append("ADD " + nombreRegCol + "," + registro + "\n");
 					//Actualizo el arbol
 					nodo.reemplazar(nombreRegCol, nroRegLibre);
+					registros[nroReg] = "L";
 				}		
-				
+				registros[nodoDer.getNroReg()] = "L";
 			}
 			else if (opIzq.getUso().equals(Token.USO_CONSTANTE)) {
 				assembler.append("ADD "+ registro + "," + nodoIzq.getNombre() + "\n"); //ADD AX,3
@@ -667,10 +675,19 @@ public class Traductor {
 					nodoChange.reemplazar(nombreRegNuevo, nroRegNuevo);
 				}
 				
+				if (nombreRegNuevo.charAt(0) == 'E') {
+					assembler.append("MOV @aux1," + nombreRegNuevo + "\n");
+					assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
+					assembler.append("MOV " + nombreRegViejo + ",@aux1" + "\n");
+					registros[nroRegNuevo] = "O";
+				} else {
+					assembler.append("MOV @aux2," + nombreRegNuevo + "\n");
+					assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
+					assembler.append("MOV " + nombreRegViejo + ",@aux2" + "\n");
+					registros[nroRegNuevo] = "O";
+				}
 				
-				assembler.append("MOV @aux1," + nombreRegNuevo + "\n");
-				assembler.append("MOV " + nombreRegNuevo + "," + nombreRegViejo + "\n"); //paso el contenido de EAX al nuevo reg MOV ECX,EAX
-				assembler.append("MOV " + nombreRegViejo + ",@aux1" + "\n");
+				
 			}
 		}
 	}
@@ -1588,6 +1605,7 @@ public class Traductor {
 			if (proxLibre != -1) {
 				changeRecord(raiz, 0, proxLibre);
 			}
+			registros[proxLibre] = "O";
 		}
 		
 	

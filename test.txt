@@ -7,13 +7,13 @@ ulong h[3];
 
 begin
 
-	a := e[0] + 3 * 2;
+	a :=  e[0] + 3 * 2  ;
 
 	if (a==9)
 		print ({correcto1});
 	end_if;
 
-	b := f[0] + 40000 * 34000;
+	b :=  f[0] +40000 * 34000  ;
 
 	if (b==1360040000)
 		print ({correcto2});
