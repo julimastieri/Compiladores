@@ -221,12 +221,15 @@ public class Traductor {
 				generarCuerpoForeach(nodo);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CONVERSION")) {
-				generarConversion(nodo); //SOLO FALTA PROBAR EL CASO DE REF A MEM to_ulong(d[0]), PERO NO SE PUEDE HASTA 	QUE NO ANDE
+				generarConversion(nodo); 
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("ELEM_COLEC")) {
 				generarElemColec(nodo, raiz);
 				imprimirArbolmod(raiz, "");
 			}
+			
+			//Falta probar: Resta, Division e IF
+			//No andan: Elem Colec, y foreach no andan por el offset
 			
 			System.out.println("Estado de Registros:");
 			for (int i=0; i<registros.length;i++)
@@ -1454,7 +1457,6 @@ private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
 			
 		} else {
 			nombreRegDer = nodoDer.getNombre();
-			//registros[nodoDer.getNroReg()] = "L";
 		}
 			
 		
@@ -1474,7 +1476,6 @@ private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
 	
 	private void generarCondicion (NodoArbol nodo) {
 		String comparador = nodo.getNodoIzq().getNombre();
-		System.out.println("Comparador: " + comparador);
 		
 		if (comparador.equals(">=")) {
 			assembler.append("JL LabelElse");
