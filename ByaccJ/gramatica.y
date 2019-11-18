@@ -627,6 +627,7 @@ public void imprimirArbol(NodoArbol nodo, String tabs) {
 public void checkearUsoCorrecto(String lexema, String uso){
 
 	Token id = AnalizadorLexico.tablaSimbolos.get(lexema);
+	if (!lexema.equals(Token.UNDEFINED))
 		if(!lexema.equals(uso)){
 			errores.add(new Error("ERROR", lexema + " es usada como " + uso , AnalizadorLexico.cantLineas));
 		}

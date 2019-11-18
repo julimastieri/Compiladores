@@ -717,11 +717,12 @@ public void imprimirArbol(NodoArbol nodo, String tabs) {
 public void checkearUsoCorrecto(String lexema, String uso){
 
 	Token id = AnalizadorLexico.tablaSimbolos.get(lexema);
+	if (!lexema.equals(Token.UNDEFINED))
 		if(!lexema.equals(uso)){
 			errores.add(new Error("ERROR", lexema + " es usada como " + uso , AnalizadorLexico.cantLineas));
 		}
 }
-//#line 653 "Parser.java"
+//#line 654 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1456,7 +1457,7 @@ case 94:
 //#line 453 ".\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
-//#line 1383 "Parser.java"
+//#line 1384 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
