@@ -16,6 +16,8 @@ begin
 	a:=d[0]/d[0] #RM-RM
 	a:=2/d[0];#CONST-RM
 	a:=2/0; #Division por 0
+	a:=d[0]/1*1; #RM-REG
+	a:=1/1*1; #CONST-REG
 
 
 	#32bits
@@ -28,10 +30,15 @@ begin
 	c:=w/w;#VAR-VAR
 	c:=32768/w; #CONST-VAR
 	c:=w/32768; #VAR-CONST
-
-
-	###############
-	
+	c:=to_ulong(2)/to_ulong(2); #REG-REG
 	c:=w/to_ulong(0); #DIVISION POR 0
+	c:=to_ulong(2)/w; #REG-VAR
+	c:=to_ulong(2)/z[0]; #REG-RM
+	c:=z[0]/to_ulong(2); #RM-REG
+	c:=32768/to_ulong(2); #CONST-REG
+
+
+
+	
 
 end

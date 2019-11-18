@@ -1185,10 +1185,8 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 				} else if (registros[0].equals("L")) {
 					if (registro.charAt(0) == 'E') {
 						assembler.append("MOV EAX," + registro + "\n");
-						assembler.append("CDQ" + "\n");
 					} else {
 						assembler.append("MOV AX," + registro + "\n");
-						assembler.append("CWD" + "\n");
 					}
 					registros[nroReg] = "L";
 					registros[0] = "O";
@@ -1200,7 +1198,7 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 			
 			if (nodo.getTipoDeDato().equals("ulong")) { 
 				// 32 bits
-				
+				assembler.append("CDQ" + "\n");
 				if (nodoDer.esRefMem())	{
 					assembler.append("MOV "+ nodoDer.getNombre() +"," + nombreDer + "\n"); 
 					nombreDer = nodoDer.getNombre();
@@ -1221,6 +1219,8 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 				
 			} else if (nodo.getTipoDeDato().equals("int")) {
 				// 16 bits
+				
+				assembler.append("CWD" + "\n");
 				
 				if (nodoDer.esRefMem())	{
 					assembler.append("MOV "+ nodoDer.getNombre().replace("E", "") +"," + nombreDer + "\n"); 
@@ -1260,23 +1260,22 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 			}
 		}
 		
-		if (nodoIzq.esRefMem())
-			nombreIzq = "["+nodoIzq.getNombre()+"]";
-		
 		//Mudo a AX lo que hay en el nodo izq
 		
 			if (registros[0].equals("O")) {
 				int proxLibre = primerRegLibre();
 				changeRecord(raiz, 0, proxLibre);
-			} else if (registros[0].equals("L")) {
-				if (nodoIzq.getTipoDeDato().equals("ulong")) {
-					assembler.append("MOV EAX," + nombreIzq + "\n");
-					assembler.append("CDQ" + "\n");
-				} else {
-					assembler.append("MOV AX," + nombreIzq + "\n");
-					assembler.append("CWD" + "\n");
-				}
-			}			
+			}	
+			
+			if (nodoIzq.esRefMem()) {
+				nombreIzq = "["+nodoIzq.getNombre()+"]";
+			}
+			
+			if (nodoIzq.getTipoDeDato().equals("ulong")) {
+				assembler.append("MOV EAX," + nombreIzq + "\n");
+			} else {
+				assembler.append("MOV AX," + nombreIzq + "\n");
+			}
 			
 			if (nodoIzq.esRefMem())	
 				registros[nodoIzq.getNroReg()] = "L";	
@@ -1284,10 +1283,11 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 		
 		
 		String registro = nodoDer.getNombre();
+		int nroReg = nodoDer.getNroReg();
 		
 		if (nodo.getTipoDeDato().equals("ulong")) { 
 			// 32 bits
-			
+			assembler.append("CDQ" + "\n");
 			//Genero codigo sobre el registro
 			assembler.append("CMP "+ registro +",0 \n"); //comparo el valor de lo que hay en nodo derecho con 0
 			assembler.append("JE LabelError" + "\n"); //si es igual a 0 ir al label error
@@ -1299,7 +1299,7 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 			
 		} else if (nodo.getTipoDeDato().equals("int")) {
 			// 16 bits
-			
+			assembler.append("CWD" + "\n");
 			assembler.append("CMP "+ registro +",0" +"\n"); //comparo el valor de lo que hay en nodo derecho con 0
 			assembler.append("JE LabelError" + "\n"); //si es igual a 0 ir al label error
 			
@@ -1309,7 +1309,7 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 			//Actualizo el arbol
 			nodo.reemplazar("AX", 0);
 		}	
-		
+	registros[nroReg]="L";
 	registros[3] = "L";	
 	
 		

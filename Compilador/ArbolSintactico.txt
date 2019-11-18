@@ -1,26 +1,51 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			w
-			CONVERSION
-				2
+			b
+			1
 		Sentencia Ejecutable
 			:=
-				c
-				/
-					CONVERSION
-						2
-					CONVERSION
-						2
-			IF
-				CONDICION
-					==
-						c
-						1
-				CUERPO
-					THEN
-						PRINT
-							cadena0
-					ELSE
-						PRINT
-							cadena1
+				w
+				CONVERSION
+					2
+			Sentencia Ejecutable
+				:=
+					a
+					/
+						b
+						*
+							1
+							1
+				Sentencia Ejecutable
+					IF
+						CONDICION
+							==
+								a
+								1
+						CUERPO
+							THEN
+								PRINT
+									cadena0
+							ELSE
+								PRINT
+									cadena1
+					Sentencia Ejecutable
+						:=
+							c
+							/
+								w
+								CONVERSION
+									2
+						IF
+							CONDICION
+								==
+									c
+									CONVERSION
+										1
+							CUERPO
+								THEN
+									PRINT
+										cadena2
+								ELSE
+									PRINT
+										cadena3
