@@ -39,6 +39,7 @@ begin
 		c:=d[0]*w; #RM-VAR
 		c:=32768*d[0]; #CONST-RM
 		c:=w*d[0]; #VAR-RM
+		
 
 		c:=to_ulong(3)*to_ulong(2); #caso (REG-REG) 32 bits
 		c:=to_ulong(3)*to_ulong(2)*to_ulong(8); #otro caso (REG-REG)

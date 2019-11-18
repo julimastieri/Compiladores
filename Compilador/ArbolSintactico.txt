@@ -12,40 +12,17 @@ PROGRAMA
 				:=
 					a
 					/
-						b
-						*
-							1
-							1
-				Sentencia Ejecutable
-					IF
-						CONDICION
-							==
-								a
-								1
-						CUERPO
-							THEN
-								PRINT
-									cadena0
-							ELSE
-								PRINT
-									cadena1
-					Sentencia Ejecutable
-						:=
-							c
-							/
-								w
-								CONVERSION
-									2
-						IF
-							CONDICION
-								==
-									c
-									CONVERSION
-										1
-							CUERPO
-								THEN
-									PRINT
-										cadena2
-								ELSE
-									PRINT
-										cadena3
+						6
+						-2
+				IF
+					CONDICION
+						==
+							a
+							-3
+					CUERPO
+						THEN
+							PRINT
+								cadena0
+						ELSE
+							PRINT
+								cadena1

@@ -8,11 +8,10 @@ begin
 	b:=1;
 	w:=to_ulong(2);
 
-	a:=b/1*1; #CONST-REG
-	if (a == 1) print({Anda Bien a}); else print({Anda Mal}); end_if;
+	a:=6/-2;#CONST-CONST(16 bits)
+	if (a == -3) print({Anda Bien a}); else print({Anda Mal}); end_if;
 
-	c:=w/to_ulong(2); #CONST-REG
-	if (c == to_ulong(1)) print({Anda Bien c}); else print({Anda Mal}); end_if;
+
 
 
 end
