@@ -9,23 +9,17 @@ begin
 
 	#16bits
 	a:=6/2;#CONST-CONST(16 bits)
-	
-	a:=d[0]/d[0] #RM-RM
+	a:=b/b;#VAR-VAR
 	a:=d[0]/2; #RM-Const
 	a:=d[0]/b; #RM-VAR
-	a:=2/d[0];#CONST-RM
 	a:=b/d[0]; #VAR-RM
-	a:=b/b;#VAR-VAR
-	a:=2/b; #CONST-VAR
-	a:=b/2; #VAR-CONST
-
-
-
+	a:=d[0]/d[0] #RM-RM
+	a:=2/d[0];#CONST-RM
+	a:=2/0; #Division por 0
 
 
 	#32bits
 	c:=32768/32768;#CONST-CONST 
-
 	c:=z[0]/z[0];#RM-RM
 	c:=z[0]/32768; #RM-Const
 	c:=z[0]/w; #RM-VAR
@@ -37,28 +31,7 @@ begin
 
 
 	###############
-	c:=w/0; #DIVISION POR 0
-
-
 	
-	a:=d[0]/2; #RM-Const
-	if (a == 1) print({Anda Bien2}); else print({Anda Mal}); end_if;
+	c:=w/to_ulong(0); #DIVISION POR 0
 
-	a:=d[0]/b; #RM-VAR
-	if (a == 1) print({Anda Bien3}); else print({Anda Mal}); end_if;
-
-	a:=2/d[0];#CONST-RM
-	if (a == 1) print({Anda Bien4}); else print({Anda Mal}); end_if;
-
-	a:=b/d[0]; #VAR-RM
-	if (a == 1) print({Anda Bien5}); else print({Anda Mal}); end_if;
-
-	a:=b/b;#VAR-VAR
-	if (a == 1) print({Anda Bien6}); else print({Anda Mal}); end_if;
-
-	a:=2/b; #CONST-VAR
-	if (a == 1) print({Anda Bien7}); else print({Anda Mal}); end_if;
-
-	a:=b/2; #VAR-CONST
-	if (a == 1) print({Anda Bien8}); else print({Anda Mal}); end_if;
 end

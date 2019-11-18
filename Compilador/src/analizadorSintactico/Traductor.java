@@ -1138,8 +1138,8 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 				registros[nodoIzq.getNroReg()] = "L";
 			
 			if (nodoDer.esRefMem())	{
-				assembler.append("MOV "+ nodoDer.getNombre() +"," + nombreDer + "\n"); 
-				nombreDer = nodoDer.getNombre();
+				assembler.append("MOV "+ nodoDer.getNombre().replace("E", "") +"," + nombreDer + "\n"); 
+				nombreDer = nodoDer.getNombre().replace("E", "");
 			}
 			else {
 				int proxLibre = primerRegLibre();

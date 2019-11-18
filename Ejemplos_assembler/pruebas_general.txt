@@ -1,14 +1,15 @@
 int a, b;
-int d[2,2,3];
+int d[0,2,3];
 ulong c,w;
 ulong z[32768,2,3];
 
 begin
 
-	b:=2;
+	w:=to_ulong(0);
 
-	a:=2/2;#CONST-CONST(16 bits)
-	#a:=d[0]/d[0]; #RM-RM
-	if (a == 1) print({Anda Bien1}); else print({Anda Mal}); end_if;
+	c:=32768/w; #DIVISION POR 0
+	if (a == 1) print({Anda Bien RM-RM}); else print({Anda Mal}); end_if;
+	a:=2/d[0]; #CONST-RM
+	if (a == 1) print({Anda Bien CONST-RM}); else print({Anda Mal}); end_if;
 
 end
