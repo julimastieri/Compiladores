@@ -6,16 +6,21 @@ int g[4];
 ulong h[3];
 
 begin
+	c := 4;
+	i := 2;
 
-	a :=  e[0] + 3 * 2  ;
+	a :=  c - e[0];
 
-	if (a==9)
+	if (a== 1 )
 		print ({correcto1});
 	end_if;
 
-	b :=  f[0] +40000 * 34000  ;
+	d := 90000;
+	j := 33000;
 
-	if (b==1360040000)
+	b :=  d - f[0] ;
+
+	if (b== 50000 )
 		print ({correcto2});
 	end_if;
 

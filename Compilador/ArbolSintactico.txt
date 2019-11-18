@@ -1,44 +1,52 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			cte_entera_max
-			32767
+			c
+			4
 		Sentencia Ejecutable
 			:=
-				cte_entera_min
-				-32768
+				i
+				2
 			Sentencia Ejecutable
 				:=
-					cte_ulong_max
-					4294967295
+					a
+					-
+						c
+						ELEM_COLEC
+							e
+							0
 				Sentencia Ejecutable
-					:=
-						cte_ulong_limite
-						32768
+					IF
+						CONDICION
+							==
+								a
+								1
+						CUERPO
+							THEN
+								PRINT
+									cadena0
 					Sentencia Ejecutable
 						:=
-							a
-							32800
+							d
+							90000
 						Sentencia Ejecutable
 							:=
-								b
-								-32768
+								j
+								33000
 							Sentencia Ejecutable
 								:=
-									a
-									4294967295
-								Sentencia Ejecutable
-									:=
-										b
-										-2
-									Sentencia Ejecutable
-										:=
-											a
-											25
-										Sentencia Ejecutable
-											:=
-												j
-												25
-											:=
-												a
-												-24
+									b
+									-
+										d
+										ELEM_COLEC
+											f
+											0
+								IF
+									CONDICION
+										==
+											b
+											50000
+									CUERPO
+										THEN
+											PRINT
+												cadena1
