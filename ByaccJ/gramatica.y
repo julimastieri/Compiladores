@@ -347,6 +347,8 @@ factor :ID { estaDeclarada($1.sval);
 	   |'-'CTE {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\n");
 	   			  String lexema = modificarContadorDeReferencias($2.sval);
 
+	   			  Token t = AnalizadorLexico.tablaSimbolos.get(lexema)
+	   			  t.setUso(Token.USO_VARIABLE_AUX);
 	   			  NodoArbol aux = new NodoArbol(lexema, null, null);
 			      aux.setTipoDeDato(AnalizadorLexico.tablaSimbolos.get(lexema).getTipoDeDato());
 			      $$ = aux;

@@ -16,29 +16,23 @@ _a DW ?
 cadena0 DB "Anda Bien1",0
 _b DW ?
 _c DD ?
-_d DD 2,2,3
+_d DW 2,2,3
 _w DD ?
+_z DD 32768,2,3
 .code
 start:
-MOV EAX,0
-MOV AX,6
-CMP AX,0
-JL LabelError
-MOV @aux1,EBX
-MOV EBX,EAX
-MOV EAX,@aux1
-MOV EAX,8
-IMUL EAX,0
-ADD EAX, offset _d
-MOV @aux1,EBX
-MOV EBX,EAX
-MOV EAX,@aux1
-MOV EDX,[EBX]
-MUL EDX
-MOV _c,EAX
-MOV EAX,_c
-MOV CX,12
-CMP AX,CX
+MOV AX,2
+MOV _b,AX
+MOV AX,2
+CWD
+MOV BX,2
+CMP BX,0 
+JE LabelError
+IDIV BX 
+MOV _a,AX
+MOV AX,_a
+MOV BX,1
+CMP AX,BX
 JNE LabelElse0
 invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
 JMP LabelSiguiente0
