@@ -2,8 +2,10 @@ int c,i;
 int i; #Variable redeclarada
 
 int g[4];
-ulong g[1,2,3,4]; #Coleccion redeclarada
+int g[3]; #Coleccion redeclarada
 ulong c[2]; #Nombre de variable usado como coleccion
+ulong f[-1,3,8]; #Valores iniciales incorrectos
+int h[40000,35222,50987]; #Valores iniciales incorrectos
 
 ulong b,d;
 

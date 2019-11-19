@@ -1,0 +1,43 @@
+int a,c;
+ulong b,d;
+
+int e[5,1,7];
+ulong f[45600, 57921];
+
+begin
+	a := 3;
+	c := 6;
+	b := 40000;
+	d := 33000;
+
+	a := a + c;
+	if (a == 9)
+		print({a es 9});
+	end_if;
+
+	b := b + d;
+	if (b == 73000)
+		print({b es 73000});
+	end_if;
+
+	a := c + 2;
+	if (a == 8)
+		print({a es 8});
+	end_if;
+
+	a := 10 + a;
+	if (a == 18)
+		print({a es 18});
+	end_if;
+
+	a := 100 + 8;
+	if (a == 108)
+		print({a es 108});
+	end_if;
+
+	b := f[1] + d;
+	if (b == 90921)
+		print({b es 90921});
+	end_if;
+
+end

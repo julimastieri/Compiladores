@@ -1,0 +1,53 @@
+int a, b;
+ulong c;
+int d[1,2,3];
+
+begin
+	
+	a := 5 * 2;
+	if (a == 10)
+		print ({a es 10});
+	end_if;
+
+	a:=a*a;
+	if (a == 100)
+		print ({a es 100});
+	end_if;
+
+	b:=6;
+	a:=6*b;
+	if (a == 36)
+		print ({a es 36});
+	end_if;
+
+	a:= a*2*2; #VAR-REG
+	if (a == 144)
+		print ({a es 144});
+	end_if;
+		
+	c:=32768*to_ulong(2);
+	if (c == 65536)
+		print ({c es 65536});
+	end_if;
+		
+	c:=c*32768; 
+	if (c == 2147483648)
+		print ({c es un numero muy grande});
+	end_if;
+
+	c:=32768*d[0];
+	if (c == 32768)
+		print ({c es 32768});
+	end_if;
+
+	c:=to_ulong(3)*to_ulong(2);
+	if (c == 6)
+		print ({c es 6});
+	end_if;
+
+	c:=d[0]*to_ulong(6);
+	if (c == 6)
+		print ({c es 6});
+	end_if;
+
+end

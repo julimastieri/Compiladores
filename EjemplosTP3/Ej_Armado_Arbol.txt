@@ -1,0 +1,32 @@
+int a,b;
+ulong c,d;
+int g[1,2,3,4];
+ulong e[4]; 
+
+begin
+	
+	foreach a in g
+	begin
+		print ({dentro foreach});
+		a:= 9 * 2;
+		b:= 10;
+	end;
+
+	a := 84;
+	b := 21;
+	c := to_ulong(40);
+
+	if(a==b)
+		begin
+			e[0]:= to_ulong(2);
+			g[2]:= 33;
+		end
+	else
+		begin
+			d := 40394;
+			e[3] := 90412;
+		end
+	end_if;
+
+
+end

@@ -1,0 +1,38 @@
+int a,c;
+ulong b,d;
+
+int e[5,1,7];
+ulong f[45600, 80921];
+
+begin
+	a := 3;
+	c := 6;
+	b := 40000;
+	d := 33000;
+
+	if (a <= c)
+		begin
+			a := 6;
+			print ({a es menor igual que c})
+		end
+	else 
+		print ({a no es menor igual que c});
+	end_if;
+
+
+	if ( a <> c)
+		print ({ a es distinto de c});
+	else
+		print({ a es igual que c});
+	end_if;
+
+	if (b > d)
+		if (a == c)
+			print ({dentro de ifs anidados});
+		end_if;
+	else 
+		print ({ b menor o igual que d});
+	end_if;
+
+
+end

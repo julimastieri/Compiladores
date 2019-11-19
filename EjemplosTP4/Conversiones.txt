@@ -1,0 +1,37 @@
+int a,c;
+ulong b,d;
+
+int e[5,1,7];
+ulong f[45600, 80921];
+
+begin
+
+	b := to_ulong(2+3);
+
+	if (b == 5)
+		print ({b es 5. Conversion correcta.});
+	end_if;
+	
+
+	b := to_ulong(-2); #error en ejecucion. Perdida de informacion
+
+	b := to_ulong(0);
+	if (b == 0)
+		print ({b es 0. Conversion correcta.});
+	end_if;
+
+
+	b := to_ulong(40000); #caso en donde no convierte ya que ya es ulong
+
+	a:=2;
+	b := to_ulong(a); 
+	if (b == 2)
+		print ({b es 2. Conversion correcta.});
+	end_if;
+
+
+	b := to_ulong(e[0]); #caso ref a mem
+	if (b == 5)
+		print ({b es 5. Conversion correcta.});
+	end_if;
+end

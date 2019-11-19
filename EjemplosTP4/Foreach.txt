@@ -1,0 +1,32 @@
+int a,w;
+int b[1,2,3];
+
+begin
+	a:=2;
+	w:=3;
+
+	foreach a in b
+		w:=100 + a;
+	;
+
+	foreach a in b
+	begin 
+		if (a == 1)
+			print({Es 1});
+		else
+			print({No Es 1});
+		end_if;
+
+		if (a == 2) 
+			print({Es 2}); 
+		else	
+			print({No Es 2}); 
+		end_if;
+
+		if (a == 3) 
+			print({Es 3}); 
+		else 
+			print({No Es 3}); 
+		end_if;
+	end;
+end

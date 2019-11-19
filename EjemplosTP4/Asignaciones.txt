@@ -1,0 +1,14 @@
+int a,c;
+ulong b,d;
+int e[3,6,1];
+ulong f[3];
+
+begin
+	a := 2;
+	b := 40000;
+	c := a;
+	d := b;
+	a := e[1];
+	e[0] := a;
+	f[2] := e[2];
+end
