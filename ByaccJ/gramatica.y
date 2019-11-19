@@ -183,7 +183,6 @@ seleccion : IF condicion cuerpo_if { $$ = new NodoArbol("IF", $2, $3);
 
 cuerpo_if : bloque_de_sentencias_if END_IF ';' {  
 												  NodoArbol aux = new NodoArbol("CUERPO", $1, null);
-												  aux.setNroIdentificador(contadorDeIf);
 												  $$ = aux;
 
 			                                   }	
@@ -198,7 +197,6 @@ cuerpo_if : bloque_de_sentencias_if END_IF ';' {
 //THEN
 bloque_de_sentencias_if : bloque_de_sentencias {  
 												NodoArbol aux = new NodoArbol("THEN", $1, null);
-												aux.setNroIdentificador(contadorDeIf);
 												$$ = aux;
 							                   }
 ;
@@ -223,7 +221,6 @@ bloque_de_sentencias :sentencia_ejecutable { $$ = $1;						                   }
 
 condicion :'(' expresion comparador expresion ')' { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); 
 													NodoArbol nodo_cond = new NodoArbol($3.sval, $2, $4);
-													nodo_cond.setNroIdentificador(contadorDeIf);
 													nodo_cond.setTipoDeDato((NodoArbol)$2, (NodoArbol) $4);
 
 													$$ = new NodoArbol("CONDICION", nodo_cond, null);
