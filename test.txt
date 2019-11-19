@@ -1,25 +1,28 @@
 int c,i;
-int i; #Variable redeclarada
 
-int g[4];
-ulong g[1,2,3,4]; #Coleccion redeclarada
-ulong c[2]; #Nombre de variable usado como coleccion
+int g[1,2,3];
+
 
 ulong b,d;
 
+ulong h[40000,58000];
+
 begin
 	
-	a := 3;         #Variable no declarada
-	e[0] := 2 + 4;  #Coleccion no declarada
+	c := g[2];
+	if (c==3)
+		print({ c es 3 });
+	end_if;
 
-	i := 100 + 30; 		#Tipos compatibles (int)
-	d := 40000 + 33000; #Tipos compatibles (ulong)
+	b := h[1];
+	if (b==58000)
+		print({ b es 58000 });
+	end_if;
 
-	i := 40000 + 2; #Tipos incompatibles (ulong + int)
 
-	b := to_ulong(i) + d; 	#Conversion valida
-	i := to_ulong(-12) + 3; #Conversion invalida
-
-	g[-2] := 50; #Subindice negativo
+	g[1] := 10;
+	if (g[1] == 10)
+		print({ g[1] es 10 });
+	end_if;
 
 end

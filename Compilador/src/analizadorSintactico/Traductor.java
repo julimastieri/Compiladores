@@ -1430,7 +1430,7 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 					if (nodoDer.getTipoDeDato().equals("ulong")) {
 						//assembler.append("MOV E" + nombreReg + "," + nombreIzq + "\n" ); //mov EBX _a  o MOV EBX [AX]
 						assembler.append("MOV E" + nombreReg + ",[" + nodoDer.getNombre() + "]\n"); //MOV EBX [CX]
-						assembler.append("MOV "+ nombreIzq + "," + nombreReg + "\n"); //MOV _a EBX
+						assembler.append("MOV "+ nombreIzq + ",E" + nombreReg + "\n"); //MOV _a EBX
 						registros[nodoDer.getNroReg()] = "L";
 						
 									
@@ -1715,10 +1715,10 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 		
 	
 		if (nodoIzq.getTipoDeDato().equals("ulong")) {
-			assembler.append("MOV EAX,8" + "\n"); //MOV EAX,8
+			assembler.append("MOV EAX,4" + "\n"); //MOV EAX,8
 			nodo.setTipoDeDato("ulong");
 		}else {
-			assembler.append("MOV EAX,4" + "\n"); //MOV EAX,4
+			assembler.append("MOV EAX,2" + "\n"); //MOV EAX,4
 			nodo.setTipoDeDato("int");
 		}
 		
