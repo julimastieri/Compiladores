@@ -16,7 +16,7 @@
 
 
 
-//#line 2 ".\gramatica.y"
+//#line 2 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 package analizadorSintactico;
 
 import java.io.File;
@@ -543,7 +543,7 @@ final static String yyrule[] = {
 "asignacion : ID '[' ']' ASIGN expresion ';'",
 };
 
-//#line 456 ".\gramatica.y"
+//#line 464 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 
 public AnalizadorLexico aLexico;
 public static List<Error> errores;
@@ -663,15 +663,16 @@ public void agregarTipoTS (String tipo, Object listaVars){
 	String variable;
 	ArrayList<String> listaVariables = (ArrayList<String>) listaVars;
 
-	for (int i=0; i<listaVariables.size(); i++){
-		variable = listaVariables.get(i);
-		token = AnalizadorLexico.tablaSimbolos.get(variable);
+	if (listaVariables != null)
+		for (int i=0; i<listaVariables.size(); i++){
+			variable = listaVariables.get(i);
+			token = AnalizadorLexico.tablaSimbolos.get(variable);
 
-		if (token.getTipoDeDato() == Token.UNDEFINED) //si el tipo no esta definido
-			token.setTipoDeDato(tipo);
-		else
-			errores.add(new Error("ERROR", "Redeclaracion de la variable " + token.getLexema(), AnalizadorLexico.cantLineas));
-	}
+			if (token.getTipoDeDato() == Token.UNDEFINED) //si el tipo no esta definido
+				token.setTipoDeDato(tipo);
+			else
+				errores.add(new Error("ERROR", "Redeclaracion de la variable " + token.getLexema(), AnalizadorLexico.cantLineas));
+		}
 }
 
 public void agregarUsoTS (String variable , String uso){
@@ -722,7 +723,7 @@ public void checkearUsoCorrecto(String lexema, String uso){
 			errores.add(new Error("ERROR", lexema + " es usada como " + uso , AnalizadorLexico.cantLineas));
 		}
 }
-//#line 654 "Parser.java"
+//#line 655 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -877,34 +878,34 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 26 ".\gramatica.y"
+//#line 26 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { raiz = new NodoArbol("PROGRAMA", null , val_peek(0));
 			}
 break;
 case 2:
-//#line 28 ".\gramatica.y"
+//#line 28 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { raiz = new NodoArbol("PROGRAMA", null , null);
 			}
 break;
 case 3:
-//#line 30 ".\gramatica.y"
+//#line 30 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { raiz = new NodoArbol("PROGRAMA", val_peek(0), null);
 			}
 break;
 case 6:
-//#line 38 ".\gramatica.y"
+//#line 38 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { agregarTipoTS(val_peek(2).sval, val_peek(1).obj);}
 break;
 case 7:
-//#line 40 ".\gramatica.y"
+//#line 40 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Declaracion incorrecta. Se esperaba ';'.", AnalizadorLexico.cantLineas)); }
 break;
 case 8:
-//#line 41 ".\gramatica.y"
+//#line 41 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Sentencia invalida.", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 11:
-//#line 49 ".\gramatica.y"
+//#line 49 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); 
 					     agregarUsoTS(val_peek(0).sval, Token.USO_VARIABLE); 
 
@@ -914,7 +915,7 @@ case 11:
 					    }
 break;
 case 12:
-//#line 57 ".\gramatica.y"
+//#line 57 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); 
 				   										  agregarUsoTS(val_peek(3).sval, Token.USO_COLECCION);
 				   										  if (val_peek(1) != null)
@@ -926,7 +927,7 @@ case 12:
 														}
 break;
 case 13:
-//#line 66 ".\gramatica.y"
+//#line 66 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Declaracion" + "\n"); 
 				   				   agregarUsoTS(val_peek(3).sval, Token.USO_COLECCION);
 				   				   agregarTamanio(val_peek(3).sval, val_peek(1).sval);
@@ -937,7 +938,7 @@ case 13:
 								 }
 break;
 case 14:
-//#line 75 ".\gramatica.y"
+//#line 75 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { agregarUsoTS(val_peek(2).sval, Token.USO_VARIABLE); 
 
 				   								((ArrayList<String>)val_peek(0).obj).add(0, val_peek(2).sval);
@@ -945,7 +946,7 @@ case 14:
 				   							  }
 break;
 case 15:
-//#line 81 ".\gramatica.y"
+//#line 81 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { agregarUsoTS(val_peek(5).sval, Token.USO_COLECCION);
 				   																if (val_peek(3) != null)
 				   																	inferirTamanio(val_peek(5).sval, val_peek(3).obj);
@@ -955,7 +956,7 @@ case 15:
 				   															   }
 break;
 case 16:
-//#line 89 ".\gramatica.y"
+//#line 89 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { agregarUsoTS(val_peek(5).sval, Token.USO_COLECCION);
 				   										  agregarTamanio(val_peek(5).sval, val_peek(3).sval);
 
@@ -964,34 +965,34 @@ case 16:
 				   										}
 break;
 case 17:
-//#line 97 ".\gramatica.y"
+//#line 97 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '[' para definir tamaño de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 18:
-//#line 98 ".\gramatica.y"
+//#line 98 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ']' para definir tamaño de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 19:
-//#line 99 ".\gramatica.y"
+//#line 99 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '[' para definir los valores iniciales de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 20:
-//#line 100 ".\gramatica.y"
+//#line 100 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ']' para definir los valores iniciales de la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 21:
-//#line 101 ".\gramatica.y"
+//#line 101 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba valor entre '[' ']' para definir a la coleccion. ", AnalizadorLexico.cantLineas)); }
 break;
 case 22:
-//#line 104 ".\gramatica.y"
+//#line 104 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { ArrayList<String> listaDeVariables = new ArrayList<String>();
 					    		  listaDeVariables.add(0, val_peek(0).sval);
 					     		  yyval.obj = listaDeVariables;
 					     		}
 break;
 case 23:
-//#line 109 ".\gramatica.y"
+//#line 109 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {ArrayList<String> listaDeVariables = new ArrayList<String>();
 					    		  		 listaDeVariables.add(0, val_peek(0).sval);
 					    		  		 listaDeVariables.add(0, val_peek(2).sval);
@@ -999,7 +1000,7 @@ case 23:
 						   				}
 break;
 case 24:
-//#line 114 ".\gramatica.y"
+//#line 114 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {ArrayList<String> listaDeVariables = new ArrayList<String>();
 					    		  		 listaDeVariables.add(0, val_peek(0).sval);
 					    		  		 listaDeVariables.add(0, val_peek(2).sval);
@@ -1007,113 +1008,119 @@ case 24:
 						   				}
 break;
 case 25:
-//#line 119 ".\gramatica.y"
+//#line 119 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {
 						   										((ArrayList<String>)val_peek(0).obj).add(0, val_peek(2).sval);
 				   												yyval.obj = val_peek(0).obj;
 						   									   }
 break;
 case 26:
-//#line 123 ".\gramatica.y"
+//#line 123 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {
 						   										((ArrayList<String>)val_peek(0).obj).add(0, val_peek(2).sval);
 				   												yyval.obj = val_peek(0).obj;
 						   									   }
 break;
 case 27:
-//#line 128 ".\gramatica.y"
+//#line 128 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 28:
-//#line 129 ".\gramatica.y"
+//#line 129 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 29:
-//#line 130 ".\gramatica.y"
+//#line 130 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 30:
-//#line 131 ".\gramatica.y"
+//#line 131 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba caracter ',' de separacion de valores iniciales. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 32:
-//#line 136 ".\gramatica.y"
+//#line 136 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {yyval.sval = modificarContadorDeReferencias(val_peek(0).sval);}
 break;
 case 33:
-//#line 139 ".\gramatica.y"
+//#line 139 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {yyval = val_peek(1);}
 break;
 case 34:
-//#line 140 ".\gramatica.y"
+//#line 140 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {yyval=null;}
 break;
 case 35:
-//#line 142 ".\gramatica.y"
+//#line 142 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'begin' al comienzo. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 36:
-//#line 143 ".\gramatica.y"
+//#line 143 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'end' al final. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 37:
-//#line 144 ".\gramatica.y"
+//#line 144 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Ausencia de begin y end de sentencias ejecutables.", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 38:
-//#line 147 ".\gramatica.y"
+//#line 147 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = val_peek(0) ; }
 break;
 case 39:
-//#line 148 ".\gramatica.y"
+//#line 148 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = new NodoArbol("Sentencia Ejecutable", val_peek(1), val_peek(0)); }
 break;
 case 40:
-//#line 152 ".\gramatica.y"
+//#line 152 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia if. " + "\n"); 
 								  yyval = val_peek(0);
 						        }
 break;
 case 41:
-//#line 155 ".\gramatica.y"
+//#line 155 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia foreach. " + "\n");
 					 			          yyval = val_peek(0);
 					                    }
 break;
 case 42:
-//#line 158 ".\gramatica.y"
+//#line 158 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Sentencia print. " + "\n");
 					 			        yyval = val_peek(0);
 					                  }
 break;
 case 43:
-//#line 161 ".\gramatica.y"
+//#line 161 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Asignacion. " + "\n");
 					 			   yyval = val_peek(0);
 					             }
 break;
 case 44:
-//#line 166 ".\gramatica.y"
+//#line 166 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = new NodoArbol("IF", val_peek(1), val_peek(0));
 									NodoArbol aux = (NodoArbol) val_peek(1);
-									aux.setNroIdentificador(contadorDeIf);
+
+									if (aux != null)
+										aux.setNroIdentificador(contadorDeIf);
 
 									aux = (NodoArbol) val_peek(0);
-									aux.setNroIdentificador(contadorDeIf);
+									if (aux != null)
+										aux.setNroIdentificador(contadorDeIf);
 
 									aux = (NodoArbol) val_peek(0);
-									aux = aux.getNodoIzq();
-									aux.setNroIdentificador(contadorDeIf);
+									if (aux != null){
+										aux = aux.getNodoIzq();
+										if (aux != null)
+											aux.setNroIdentificador(contadorDeIf);
+									}
 
 									contadorDeIf++;
 			                       }
 break;
 case 45:
-//#line 180 ".\gramatica.y"
+//#line 186 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'if'. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 46:
-//#line 184 ".\gramatica.y"
+//#line 190 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {  
 												  NodoArbol aux = new NodoArbol("CUERPO", val_peek(2), null);
 												  yyval = aux;
@@ -1121,54 +1128,54 @@ case 46:
 			                                   }
 break;
 case 47:
-//#line 190 ".\gramatica.y"
+//#line 196 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { 
 		  																		yyval = new NodoArbol("CUERPO", val_peek(4), val_peek(2));
 		                                                                     }
 break;
 case 48:
-//#line 194 ".\gramatica.y"
+//#line 200 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 49:
-//#line 195 ".\gramatica.y"
+//#line 201 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Ausencia de palabra reservada 'end_if'. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 50:
-//#line 198 ".\gramatica.y"
+//#line 204 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {  
 												NodoArbol aux = new NodoArbol("THEN", val_peek(0), null);
 												yyval = aux;
 							                   }
 break;
 case 51:
-//#line 205 ".\gramatica.y"
+//#line 211 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = new NodoArbol("ELSE", val_peek(0), null);
 					                             }
 break;
 case 52:
-//#line 210 ".\gramatica.y"
+//#line 216 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = val_peek(0);						                   }
 break;
 case 53:
-//#line 212 ".\gramatica.y"
+//#line 218 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = val_peek(1); }
 break;
 case 54:
-//#line 214 ".\gramatica.y"
+//#line 220 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = new NodoArbol("Sentencia Ejecutable", null, null);
 					            }
 break;
 case 55:
-//#line 217 ".\gramatica.y"
+//#line 223 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'begin' al comienzo del bloque de sentencias. ", AnalizadorLexico.cantLineas));  yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 56:
-//#line 218 ".\gramatica.y"
+//#line 224 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'end' al final del bloque de sentencias. ", AnalizadorLexico.cantLineas));  yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 57:
-//#line 222 ".\gramatica.y"
+//#line 228 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Condicion " + "\n"); 
 													NodoArbol nodo_cond = new NodoArbol(val_peek(2).sval, val_peek(3), val_peek(1));
 													nodo_cond.setTipoDeDato((NodoArbol)val_peek(3), (NodoArbol) val_peek(1));
@@ -1177,23 +1184,23 @@ case 57:
 												  }
 break;
 case 58:
-//#line 229 ".\gramatica.y"
+//#line 235 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una expresion del lado derecho para comparar. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 59:
-//#line 230 ".\gramatica.y"
+//#line 236 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una expresion del lado izquierdo para comparar. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 60:
-//#line 231 ".\gramatica.y"
+//#line 237 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ')' que cierre condicion. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 61:
-//#line 232 ".\gramatica.y"
+//#line 238 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una condicion entre '(' ')'. ", AnalizadorLexico.cantLineas)); yyval=null;}
 break;
 case 68:
-//#line 243 ".\gramatica.y"
+//#line 249 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { 
 															  Boolean variable_declarada = estaDeclarada(val_peek(4).sval);
 															  Boolean coleccion_declarada = estaDeclarada(val_peek(2).sval);
@@ -1221,7 +1228,7 @@ case 68:
 															  NodoArbol nodo_coleccion = new NodoArbol(val_peek(2).sval, null, null);
 															  NodoArbol nodo_condicion = new NodoArbol("CONDICION_FOREACH", nodo_variable, nodo_coleccion);
 															  if (token_coleccion != null)
-																  nodo_condicion.setTipoDeDato(token_coleccion.getTipoDeDato());
+															  	nodo_condicion.setTipoDeDato(token_coleccion.getTipoDeDato());
 															  nodo_condicion.setNroIdentificador(contadorDeForeach);
 															  NodoArbol nodo_cuerpo_foreach = new NodoArbol("CUERPO_FOREACH", val_peek(1), null);
 															  nodo_cuerpo_foreach.setNroIdentificador(contadorDeForeach);
@@ -1230,19 +1237,19 @@ case 68:
 					                                        }
 break;
 case 69:
-//#line 278 ".\gramatica.y"
+//#line 284 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba el nombre de la variable para iterar. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 70:
-//#line 279 ".\gramatica.y"
+//#line 285 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba 'in' y se encontró el nombre de la coleccion. ", AnalizadorLexico.cantLineas));  yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 71:
-//#line 280 ".\gramatica.y"
+//#line 286 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba el nombre de la coleccion y se encontraron sentencias. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 72:
-//#line 284 ".\gramatica.y"
+//#line 290 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { 
 											String lexema = "cadena"+contadorDeCadenas;
 											contadorDeCadenas++;
@@ -1254,15 +1261,15 @@ case 72:
 				 						  }
 break;
 case 73:
-//#line 294 ".\gramatica.y"
+//#line 300 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '(' y se encontro una cadena. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 74:
-//#line 295 ".\gramatica.y"
+//#line 301 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ')' y se encontro ';'. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 75:
-//#line 301 ".\gramatica.y"
+//#line 307 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Suma. " + "\n"); 
 								NodoArbol aux = new NodoArbol("+", val_peek(2), val_peek(0));
 								aux.setTipoDeDato((NodoArbol)val_peek(2), (NodoArbol) val_peek(0));
@@ -1270,7 +1277,7 @@ case 75:
 								}
 break;
 case 76:
-//#line 306 ".\gramatica.y"
+//#line 312 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Resta. " + "\n"); 
 		  						NodoArbol aux = new NodoArbol("-", val_peek(2), val_peek(0));
 		  						aux.setTipoDeDato((NodoArbol) val_peek(2), (NodoArbol) val_peek(0)); 
@@ -1278,12 +1285,12 @@ case 76:
 		                       }
 break;
 case 77:
-//#line 311 ".\gramatica.y"
+//#line 317 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = val_peek(0);
 		           }
 break;
 case 78:
-//#line 315 ".\gramatica.y"
+//#line 321 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Multiplicacion. " + "\n"); 
 							NodoArbol aux = new NodoArbol("*", val_peek(2), val_peek(0));
 							aux.setTipoDeDato((NodoArbol)val_peek(2), (NodoArbol) val_peek(0)); /*adentro se chequea que los tipos sean iguales*/
@@ -1291,7 +1298,7 @@ case 78:
 						  }
 break;
 case 79:
-//#line 321 ".\gramatica.y"
+//#line 327 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Division. " + "\n"); 
 							NodoArbol aux = new NodoArbol("/", val_peek(2), val_peek(0));
 							aux.setTipoDeDato((NodoArbol)val_peek(2), (NodoArbol)val_peek(0)); /*chequear que los tipos sean iguales*/
@@ -1299,12 +1306,12 @@ case 79:
 						  }
 break;
 case 80:
-//#line 327 ".\gramatica.y"
+//#line 333 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { yyval = val_peek(0);
 		        }
 break;
 case 81:
-//#line 331 ".\gramatica.y"
+//#line 337 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estaDeclarada(val_peek(0).sval);
 
 			 Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(0).sval);
@@ -1317,7 +1324,7 @@ case 81:
 		   }
 break;
 case 82:
-//#line 342 ".\gramatica.y"
+//#line 348 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE. " + "\n"); 
 	   		  NodoArbol aux = new NodoArbol(val_peek(0).sval, null, null);
 			  aux.setTipoDeDato(AnalizadorLexico.tablaSimbolos.get(val_peek(0).sval).getTipoDeDato());
@@ -1325,7 +1332,7 @@ case 82:
 			}
 break;
 case 83:
-//#line 348 ".\gramatica.y"
+//#line 354 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {  estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor CTE Negativa. " + "\n");
 	   			  String lexema = modificarContadorDeReferencias(val_peek(0).sval);
 
@@ -1338,7 +1345,7 @@ case 83:
 	   			}
 break;
 case 84:
-//#line 359 ".\gramatica.y"
+//#line 365 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estaDeclarada(val_peek(3).sval);
 
 	   						Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(3).sval);
@@ -1355,7 +1362,7 @@ case 84:
 						  }
 break;
 case 85:
-//#line 374 ".\gramatica.y"
+//#line 380 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { estructuras.add("Linea: " + AnalizadorLexico.cantLineas + ". Factor conversion. " + "\n"); 
 
 	   							  NodoArbol aux = new NodoArbol("CONVERSION", val_peek(1), null);
@@ -1364,11 +1371,11 @@ case 85:
 								}
 break;
 case 86:
-//#line 381 ".\gramatica.y"
+//#line 387 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '(' para realizar la conversion. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 87:
-//#line 384 ".\gramatica.y"
+//#line 390 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {	String tipoDeDato = Token.UNDEFINED;
 				if (estaDeclarada(val_peek(0).sval)){
 
@@ -1389,7 +1396,7 @@ case 87:
 			  }
 break;
 case 88:
-//#line 402 ".\gramatica.y"
+//#line 408 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {
 		  		Token cons = AnalizadorLexico.tablaSimbolos.get(val_peek(0).sval);
 		  		String tipoDeDato = cons.getTipoDeDato();
@@ -1405,7 +1412,7 @@ case 88:
 			   }
 break;
 case 89:
-//#line 417 ".\gramatica.y"
+//#line 423 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {  estaDeclarada(val_peek(3).sval);
 
 									Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(3).sval);
@@ -1416,12 +1423,14 @@ case 89:
 									nodo_id.setTipoDeDato(id.getTipoDeDato());
 
 									NodoArbol aux = new NodoArbol(":=", nodo_id , val_peek(1));
+									
 									aux.setTipoDeDato(nodo_id.getTipoDeDato(), ((NodoArbol)val_peek(1)).getTipoDeDato()); 	
+
 									yyval = aux;
 			                       }
 break;
 case 90:
-//#line 431 ".\gramatica.y"
+//#line 439 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 {  estaDeclarada(val_peek(6).sval);
 
 		   											Token id = AnalizadorLexico.tablaSimbolos.get(val_peek(6).sval); 
@@ -1441,22 +1450,22 @@ case 90:
 		                                         }
 break;
 case 91:
-//#line 449 ".\gramatica.y"
+//#line 457 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba una expresion para realizar la asignacion. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 92:
-//#line 450 ".\gramatica.y"
+//#line 458 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba '[' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 93:
-//#line 451 ".\gramatica.y"
+//#line 459 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba ']' para indicar la posicion de la coleccion. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
 case 94:
-//#line 452 ".\gramatica.y"
+//#line 460 "D:\GitHub\Compiladores2\ByaccJ\gramatica.y"
 { errores.add(new Error("ERROR", "Se esperaba un subindice para realizar la asignacion. ", AnalizadorLexico.cantLineas)); yyval=new NodoArbol("ERROR SINTACTICO", null, null);}
 break;
-//#line 1383 "Parser.java"
+//#line 1392 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

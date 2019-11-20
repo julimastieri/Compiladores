@@ -1,16 +1,112 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			c
-			ELEM_COLEC
-				z
-				1
-		IF
-			CONDICION
-				==
-					c
-					40001
-			CUERPO
-				THEN
-					PRINT
-						cadena0
+			a
+			2
+		Sentencia Ejecutable
+			IF
+				CONDICION
+					==
+						a
+						2
+				CUERPO
+					THEN
+						PRINT
+							cadena0
+			Sentencia Ejecutable
+				:=
+					b
+					40000
+				Sentencia Ejecutable
+					IF
+						CONDICION
+							==
+								b
+								40000
+						CUERPO
+							THEN
+								PRINT
+									cadena1
+					Sentencia Ejecutable
+						:=
+							c
+							a
+						Sentencia Ejecutable
+							IF
+								CONDICION
+									==
+										c
+										2
+								CUERPO
+									THEN
+										PRINT
+											cadena2
+							Sentencia Ejecutable
+								:=
+									d
+									b
+								Sentencia Ejecutable
+									IF
+										CONDICION
+											==
+												d
+												40000
+										CUERPO
+											THEN
+												PRINT
+													cadena3
+									Sentencia Ejecutable
+										:=
+											a
+											ELEM_COLEC
+												e
+												1
+										Sentencia Ejecutable
+											IF
+												CONDICION
+													==
+														a
+														6
+												CUERPO
+													THEN
+														PRINT
+															cadena4
+											Sentencia Ejecutable
+												:=
+													ELEM_COLEC
+														e
+														2
+													a
+												Sentencia Ejecutable
+													IF
+														CONDICION
+															==
+																ELEM_COLEC
+																	e
+																	2
+																6
+														CUERPO
+															THEN
+																PRINT
+																	cadena5
+													Sentencia Ejecutable
+														:=
+															ELEM_COLEC
+																f
+																0
+															CONVERSION
+																ELEM_COLEC
+																	e
+																	2
+														IF
+															CONDICION
+																==
+																	ELEM_COLEC
+																		f
+																		0
+																	CONVERSION
+																		6
+															CUERPO
+																THEN
+																	PRINT
+																		cadena6

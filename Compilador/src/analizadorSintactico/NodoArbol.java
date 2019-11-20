@@ -53,14 +53,15 @@ public class NodoArbol extends ParserVal{
 	
 	public void setTipoDeDato(String tipoDeDatoIzq, String tipoDeDatoDer) {
 		
-		if (!tipoDeDatoIzq.equals(Token.UNDEFINED) && !(tipoDeDatoDer.equals(Token.UNDEFINED)))
-			if (tipoDeDatoIzq.equals(tipoDeDatoDer))
-				this.tipoDeDato = tipoDeDatoIzq;
-			else {
-				Error error = new Error("ERROR", "Tipo de dato " + tipoDeDatoIzq + " no es compatible con " + tipoDeDatoDer, AnalizadorLexico.cantLineas);
-				Parser.errores.add(error);
-				this.tipoDeDato = Token.UNDEFINED;
-			}
+		if ( (tipoDeDatoIzq != null) && (tipoDeDatoDer != null) )
+			if (!tipoDeDatoIzq.equals(Token.UNDEFINED) && !(tipoDeDatoDer.equals(Token.UNDEFINED)))
+				if (tipoDeDatoIzq.equals(tipoDeDatoDer))
+					this.tipoDeDato = tipoDeDatoIzq;
+				else {
+					Error error = new Error("ERROR", "Tipo de dato " + tipoDeDatoIzq + " no es compatible con " + tipoDeDatoDer, AnalizadorLexico.cantLineas);
+					Parser.errores.add(error);
+					this.tipoDeDato = Token.UNDEFINED;
+				}
 	}
 	
 	public String getTipoDeDato() {

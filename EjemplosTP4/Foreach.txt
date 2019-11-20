@@ -1,32 +1,31 @@
-int a,w;
-int b[1,2,3];
+int a;
+int d[1,2,3];
+ulong c;
+ulong z[40000,40001,40002];
 
 begin
-	a:=2;
-	w:=3;
 
-	foreach a in b
-		w:=100 + a;
+	#con int
+	foreach a in d 
+	begin 
+		if (a == 1)	print({Es 1}); else print({No Es 1}); end_if;
+
+		if (a == 2) print({Es 2}); else	print({No Es 2}); end_if;
+
+		if (a == 3) print({Es 3}); else print({No Es 3}); end_if;
+	end
 	;
 
-	foreach a in b
+	#con ulong
+	foreach c in z 
 	begin 
-		if (a == 1)
-			print({Es 1});
-		else
-			print({No Es 1});
-		end_if;
 
-		if (a == 2) 
-			print({Es 2}); 
-		else	
-			print({No Es 2}); 
-		end_if;
+		if (c == 40000)	print({Es 40000}); else	print({No Es 40000}); end_if;
 
-		if (a == 3) 
-			print({Es 3}); 
-		else 
-			print({No Es 3}); 
-		end_if;
-	end;
+		if (c == 40001) print({Es 40001}); else	print({No Es 40001}); end_if;
+
+		if (c == 40002) print({Es 40002}); else print({No Es 40002}); end_if;
+
+	end
+	;
 end

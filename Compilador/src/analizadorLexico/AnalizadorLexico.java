@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.*;
-
-import javax.swing.text.TabableView;
 
 
 public class AnalizadorLexico {
@@ -238,35 +235,6 @@ public class AnalizadorLexico {
 			
 			out.append("\n");
         } 
-		/*
-		for (Token entrada : tablaSimbolos.values()) { 
-			
-			out.append("Lexema: ");
-			out.append(entrada.getLexema());
-			out.append(" , Tipo de token: ");
-			out.append(entrada.getTipoDeToken());
-			out.append(" , Tipo de dato: ");
-			out.append(entrada.getTipoDeDato());
-			out.append(" , cantidad de de veces que es referenciado: ");
-			out.append(entrada.getContadorDeReferencias());
-			out.append(" , Uso: ");
-			out.append(entrada.getUso());
-			out.append(" , Tamanio: ");
-			out.append(entrada.getTamanio());
-			
-			int tamanio = entrada.getCantidadValoresIniciales();
-			if (tamanio > 0) {
-				out.append(" , Valores Iniciales: ");
-				for (int i=0; i < tamanio-1;i++) { 
-					out.append(entrada.getValorInicial(i) + ", ");				
-				}
-				out.append(entrada.getValorInicial(tamanio-1) + " ");	
-			}
-			
-			
-			out.append("\n");
-		}
-		*/
 		return out.toString();
 	}
 	

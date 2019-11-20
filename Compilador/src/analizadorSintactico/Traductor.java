@@ -1,7 +1,6 @@
 package analizadorSintactico;
 
 import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 import java.util.Map;
 
 import analizadorLexico.AnalizadorLexico;
@@ -36,7 +35,6 @@ public class Traductor {
 	private void cargarData() {
 		assembler.append(".data" + "\n");
 		assembler.append("TituloCadena db \"Cadena\",0" + "\n");
-		assembler.append("MsgError db \"Error en ejecucion\",0" + "\n");
 		
 		assembler.append("@aux1 DD ?" + "\n");
 		assembler.append("@aux2 DW ?" + "\n");
@@ -157,91 +155,52 @@ public class Traductor {
 		return false;
 	}
 	
-	// -----------------------------------------------------------
-	// PARA PROBAR LOS REEMPLAZOS EN EL ARBOL
-	public void imprimirArbolmod(NodoArbol nodo, String tabs) {
-   	 
-		System.out.println((tabs + nodo.getNombre() + "\n"));  //raiz
-		
-		if(nodo.getNodoIzq()!=null)
-			imprimirArbolmod(nodo.getNodoIzq(), tabs + "\t");
-	        
-	    if(nodo.getNodoDer()!=null)
-	        imprimirArbolmod(nodo.getNodoDer(), tabs + "\t");
-	 
-	}
-	
-	
 	
 	public String traducir (NodoArbol raiz) {
 		assembler.append(".code" + "\n" + "start:" + "\n");
 		//assembler.append("MOV AX,@data" + "\n" + "MOV ds,AX" + "\n");
 		
 		NodoArbol nodo = subIzquierdoConHojas(raiz);
-		System.out.println("NODO: " + nodo.getNombre());
 		
 		while ((nodo.getNombre() != "PROGRAMA")) { 
 			
 			
 			if (nodo.getNombre().equals("+")) {
 				generarSuma(nodo);
-				imprimirArbolmod(raiz, "");	
 			} else if (nodo.getNombre().equals("-")) {
 				generarResta(nodo);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("*")) {
 				generarMultiplicacion(nodo, raiz);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("/")) {
 				generarDivision(nodo, raiz);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals(":=")) {
 				generarAsignacion(nodo);
-				imprimirArbolmod(raiz, "");
 			} else if ((nodo.getNombre().equals(">=")) || (nodo.getNombre().equals("<=")) || (nodo.getNombre().equals("==")) || (nodo.getNombre().equals("<>")) || (nodo.getNombre().equals("<")) || (nodo.getNombre().equals(">"))){
 				generarComparacion(nodo);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CONDICION")) {
 				generarCondicion(nodo);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("Sentencia Ejecutable")) {
 				nodo.reemplazar(nodo.getNombre()); // Le elimino los hijos
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("THEN")) {
 				generarThen(nodo);
-				imprimirArbolmod(raiz, "");
 			} else if ((nodo.getNombre().equals("CUERPO")) ) {
 				nodo.reemplazar(nodo.getNombre());
 				assembler.append("LabelSiguiente"+ nodo.getNroIdentificador() +":" + "\n");
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("PRINT")) {
 				generarPrint(nodo);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("FOREACH") || (nodo.getNombre().equals("IF")) || (nodo.getNombre().equals("ELSE")) ) {
 				nodo.reemplazar(nodo.getNombre());
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CONDICION_FOREACH")) {
 				generarCondicionForeach(nodo, raiz);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CUERPO_FOREACH")) {
 				generarCuerpoForeach(nodo);
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CONVERSION")) {
 				generarConversion(nodo); 
-				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("ELEM_COLEC")) {
 				generarElemColec(nodo, raiz);
-				imprimirArbolmod(raiz, "");
 			}
 			
-			
-			System.out.println("Estado de Registros:");
-			for (int i=0; i<registros.length;i++)
-				System.out.print(registros[i]+" " );
-			System.out.println("\n");
-			
 			nodo = subIzquierdoConHojas(raiz);
-			System.out.println("NODO:" + nodo.getNombre() );
 			
 		}
 		
@@ -270,13 +229,13 @@ public class Traductor {
 	
 	private int getNroReg (String nom) {
 		
-		if ((nom == "AX") || (nom == "EAX")) {
+		if ( (nom.equals("AX")) || (nom.equals("EAX")) ) {
 			return 0;
-		} else if ((nom == "BX") || (nom == "EBX")) {
+		} else if ( (nom.equals("BX")) || (nom.equals("EBX")) ) {
 			return 1;
-		}else if ((nom == "CX") || (nom == "ECX")) {
+		}else if ( (nom.equals("CX")) || (nom.equals("ECX")) ) {
 			return 2;
-		} else if ((nom == "DX") || (nom == "EDX")) {
+		} else if ( (nom.equals("DX")) || (nom.equals("EDX")) ) {
 			return 3;
 		} 
 		return -1;
@@ -378,12 +337,7 @@ public class Traductor {
 					//Actualizo el arbol
 					nodo.reemplazar(hashRegs.get(reg), reg);
 				}
-				
-				
-			}else {
-				System.out.println("No hay registros libres");
-				// ver que pasa si no hay ningun registro libre
-			}	
+			}
 			
 		} else if ( (nodoIzq.esRegistro()) && !(nodoDer.esRegistro()) ) { 
 		// Situacion 2 (REG - VAR/CONST/COL)	
@@ -617,13 +571,8 @@ public class Traductor {
 					}
 					
 					
-				}
-				
-				
-			}else {
-				System.out.println("No hay registros libres");
-				// ver que pasa si no hay ningun registro libre
-			}	
+				}	
+			}
 			
 		} else if ( (nodoIzq.esRegistro()) && !(nodoDer.esRegistro()) ) { 
 		// Situacion 2 (REG - VAR/CONST/COL)	
@@ -723,12 +672,7 @@ public class Traductor {
 				}
 				
 				registros[nroReg] = "L"; //Libero el primer registro
-				
-			} else {
-				System.out.println("No hay registros libres");
-				//ver que hacer
 			}
-			
 		}		
 	}
 	
@@ -1504,59 +1448,64 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 		
 		String nombreIzq = "";
 		String nombreDer = "";
-		int regLibreIzq = primerRegLibre();
-		registros[regLibreIzq] = "O";
-		int regLibreDer = primerRegLibre();
-		registros[regLibreDer] = "O";
-		String nombreRegIzq = hashRegs.get(regLibreIzq);
-		String nombreRegDer = hashRegs.get(regLibreDer);
-		
-		System.out.println("TIPO DE DATO: "+nodo.getTipoDeDato());
 		
 		if ( !(nodoIzq.esRegistro()) ) {
 			if (nodoIzq.esRefMem()) {
-				nombreIzq = "[" + nodoIzq.getNombre() + "]";
-				assembler.append("MOV " + nodoIzq.getNombre() + "," + nombreIzq + "\n");
+				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG))
+					nombreIzq = nodoIzq.getNombre();
+				else
+					nombreIzq = hashRegs.get(nodoIzq.getNroReg());
+				
+				assembler.append("MOV " + nombreIzq + ",[" + nodoIzq.getNombre() + "] \n");
 			}else {
+				
+				//pido registro
+				int regLibre = primerRegLibre();
+				nombreIzq = hashRegs.get(regLibre);
+				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) 
+					nombreIzq = "E"+nombreIzq;
+				
 				Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre());
 				if (opIzq.getUso().equals(Token.USO_CONSTANTE))
-					nombreIzq = nodoIzq.getNombre();
+					assembler.append("MOV " + nombreIzq + "," + nodoIzq.getNombre() + "\n");	
 				else if (opIzq.getUso().equals(Token.USO_VARIABLE))
-					nombreIzq = "_" + nodoIzq.getNombre();
-
-				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) 
-					nombreRegIzq = "E"+nombreRegIzq;
-				assembler.append("MOV " + nombreRegIzq + "," + nombreIzq + "\n");
+					assembler.append("MOV " + nombreIzq + ",_" + nodoIzq.getNombre() + "\n");	
 			}
 		} else {
-			nombreRegIzq = nodoIzq.getNombre();
+			nombreIzq = nodoIzq.getNombre();
 		}
 			
 		
 		if ( !(nodoDer.esRegistro()) ) {
 			if (nodoDer.esRefMem()) {
-				nombreDer = "[" + nodoDer.getNombre() + "]";
-				assembler.append("MOV " + nodoDer.getNombre() + "," + nombreDer + "\n");
-			}
-			else {
-				Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
-				if (opDer.getUso().equals(Token.USO_CONSTANTE))
+				if (nodoDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG))
 					nombreDer = nodoDer.getNombre();
-				else if (opDer.getUso().equals(Token.USO_VARIABLE))
-					nombreDer = "_" + nodoDer.getNombre();
+				else
+					nombreDer = hashRegs.get(nodoDer.getNroReg());
 				
+				assembler.append("MOV " + nombreDer + ",[" + nodoDer.getNombre() + "] \n");
+			}else {
+				
+				//pido registro
+				int regLibre = primerRegLibre();
+				nombreDer = hashRegs.get(regLibre);
 				if (nodoDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) 
-					nombreRegDer = "E"+nombreRegDer;
-	
-				assembler.append("MOV " + nombreRegDer + "," + nombreDer + "\n");
+					nombreDer = "E"+nombreDer;
+				
+				Token opIzq = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
+				if (opIzq.getUso().equals(Token.USO_CONSTANTE))
+					assembler.append("MOV " + nombreDer + "," + nodoDer.getNombre() + "\n");	
+				else if (opIzq.getUso().equals(Token.USO_VARIABLE))
+					assembler.append("MOV " + nombreDer + ",_" + nodoDer.getNombre() + "\n");	
 			}
 		} else {
-			nombreRegDer = nodoDer.getNombre();
+			nombreDer = nodoDer.getNombre();
 		}
 			
-		assembler.append("CMP " + nombreRegIzq + "," + nombreRegDer + "\n");
-		registros[regLibreDer] = "L";
-		registros[regLibreIzq] = "L";
+		assembler.append("CMP " + nombreIzq + "," + nombreDer + "\n");
+		registros[getNroReg(nombreIzq)] = "L";
+		registros[getNroReg(nombreDer)] = "L";
+		
 		
 		if ( (nodoIzq.esRefMem()) || (nodoIzq.esRegistro()) )
 			registros[nodoIzq.getNroReg()] = "L";

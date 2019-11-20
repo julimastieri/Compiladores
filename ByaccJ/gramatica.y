@@ -165,14 +165,20 @@ sentencia_ejecutable :seleccion { estructuras.add("Linea: " + AnalizadorLexico.c
 
 seleccion : IF condicion cuerpo_if { $$ = new NodoArbol("IF", $2, $3);
 									NodoArbol aux = (NodoArbol) $2;
-									aux.setNroIdentificador(contadorDeIf);
+
+									if (aux != null)
+										aux.setNroIdentificador(contadorDeIf);
 
 									aux = (NodoArbol) $3;
-									aux.setNroIdentificador(contadorDeIf);
+									if (aux != null)
+										aux.setNroIdentificador(contadorDeIf);
 
 									aux = (NodoArbol) $3;
-									aux = aux.getNodoIzq();
-									aux.setNroIdentificador(contadorDeIf);
+									if (aux != null){
+										aux = aux.getNodoIzq();
+										if (aux != null)
+											aux.setNroIdentificador(contadorDeIf);
+									}
 
 									contadorDeIf++;
 			                       }
@@ -424,7 +430,9 @@ asignacion :ID ASIGN expresion ';' {  estaDeclarada($1.sval);
 									nodo_id.setTipoDeDato(id.getTipoDeDato());
 
 									NodoArbol aux = new NodoArbol(":=", nodo_id , $3);
+									
 									aux.setTipoDeDato(nodo_id.getTipoDeDato(), ((NodoArbol)$3).getTipoDeDato()); 	
+
 									$$ = aux;
 			                       }
 			                       					
@@ -572,15 +580,16 @@ public void agregarTipoTS (String tipo, Object listaVars){
 	String variable;
 	ArrayList<String> listaVariables = (ArrayList<String>) listaVars;
 
-	for (int i=0; i<listaVariables.size(); i++){
-		variable = listaVariables.get(i);
-		token = AnalizadorLexico.tablaSimbolos.get(variable);
+	if (listaVariables != null)
+		for (int i=0; i<listaVariables.size(); i++){
+			variable = listaVariables.get(i);
+			token = AnalizadorLexico.tablaSimbolos.get(variable);
 
-		if (token.getTipoDeDato() == Token.UNDEFINED) //si el tipo no esta definido
-			token.setTipoDeDato(tipo);
-		else
-			errores.add(new Error("ERROR", "Redeclaracion de la variable " + token.getLexema(), AnalizadorLexico.cantLineas));
-	}
+			if (token.getTipoDeDato() == Token.UNDEFINED) //si el tipo no esta definido
+				token.setTipoDeDato(tipo);
+			else
+				errores.add(new Error("ERROR", "Redeclaracion de la variable " + token.getLexema(), AnalizadorLexico.cantLineas));
+		}
 }
 
 public void agregarUsoTS (String variable , String uso){

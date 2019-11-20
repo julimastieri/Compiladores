@@ -5,10 +5,24 @@ ulong f[3];
 
 begin
 	a := 2;
+	if (a==2) print({a es 2});end_if;
+
 	b := 40000;
+	if (b==40000) print({b es 40000});end_if;
+
 	c := a;
+	if (c==2) print({c es 2});end_if;
+
 	d := b;
+	if (d==40000) print({d es 40000});end_if;
+
 	a := e[1];
-	e[0] := a;
-	f[2] := e[2];
+	if (a==6) print({a es 6});end_if;
+
+	e[2] := a;
+	if (e[2]==6) print({e[2] es 6});end_if;
+
+	f[0] := to_ulong(e[2]);
+	if (f[0]==to_ulong(6)) print({f[0] es 6}); end_if;
+
 end

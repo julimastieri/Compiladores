@@ -46,7 +46,4 @@ begin
 		_var:= 1; #Sentencia invalida. #Variable que comienza con '_', lo cual no es valido
 		b 3; #Sentencia invalida.
 		b := to_ulong (a ; #Sentencia invalida.
-
-
-	#$$=new NodoArbol("ERROR SINTACTICO", null, null);
 end
