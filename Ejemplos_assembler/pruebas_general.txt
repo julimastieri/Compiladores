@@ -1,11 +1,12 @@
 int a, b;
 int d[1,2,3];
 ulong c,w;
-#ulong z[,_,];
+ulong z[40000,40001,40002];
 
 begin
-	b := 2;
-	a := d[b];
-	if (a == 3) print({Anda Bien a}); else print({Anda Mal}); end_if;
-
+	
+	c:=z[1];
+	if (c==40001)
+		print({wama});
+	end_if;
 end

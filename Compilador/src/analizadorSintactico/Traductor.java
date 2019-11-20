@@ -99,7 +99,12 @@ public class Traductor {
 	        } else if ( (uso.equals(Token.USO_CADENA)) ) {
 	        	assembler.append(lexema + " DB " + "\"" + token.getLexema() + "\"" +",0" + "\n" ); // mensaje db "mensaje"
 	        } else if ( (uso.equals(Token.USO_VARIABLE_AUX)) ) {
-        		assembler.append(lexema + " DW ?" + "\n");
+	        	if (tipoDeDato.equals("int")) {
+	        		assembler.append(lexema + " DW ?" + "\n");
+	        	} else if (tipoDeDato.equals("ulong")) {
+	        		assembler.append(lexema + " DD ?" + "\n");
+	        	}
+        		
         	}
 	    }
 	}
@@ -216,7 +221,7 @@ public class Traductor {
 				nodo.reemplazar(nodo.getNombre());
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CONDICION_FOREACH")) {
-				generarCondicionForeach(nodo);
+				generarCondicionForeach(nodo, raiz);
 				imprimirArbolmod(raiz, "");
 			} else if (nodo.getNombre().equals("CUERPO_FOREACH")) {
 				generarCuerpoForeach(nodo);
@@ -1603,45 +1608,64 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 	
 	// -----------------------------------------------------------
 	
-	private void generarCondicionForeach (NodoArbol nodo) {
+	private void generarCondicionForeach (NodoArbol nodo, NodoArbol raiz) {
 		NodoArbol nodoIzq = nodo.getNodoIzq();
 		NodoArbol nodoDer = nodo.getNodoDer();
 		Token opDer = AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre());
-		int tamanioDeDato = 8;
+		int tamanioDeDato = 4;
 
-		if (opDer.getTipoDeDato() == AnalizadorLexico.TIPO_DATO_ENTERO)
-			tamanioDeDato = 4;
-
+		if (opDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ENTERO))
+			tamanioDeDato = 2;
+		
+		
+			
 		String iterador = "@itForeach" + nodo.getNroIdentificador();
 		assembler.append("MOV " + iterador + ",0" + "\n"); // MOV iterador, 0 //pongo iterador en 0
 		assembler.append("LabelCondForech"+nodo.getNroIdentificador()+":" + "\n"); //pongo Label
 		
+		//Liberar AX
+		if (registros[0].equals("O")) {
+			int proxLibre = primerRegLibre();
+			changeRecord(raiz, 0, proxLibre);
+		}
+		registros[0]="O";
+
+		//Liberar DX
+		if (registros[3].equals("O")) {
+			int proxLibre = primerRegLibre();
+			changeRecord(raiz, 0, proxLibre);	
+		}
+		registros[3]="O";
+		
 		assembler.append("CMP " + iterador + "," + opDer.getTamanio() + "\n"); //CMP iterador,3 (tamanio = 3)
 		assembler.append("JGE LabelSiguienteForeach"+ nodo.getNroIdentificador() + "\n"); //si es mayor igual a tamanio de 'b' corto
 
-		//Hago asignacion a := b[iterador]; para la asignacion necesito un registro
-		int regLibre = primerRegLibre(); 
-		if (regLibre != -1) { // si hay algun registro libre
-			registros[regLibre] = "O";
+		//En aux1 guardo temporalmente el offset de b
+		assembler.append("MOV EDX,"+ iterador + "\n"); //MOV EDX, iterador
+		assembler.append("MOV EAX,"+ tamanioDeDato + "\n"); //MOV EAX, tamanioDeDato
+		assembler.append("MUL EDX \n"); //multiplica tamanioDeDato*iterador
 
-			//En aux1 guardo temporalmente el offset de b
-			assembler.append("MOV "+ hashRegs.get(regLibre) +","+ iterador + "\n"); //MOV BX, iterador
-			assembler.append("MUL "+ hashRegs.get(regLibre) +","+ tamanioDeDato + "\n"); //MUL BX, tamanioDeDato
-
-			//Guardo la pos de mem en donde esta el elemento actual
-			assembler.append("ADD "+ hashRegs.get(regLibre) +", offset _"+ nodoDer.getNombre() + "\n");
-
-			//Guardo el valor del elem actual en regLibre
-			assembler.append("MOV " + hashRegs.get(regLibre) + ",["+ hashRegs.get(regLibre) +"]" + "\n"); //MOV BX, [BX]
-
-			//Paso el valor a "_a"
-			assembler.append("MOV _" + nodoIzq.getNombre() + "," + hashRegs.get(regLibre) + "\n"); //MOV _a, BX
-
-			//Incremento en uno el iterador y libero el registro
-			assembler.append("ADD " + iterador + ",1" + "\n");
-			registros[regLibre] = "L";
-		}
+		//Sumo el offset de la coleccion
+		assembler.append("ADD EAX, offset _"+ nodoDer.getNombre() + "\n");
+	
 		
+		//Guardo el valor del elem actual en AX o EAX
+		String nombreReg ="";
+		if (nodo.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG))
+			nombreReg = "EAX";
+		else
+			nombreReg = "AX";
+		
+		
+		//Paso el valor a "_a"
+		assembler.append("MOV "+ nombreReg + ",[EAX] \n");
+		assembler.append("MOV _" + nodoIzq.getNombre() + ","+ nombreReg +"\n"); //MOV _a, [EAX]
+
+		//Incremento en uno el iterador y libero el registro
+		assembler.append("ADD " + iterador + ",1" + "\n");
+		
+		registros[3]="L";
+		registros[0]="L";
 		nodo.reemplazar(nodo.getNombre());
 	}
 	
@@ -1705,7 +1729,7 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 
 		int tamanioDeDato = 4;
 
-		if (nodoIzq.getTipoDeDato().contentEquals(AnalizadorLexico.TIPO_DATO_ENTERO))
+		if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ENTERO))
 			tamanioDeDato = 2;
 		
 		//Liberar AX
@@ -1732,11 +1756,16 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 		assembler.append("CMP EDX,"+ AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre()).getTamanio() +"\n");
 		assembler.append("JGE LabelError" + "\n");
 		
+		//chequeo ademas que no sea menor a 0
+		assembler.append("CMP EDX,0 \n");
+		assembler.append("JL LabelError" + "\n");
+		
 		assembler.append("MOV EAX,"+ tamanioDeDato + "\n");
 	
 		assembler.append("MUL EDX" + "\n"); //multiplica tamanioDeDato*subindice
 		assembler.append("ADD EAX, offset _" + nodoIzq.getNombre() + "\n"); //sumo el offset de la coleccion
 		
+		registros[3]="L";
 		registros[0]="O";
 		nodo.reemplazar("EAX");
 		nodo.setEsRefMem(0);

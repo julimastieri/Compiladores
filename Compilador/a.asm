@@ -11,34 +11,32 @@ TituloCadena db "Cadena",0
 MsgError db "Error en ejecucion",0
 @aux1 DD ?
 @aux2 DW ?
-cadena1 DB "Anda Mal",0
 _a DW ?
-cadena0 DB "Anda Bien a",0
+cadena0 DB "wama",0
 _b DW ?
 _c DD ?
 _d DW 1,2,3
 _w DD ?
+_z DD 40000,40001,40002
 .code
 start:
-MOV AX,2
-MOV _b,AX
-MOV EDX,0 
-MOV DX,_b
+MOV EDX,1
 CMP EDX,3
 JGE LabelError
-MOV EAX,2
+CMP EDX,0 
+JL LabelError
+MOV EAX,4
 MUL EDX
-ADD EAX, offset _d
-MOV BX,[EAX]
-MOV _a,BX
-MOV AX,_a
-MOV BX,3
-CMP AX,BX
+ADD EAX, offset _z
+MOV EBX,[EAX]
+MOV _c,EBX
+MOV EAX,_c
+MOV EBX,40001
+CMP EAX,EBX
 JNE LabelElse0
 invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
 JMP LabelSiguiente0
 LabelElse0:
-invoke MessageBox, NULL, addr cadena1, addr TituloCadena, MB_OK
 LabelSiguiente0:
 LabelError:
 invoke ExitProcess, 0

@@ -243,9 +243,9 @@ comparador : MAYORIGUAL
 sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' { 
 															  Boolean variable_declarada = estaDeclarada($2.sval);
 															  Boolean coleccion_declarada = estaDeclarada($4.sval);
+															  Token token_variable = AnalizadorLexico.tablaSimbolos.get($2.sval);
+															  Token token_coleccion = AnalizadorLexico.tablaSimbolos.get($4.sval);
 															  if ( variable_declarada && coleccion_declarada ){
-																Token token_variable = AnalizadorLexico.tablaSimbolos.get($2.sval);
-																Token token_coleccion = AnalizadorLexico.tablaSimbolos.get($4.sval);
 																
 																checkearUsoCorrecto(token_variable.getUso(), Token.USO_VARIABLE);
 																checkearUsoCorrecto(token_coleccion.getUso(), Token.USO_COLECCION);
@@ -259,13 +259,15 @@ sentencia_foreach :FOREACH ID IN ID bloque_de_sentencias';' {
 															  String lexema = "@itForeach" + contadorDeForeach;
 										 			          Integer id = AnalizadorLexico.palabras_reservadas.get("id");
 															  Token token = new Token(lexema, AnalizadorLexico.TIPO_ID, id);
-															  token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ENTERO);
+															  token.setTipoDeDato(AnalizadorLexico.TIPO_DATO_ULONG);
 															  token.setUso(Token.USO_VARIABLE_AUX);
 															  AnalizadorLexico.tablaSimbolos.put(lexema, token);
 
 															  NodoArbol nodo_variable = new NodoArbol($2.sval, null, null);
 															  NodoArbol nodo_coleccion = new NodoArbol($4.sval, null, null);
 															  NodoArbol nodo_condicion = new NodoArbol("CONDICION_FOREACH", nodo_variable, nodo_coleccion);
+															  if (token_coleccion != null)
+															  	nodo_condicion.setTipoDeDato(token_coleccion.getTipoDeDato());
 															  nodo_condicion.setNroIdentificador(contadorDeForeach);
 															  NodoArbol nodo_cuerpo_foreach = new NodoArbol("CUERPO_FOREACH", $5, null);
 															  nodo_cuerpo_foreach.setNroIdentificador(contadorDeForeach);
