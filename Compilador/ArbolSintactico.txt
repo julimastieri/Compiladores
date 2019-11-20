@@ -1,50 +1,23 @@
 PROGRAMA
 	Sentencia Ejecutable
 		:=
-			c
-			ELEM_COLEC
-				g
-				2
+			b
+			2
 		Sentencia Ejecutable
+			:=
+				a
+				ELEM_COLEC
+					d
+					b
 			IF
 				CONDICION
 					==
-						c
+						a
 						3
 				CUERPO
 					THEN
 						PRINT
 							cadena0
-			Sentencia Ejecutable
-				:=
-					b
-					ELEM_COLEC
-						h
-						1
-				Sentencia Ejecutable
-					IF
-						CONDICION
-							==
-								b
-								58000
-						CUERPO
-							THEN
-								PRINT
-									cadena1
-					Sentencia Ejecutable
-						:=
-							ELEM_COLEC
-								g
-								1
-							10
-						IF
-							CONDICION
-								==
-									ELEM_COLEC
-										g
-										1
-									10
-							CUERPO
-								THEN
-									PRINT
-										cadena2
+					ELSE
+						PRINT
+							cadena1

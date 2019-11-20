@@ -1,17 +1,11 @@
 int a, b;
 int d[1,2,3];
 ulong c,w;
-ulong z[-2,_,-3];
+#ulong z[,_,];
 
 begin
-
-	b:=1;
-	w:=to_ulong(2);
-
-	a:=6/-2;#CONST-CONST(16 bits)
-	if (a == -3) print({Anda Bien a}); else print({Anda Mal}); end_if;
-
-
-
+	b := 2;
+	a := d[b];
+	if (a == 3) print({Anda Bien a}); else print({Anda Mal}); end_if;
 
 end

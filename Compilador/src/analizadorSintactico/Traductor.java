@@ -229,8 +229,6 @@ public class Traductor {
 				imprimirArbolmod(raiz, "");
 			}
 			
-			//Falta probar: Resta, Division e IF
-			//No andan: Elem Colec, y foreach no andan por el offset
 			
 			System.out.println("Estado de Registros:");
 			for (int i=0; i<registros.length;i++)
@@ -1701,33 +1699,46 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 	// -----------------------------------------------------------
 	
 	private void generarElemColec(NodoArbol nodo, NodoArbol raiz) {
-		NodoArbol nodoIzq = nodo.getNodoIzq(); //b
-		NodoArbol nodoDer = nodo.getNodoDer(); //2
+		NodoArbol nodoIzq = nodo.getNodoIzq();
+		NodoArbol nodoDer = nodo.getNodoDer();
+		String nombreDer = nodoDer.getNombre();
+
+		int tamanioDeDato = 4;
+
+		if (nodoIzq.getTipoDeDato().contentEquals(AnalizadorLexico.TIPO_DATO_ENTERO))
+			tamanioDeDato = 2;
 		
 		//Liberar AX
 		if (registros[0].equals("O")) {
 			int proxLibre = primerRegLibre();
-			if (proxLibre != -1) {
-				changeRecord(raiz, 0, proxLibre);
-			}
-			registros[proxLibre] = "O";
+			changeRecord(raiz, 0, proxLibre);
+		}
+
+		//Liberar DX
+		if (registros[3].equals("O")) {
+			int proxLibre = primerRegLibre();
+			changeRecord(raiz, 0, proxLibre);	
 		}
 		
+		
+		if (AnalizadorLexico.tablaSimbolos.get(nodoDer.getNombre()).getUso() == Token.USO_VARIABLE) {
+			nombreDer = "_"+nombreDer;
+			assembler.append("MOV EDX,0 \n");
+			assembler.append("MOV DX,"+ nombreDer + "\n");
+		} else 
+			assembler.append("MOV EDX,"+ nombreDer + "\n");
+		
+		//chequeo que subindice en EDX sea menor que tamanio de la coleccion
+		assembler.append("CMP EDX,"+ AnalizadorLexico.tablaSimbolos.get(nodoIzq.getNombre()).getTamanio() +"\n");
+		assembler.append("JGE LabelError" + "\n");
+		
+		assembler.append("MOV EAX,"+ tamanioDeDato + "\n");
 	
-		if (nodoIzq.getTipoDeDato().equals("ulong")) {
-			assembler.append("MOV EAX,4" + "\n"); //MOV EAX,8
-			nodo.setTipoDeDato("ulong");
-		}else {
-			assembler.append("MOV EAX,2" + "\n"); //MOV EAX,4
-			nodo.setTipoDeDato("int");
-		}
-		
-		assembler.append("IMUL EAX," + nodoDer.getNombre() + "\n"); //IMUL EAX,1
-		assembler.append("ADD EAX, offset _" + nodoIzq.getNombre() + "\n"); //MUL EAX,1	
+		assembler.append("MUL EDX" + "\n"); //multiplica tamanioDeDato*subindice
+		assembler.append("ADD EAX, offset _" + nodoIzq.getNombre() + "\n"); //sumo el offset de la coleccion
 		
 		registros[0]="O";
 		nodo.reemplazar("EAX");
-		nodo.setEsRefMem(0);	
-			
+		nodo.setEsRefMem(0);
 	}
 }
