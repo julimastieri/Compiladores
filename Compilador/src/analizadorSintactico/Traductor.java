@@ -160,6 +160,8 @@ public class Traductor {
 		assembler.append(".code" + "\n" + "start:" + "\n");
 		//assembler.append("MOV AX,@data" + "\n" + "MOV ds,AX" + "\n");
 		
+		int nroOpMul=0;
+		
 		NodoArbol nodo = subIzquierdoConHojas(raiz);
 		
 		while ((nodo.getNombre() != "PROGRAMA")) { 
@@ -171,6 +173,7 @@ public class Traductor {
 				generarResta(nodo);
 			} else if (nodo.getNombre().equals("*")) {
 				generarMultiplicacion(nodo, raiz);
+				nroOpMul++;
 			} else if (nodo.getNombre().equals("/")) {
 				generarDivision(nodo, raiz);
 			} else if (nodo.getNombre().equals(":=")) {
@@ -201,7 +204,7 @@ public class Traductor {
 			}
 			
 			nodo = subIzquierdoConHojas(raiz);
-			
+				
 		}
 		
 		assembler.append("LabelError:" + "\n");
@@ -860,13 +863,13 @@ private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
 					changeRecord(raiz, 3, proxLibre);
 				}
 			}
+			registros[3] = "O";
 			
-			if (nodoIzq.esRefMem())	
+			if (nodoIzq.esRefMem())
 				nombreValue = "["+nodoIzq.getNombre()+"]";
-			else
+			else if (nodoDer.esRefMem())
 				nombreValue = "["+nodoDer.getNombre()+"]";
 			
-			registros[3] = "O";
 			
 			if (nodo.getTipoDeDato().equals("ulong")) { 
 				// 32 bits
@@ -888,7 +891,13 @@ private void generarMultiplicacion (NodoArbol nodo, NodoArbol raiz) {
 				registros[3] = "L";
 				//Actualizo el arbol
 				nodo.reemplazar("AX", 0);
-			}	
+			}
+			
+			if (nodoIzq.esRefMem())	
+				registros[nodoIzq.getNroReg()] = "L";
+		
+			if (nodoDer.esRefMem())	
+				registros[nodoDer.getNroReg()] = "L";
 
 			
 		} else if ( (nodoIzq.esRegistro()) && (nodoDer.esRegistro()) ) {
@@ -1461,6 +1470,7 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 				
 				//pido registro
 				int regLibre = primerRegLibre();
+				registros[regLibre] = "O";
 				nombreIzq = hashRegs.get(regLibre);
 				if (nodoIzq.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) 
 					nombreIzq = "E"+nombreIzq;
@@ -1488,6 +1498,7 @@ private void generarDivision (NodoArbol nodo, NodoArbol raiz) {
 				
 				//pido registro
 				int regLibre = primerRegLibre();
+				registros[regLibre] = "O";
 				nombreDer = hashRegs.get(regLibre);
 				if (nodoDer.getTipoDeDato().equals(AnalizadorLexico.TIPO_DATO_ULONG)) 
 					nombreDer = "E"+nombreDer;

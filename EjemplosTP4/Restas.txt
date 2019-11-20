@@ -16,7 +16,7 @@ begin
 	end_if;
 
 	b := b - d;
-	if (b == 7000)
+	if (b == to_ulong(7000))
 		print({b es 7000});
 	end_if;
 

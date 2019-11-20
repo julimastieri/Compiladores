@@ -12,8 +12,7 @@ begin
 
 	if (a <= c)
 		begin
-			a := 6;
-			print ({a es menor igual que c})
+			print ({a es menor igual que c});
 		end
 	else 
 		print ({a no es menor igual que c});
@@ -27,9 +26,7 @@ begin
 	end_if;
 
 	if (b > d)
-		if (a == c)
-			print ({dentro de ifs anidados});
-		end_if;
+		if (c >= a)	print ({dentro de ifs anidados});end_if;
 	else 
 		print ({ b menor o igual que d});
 	end_if;

@@ -28,8 +28,8 @@ start:
 MOV AX,2
 MOV _a,AX
 MOV AX,_a
-MOV AX,2
-CMP AX,AX
+MOV BX,2
+CMP AX,BX
 JNE LabelElse0
 invoke MessageBox, NULL, addr cadena0, addr TituloCadena, MB_OK
 JMP LabelSiguiente0
@@ -38,8 +38,8 @@ LabelSiguiente0:
 MOV EAX,40000
 MOV _b,EAX
 MOV EAX,_b
-MOV EAX,40000
-CMP EAX,EAX
+MOV EBX,40000
+CMP EAX,EBX
 JNE LabelElse1
 invoke MessageBox, NULL, addr cadena1, addr TituloCadena, MB_OK
 JMP LabelSiguiente1
@@ -48,8 +48,8 @@ LabelSiguiente1:
 MOV AX,_a
 MOV _c,AX
 MOV AX,_c
-MOV AX,2
-CMP AX,AX
+MOV BX,2
+CMP AX,BX
 JNE LabelElse2
 invoke MessageBox, NULL, addr cadena2, addr TituloCadena, MB_OK
 JMP LabelSiguiente2
@@ -58,8 +58,8 @@ LabelSiguiente2:
 MOV EAX,_b
 MOV _d,EAX
 MOV EAX,_d
-MOV EAX,40000
-CMP EAX,EAX
+MOV EBX,40000
+CMP EAX,EBX
 JNE LabelElse3
 invoke MessageBox, NULL, addr cadena3, addr TituloCadena, MB_OK
 JMP LabelSiguiente3
@@ -76,8 +76,8 @@ ADD EAX, offset _e
 MOV BX,[EAX]
 MOV _a,BX
 MOV AX,_a
-MOV AX,6
-CMP AX,AX
+MOV BX,6
+CMP AX,BX
 JNE LabelElse4
 invoke MessageBox, NULL, addr cadena4, addr TituloCadena, MB_OK
 JMP LabelSiguiente4

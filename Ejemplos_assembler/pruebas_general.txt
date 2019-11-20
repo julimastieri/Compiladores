@@ -1,12 +1,16 @@
 int a, b;
 int d[1,2,3];
-ulong c w;
+ulong c, w;
 ulong z[40000,40001,40002];
 
 begin
 	
-	c:=z[1];
-	if (c==40001)
-		print({wama});
+	a:=36;
+	a:= a*2*2; #VAR-REG
+	if (a == 144)
+		print ({a es 144});
+	else
+		print ({a no es 144});
 	end_if;
+
 end

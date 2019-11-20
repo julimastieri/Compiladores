@@ -1,6 +1,8 @@
 int a, b;
-ulong c;
+ulong c,w;
 int d[1,2,3];
+ulong z[40000,40000];
+
 
 begin
 
@@ -34,16 +36,16 @@ begin
 		c:=32768*32768; #CONST-CONST
 		c:=32768*c; #CONST-VAR
 		c:=c*32768; #VAR-CONST
-		c:=d[0]*d[0]; #RM-RM
-		c:=d[0]*32768; #RM-CONST
-		c:=d[0]*w; #RM-VAR
-		c:=32768*d[0]; #CONST-RM
-		c:=w*d[0]; #VAR-RM
+		c:=z[0]*z[0]; #RM-RM
+		c:=z[0]*32768; #RM-CONST
+		c:=z[0]*w; #RM-VAR
+		c:=32768*z[0]; #CONST-RM
+		c:=w*z[0]; #VAR-RM #30
 		
 
 		c:=to_ulong(3)*to_ulong(2); #caso (REG-REG) 32 bits
 		c:=to_ulong(3)*to_ulong(2)*to_ulong(8); #otro caso (REG-REG)
-		c:=d[0]*to_ulong(6); #RM-REG
-		c:=to_ulong(6)*d[0]; #REG-RM
+		c:=z[0]*to_ulong(6); #RM-REG
+		c:=to_ulong(6)*z[0]; #REG-RM
 
 end

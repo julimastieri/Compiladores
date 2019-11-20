@@ -1,7 +1,7 @@
 int a, b;
 int d[2,2,3];
 ulong c,w;
-ulong z[32768,2,3];
+ulong z[32768,32768,32768];
 
 begin
 	w:= 32768;
@@ -13,7 +13,7 @@ begin
 	a:=d[0]/2; #RM-Const
 	a:=d[0]/b; #RM-VAR
 	a:=b/d[0]; #VAR-RM
-	a:=d[0]/d[0] #RM-RM
+	a:=d[0]/d[0]; #RM-RM
 	a:=2/d[0];#CONST-RM
 	a:=2/0; #Division por 0
 	a:=d[0]/1*1; #RM-REG
@@ -36,9 +36,5 @@ begin
 	c:=to_ulong(2)/z[0]; #REG-RM
 	c:=z[0]/to_ulong(2); #RM-REG
 	c:=32768/to_ulong(2); #CONST-REG
-
-
-
-	
 
 end

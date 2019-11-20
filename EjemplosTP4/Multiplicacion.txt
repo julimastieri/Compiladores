@@ -35,18 +35,18 @@ begin
 		print ({c es un numero muy grande});
 	end_if;
 
-	c:=32768*d[0];
+	c:=32768*to_ulong(d[0]);
 	if (c == 32768)
 		print ({c es 32768});
 	end_if;
 
 	c:=to_ulong(3)*to_ulong(2);
-	if (c == 6)
+	if (c == to_ulong(6))
 		print ({c es 6});
 	end_if;
 
-	c:=d[0]*to_ulong(6);
-	if (c == 6)
+	c:=to_ulong(d[0])*to_ulong(6);
+	if (c == to_ulong(6))
 		print ({c es 6});
 	end_if;
 

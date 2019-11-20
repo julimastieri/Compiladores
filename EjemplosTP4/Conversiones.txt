@@ -8,30 +8,21 @@ begin
 
 	b := to_ulong(2+3);
 
-	if (b == 5)
-		print ({b es 5. Conversion correcta.});
-	end_if;
-	
-
-	b := to_ulong(-2); #error en ejecucion. Perdida de informacion
+	if (b == to_ulong(5)) print ({b es 5. Conversion correcta.});	end_if;
 
 	b := to_ulong(0);
-	if (b == 0)
-		print ({b es 0. Conversion correcta.});
-	end_if;
+	if (b == to_ulong(0)) print ({b es 0. Conversion correcta.}); end_if;
 
 
 	b := to_ulong(40000); #caso en donde no convierte ya que ya es ulong
+	if (b == 40000)	print ({b es 40000. Conversion correcta.});	end_if;
 
 	a:=2;
 	b := to_ulong(a); 
-	if (b == 2)
-		print ({b es 2. Conversion correcta.});
-	end_if;
-
+	if (b == to_ulong(2)) print ({b es 2. Conversion correcta.}); end_if;
 
 	b := to_ulong(e[0]); #caso ref a mem
-	if (b == 5)
-		print ({b es 5. Conversion correcta.});
-	end_if;
+	if (b == to_ulong(5)) print ({b es 5. Conversion correcta.});end_if;
+
+	b := to_ulong(-2); #error en ejecucion, va a label error.
 end

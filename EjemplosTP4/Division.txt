@@ -1,7 +1,7 @@
 int a, b;
 int d[2,2,3];
 ulong c,w;
-ulong z[32768,2,3];
+ulong z[32768,40000,600000];
 
 begin
 	w:= 32768;
@@ -27,22 +27,17 @@ begin
 		print({a es 1});
 	end_if;
 
-	a:=2/0; #Division por 0
-
 	a:=d[0]/1*1; #RM-REG
 	if (a == 2)
 		print({a es 2});
 	end_if;
 
-	c:=w/to_ulong(0); #DIVISION POR 0
-	
 	c:=32768/to_ulong(2); #CONST-REG
-	if (a == 16384)
-		print({a es 16384});
+	if (c == to_ulong(16384))
+		print({c es 16384});
 	end_if;
 
-
-
-	
+	a:=2/0; #Division por 0, salta a label error.
+	c:=w/to_ulong(0); #DIVISION POR 0
 
 end
